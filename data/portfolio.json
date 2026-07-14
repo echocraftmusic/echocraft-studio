@@ -1,0 +1,74 @@
+[
+  {
+    "title": "Insurance Agency",
+    "category": "Commercial Production",
+    "description": "Professional branding through cinematic storytelling.",
+    "thumbnail": "images/portfolio/insurance.png",
+    "url": "portfolio/showcase.html?id=insurance",
+    "featured": true
+  },
+  {
+    "title": "Chiropractic Office",
+    "category": "Commercial Production",
+    "description": "Healthcare marketing with a modern presentation.",
+    "thumbnail": "images/portfolio/Chiropractor.png",
+    "url": "portfolio/showcase.html?id=chiropractic",
+    "featured": true
+  },
+  {
+    "title": "Barbershop",
+    "category": "Commercial Production",
+    "description": "Modern branding with style and personality.",
+    "thumbnail": "images/portfolio/barbershop.png",
+    "url": "portfolio/showcase.html?id=barbershop",
+    "featured": true
+  },
+  {
+    "title": "Pizzeria",
+    "category": "Commercial Production",
+    "description": "Restaurant marketing campaign.",
+    "thumbnail": "images/portfolio/Pizzeria.png",
+    "url": "portfolio/showcase.html?id=pizzeria",
+    "featured": true
+  },
+  {
+    "title": "Tree Service",
+    "category": "Commercial Production",
+    "description": "Professional outdoor service branding and advertising.",
+    "thumbnail": "images/portfolio/treeservice.png",
+    "url": "portfolio/showcase.html?id=treeservice",
+    "featured": true
+  },
+  {
+    "title": "Mental Health",
+    "category": "Public Awareness",
+    "description": "Campaign focused on compassion, education and awareness.",
+    "thumbnail": "images/portfolio/mentalhealth.png",
+    "url": "portfolio/showcase.html?id=mentalhealth",
+    "featured": true
+  },
+  {
+    "title": "Cinematic Concept",
+    "category": "Creative Direction",
+    "description": "Conceptual visuals showcasing cinematic storytelling.",
+    "thumbnail": "images/portfolio/cinematicconcept.png",
+    "url": "portfolio/showcase.html?id=cinematicconcept",
+    "featured": true
+  },
+  {
+    "title": "Podcast Studio",
+    "category": "Media Production",
+    "description": "Professional podcast branding and promotional content.",
+    "thumbnail": "images/portfolio/podcast1.png",
+    "url": "portfolio/showcase.html?id=podcaststudio",
+    "featured": true
+  },
+  {
+    "title": "Podcast Marketing",
+    "category": "Digital Media",
+    "description": "Creative promotional assets for podcast growth.",
+    "thumbnail": "images/portfolio/podcast2.png",
+    "url": "portfolio/showcase.html?id=podcastmarketing",
+    "featured": true
+  }
+]

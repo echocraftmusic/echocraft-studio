@@ -1,0 +1,218 @@
+[
+  {
+    "id": "pizzeria",
+    "title": "Pizzeria Commercial",
+    "category": "Commercial Production",
+    "heroImage": "../images/portfolio/Pizzeria.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "A cinematic promotional experience designed to capture the warmth, energy and handcrafted personality of a neighborhood pizzeria.",
+    "overview": "Great marketing begins long before the camera starts rolling. Every Echo Craft project begins by understanding the client's vision and transforming it into an unforgettable visual experience.",
+    "challenge": "The restaurant needed a commercial that immediately made viewers crave the food while differentiating itself from larger national chains.",
+    "strategy": "Echo Craft combined cinematic lighting, storytelling, custom music, professional editing and dramatic food cinematography to create an emotional connection.",
+    "services": [
+      "Commercial Production",
+      "Creative Direction",
+      "Professional Video Editing",
+      "Color Grading",
+      "Custom Music",
+      "Brand Storytelling"
+    ],
+    "industry": "Restaurant Marketing",
+    "deliverables": "Commercial Video",
+    "categoryType": "Brand Storytelling",
+    "outcome": "A premium cinematic commercial designed to strengthen the restaurant's brand and attract new customers."
+  },
+
+  {
+    "id": "insurance",
+    "title": "Insurance Agency",
+    "category": "Commercial Production",
+    "heroImage": "../images/portfolio/insurance.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "Professional branding built on trust, protection and confidence.",
+    "overview": "A cinematic commercial developed to help an insurance agency build credibility and create a memorable first impression.",
+    "challenge": "Insurance companies often appear generic. The objective was to create a premium brand identity that inspires confidence.",
+    "strategy": "Luxury visuals, cinematic storytelling and polished editing communicate professionalism and trust.",
+    "services": [
+      "Commercial Production",
+      "Creative Direction",
+      "Professional Video Editing",
+      "Color Grading",
+      "Brand Storytelling",
+      "Custom Music"
+    ],
+    "industry": "Insurance",
+    "deliverables": "Commercial Video",
+    "categoryType": "Brand Storytelling",
+    "outcome": "A polished commercial designed to increase customer confidence and strengthen the agency's visual identity."
+  },
+
+  {
+    "id": "chiropractic",
+    "title": "Chiropractic Office",
+    "category": "Commercial Production",
+    "heroImage": "../images/portfolio/Chiropractor.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "Helping patients move better through cinematic healthcare marketing.",
+    "overview": "A modern promotional campaign showcasing patient care and wellness.",
+    "challenge": "Communicate trust and professionalism while highlighting patient comfort.",
+    "strategy": "Warm lighting, authentic patient interaction and clean editing reinforce confidence.",
+    "services": [
+      "Commercial Production",
+      "Creative Direction",
+      "Professional Video Editing",
+      "Color Grading",
+      "Healthcare Marketing",
+      "Brand Storytelling"
+    ],
+    "industry": "Healthcare",
+    "deliverables": "Commercial Video",
+    "categoryType": "Healthcare Marketing",
+    "outcome": "A professional campaign focused on credibility, wellness and patient engagement."
+  },
+
+  {
+    "id": "barbershop",
+    "title": "Barbershop",
+    "category": "Commercial Production",
+    "heroImage": "../images/portfolio/barbershop.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "Classic style meets modern cinematic storytelling.",
+    "overview": "A promotional campaign celebrating craftsmanship, personality and community.",
+    "challenge": "Differentiate the shop from local competitors.",
+    "strategy": "Highlight precision, atmosphere and customer experience through cinematic visuals.",
+    "services": [
+      "Commercial Production",
+      "Creative Direction",
+      "Professional Video Editing",
+      "Color Grading",
+      "Brand Storytelling",
+      "Custom Music"
+    ],
+    "industry": "Personal Services",
+    "deliverables": "Commercial Video",
+    "categoryType": "Brand Storytelling",
+    "outcome": "A stylish commercial designed to attract new customers and reinforce the shop's identity."
+  },
+
+  {
+    "id": "treeservice",
+    "title": "Tree Service",
+    "category": "Commercial Production",
+    "heroImage": "../images/portfolio/treeservice.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "Professional outdoor services presented with cinematic impact.",
+    "overview": "Showcasing reliability, safety and professionalism.",
+    "challenge": "Stand out in a competitive local service market.",
+    "strategy": "Action-driven visuals combined with strong branding.",
+    "services": [
+      "Commercial Production",
+      "Drone Footage",
+      "Professional Video Editing",
+      "Color Grading",
+      "Brand Storytelling",
+      "Marketing Strategy"
+    ],
+    "industry": "Outdoor Services",
+    "deliverables": "Commercial Video",
+    "categoryType": "Commercial Marketing",
+    "outcome": "A high-energy promotional piece focused on professionalism and trust."
+  },
+
+  {
+    "id": "mentalhealth",
+    "title": "Mental Health Campaign",
+    "category": "Public Awareness",
+    "heroImage": "../images/portfolio/mentalhealth.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "Compassionate storytelling designed to inspire hope.",
+    "overview": "An awareness campaign focused on empathy and encouragement.",
+    "challenge": "Address a sensitive topic while remaining authentic.",
+    "strategy": "Emotional storytelling supported by cinematic visuals.",
+    "services": [
+      "Campaign Production",
+      "Creative Direction",
+      "Professional Editing",
+      "Color Grading",
+      "Storytelling",
+      "Custom Music"
+    ],
+    "industry": "Public Awareness",
+    "deliverables": "Campaign Video",
+    "categoryType": "Awareness Campaign",
+    "outcome": "A compelling campaign encouraging conversation and support."
+  },
+
+  {
+    "id": "cinematicconcept",
+    "title": "Cinematic Concept",
+    "category": "Creative Direction",
+    "heroImage": "../images/portfolio/cinematicconcept.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "Exploring bold visual storytelling through cinematic design.",
+    "overview": "A concept project demonstrating Echo Craft's creative vision.",
+    "challenge": "Showcase imagination without client limitations.",
+    "strategy": "Blend lighting, music and editing into a cinematic experience.",
+    "services": [
+      "Creative Direction",
+      "Concept Development",
+      "Professional Editing",
+      "Color Grading",
+      "Storytelling",
+      "Custom Music"
+    ],
+    "industry": "Creative Media",
+    "deliverables": "Concept Film",
+    "categoryType": "Creative Direction",
+    "outcome": "A showcase piece demonstrating premium production quality."
+  },
+
+  {
+    "id": "podcaststudio",
+    "title": "Podcast Studio",
+    "category": "Media Production",
+    "heroImage": "../images/portfolio/podcast1.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "Professional podcast branding designed to elevate creators.",
+    "overview": "Helping podcasters build a polished visual identity.",
+    "challenge": "Create premium branding for growing content creators.",
+    "strategy": "Modern production combined with engaging promotional visuals.",
+    "services": [
+      "Podcast Branding",
+      "Commercial Production",
+      "Professional Editing",
+      "Motion Graphics",
+      "Custom Music",
+      "Marketing Assets"
+    ],
+    "industry": "Podcast Production",
+    "deliverables": "Brand Package",
+    "categoryType": "Media Production",
+    "outcome": "A professional brand presence designed to help podcasts grow."
+  },
+
+  {
+    "id": "podcastmarketing",
+    "title": "Podcast Marketing",
+    "category": "Digital Media",
+    "heroImage": "../images/portfolio/podcast2.png",
+    "heroVideo": "../videos/showcase/echo-craft-showcase.mp4",
+    "tagline": "Marketing assets designed to expand audience reach.",
+    "overview": "A promotional campaign helping podcasts attract new listeners.",
+    "challenge": "Increase visibility across digital platforms.",
+    "strategy": "Creative promotional videos, graphics and branded content.",
+    "services": [
+      "Marketing Strategy",
+      "Commercial Production",
+      "Professional Editing",
+      "Motion Graphics",
+      "Brand Storytelling",
+      "Social Media Assets"
+    ],
+    "industry": "Digital Marketing",
+    "deliverables": "Marketing Campaign",
+    "categoryType": "Digital Media",
+    "outcome": "A complete promotional package built to grow podcast visibility."
+  }
+
+]
