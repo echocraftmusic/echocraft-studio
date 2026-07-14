@@ -1,0 +1,232 @@
+/* ==========================================================
+   EC FRAMEWORK
+   FORM ENGINE
+   Version 1.0
+========================================================== */
+
+/* ==========================================================
+   FORM
+========================================================== */
+
+.ec-form{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+}
+
+/* ==========================================================
+   GRID
+========================================================== */
+
+.ec-form-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:22px;
+}
+
+.ec-form-grid-3{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:22px;
+}
+
+.ec-form-grid-4{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:22px;
+}
+
+/* ==========================================================
+   GROUP
+========================================================== */
+
+.ec-form-group{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.ec-form-group label{
+    color:#d8b45d;
+    font-size:.9rem;
+    font-weight:600;
+}
+
+/* ==========================================================
+   INPUTS
+========================================================== */
+
+.ec-input,
+.ec-select,
+.ec-textarea{
+
+    width:100%;
+
+    background:#171717;
+
+    color:#ffffff;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:12px;
+
+    padding:14px 16px;
+
+    font-size:15px;
+
+    transition:.25s;
+
+    outline:none;
+
+}
+
+.ec-input:focus,
+.ec-select:focus,
+.ec-textarea:focus{
+
+    border-color:#d8b45d;
+
+    box-shadow:0 0 0 3px rgba(216,180,93,.12);
+
+}
+
+.ec-textarea{
+
+    resize:vertical;
+
+    min-height:140px;
+
+}
+
+/* ==========================================================
+   CHECKBOX
+========================================================== */
+
+.ec-checkbox{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    color:#ddd;
+
+}
+
+.ec-checkbox input{
+
+    width:18px;
+
+    height:18px;
+
+}
+
+/* ==========================================================
+   RADIO
+========================================================== */
+
+.ec-radio-group{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:18px;
+
+}
+
+.ec-radio{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    color:#ddd;
+
+}
+
+/* ==========================================================
+   HELP TEXT
+========================================================== */
+
+.ec-help{
+
+    color:#888;
+
+    font-size:.82rem;
+
+    line-height:1.5;
+
+}
+
+/* ==========================================================
+   REQUIRED
+========================================================== */
+
+.ec-required{
+
+    color:#ff6363;
+
+}
+
+/* ==========================================================
+   ERROR
+========================================================== */
+
+.ec-error{
+
+    color:#ff7070;
+
+    font-size:.82rem;
+
+}
+
+.ec-invalid{
+
+    border-color:#ff4b4b !important;
+
+}
+
+/* ==========================================================
+   SUCCESS
+========================================================== */
+
+.ec-valid{
+
+    border-color:#2ecc71 !important;
+
+}
+
+/* ==========================================================
+   BUTTON ROW
+========================================================== */
+
+.ec-form-actions{
+
+    display:flex;
+
+    justify-content:flex-end;
+
+    gap:16px;
+
+    margin-top:10px;
+
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:900px){
+
+    .ec-form-grid-3,
+    .ec-form-grid-4{
+
+        grid-template-columns:1fr;
+
+    }
+
+}

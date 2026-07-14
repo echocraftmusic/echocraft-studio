@@ -1,0 +1,205 @@
+/* =====================================================
+   EC FRAMEWORK
+   BUTTONS.CSS
+   Universal Button System
+===================================================== */
+
+/* ==========================================
+   BASE BUTTON
+========================================== */
+
+.btn,
+.primaryButton,
+.secondaryButton,
+.outlineButton,
+.dangerButton,
+.successButton{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:15px 28px;
+
+    border-radius:999px;
+
+    border:none;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    font-family:'Inter',sans-serif;
+
+    font-size:15px;
+
+    font-weight:600;
+
+    transition:.30s ease;
+
+}
+
+/* ==========================================
+   GOLD PRIMARY
+========================================== */
+
+.btn-primary,
+.primaryButton{
+
+    background:#D4AF37;
+
+    color:#111;
+
+}
+
+.btn-primary:hover,
+.primaryButton:hover{
+
+    background:#E5BF4D;
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 35px rgba(212,175,55,.30);
+
+}
+
+/* ==========================================
+   GLASS BUTTON
+========================================== */
+
+.btn-glass,
+.secondaryButton{
+
+    background:rgba(255,255,255,.05);
+
+    color:#ffffff;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    backdrop-filter:blur(16px);
+
+}
+
+.btn-glass:hover,
+.secondaryButton:hover{
+
+    background:rgba(255,255,255,.10);
+
+    border-color:#D4AF37;
+
+    transform:translateY(-3px);
+
+}
+
+/* ==========================================
+   OUTLINE BUTTON
+========================================== */
+
+.btn-outline,
+.outlineButton{
+
+    background:transparent;
+
+    color:#D4AF37;
+
+    border:1px solid #D4AF37;
+
+}
+
+.btn-outline:hover{
+
+    background:#D4AF37;
+
+    color:#111;
+
+}
+
+/* ==========================================
+   SUCCESS
+========================================== */
+
+.btn-success,
+.successButton{
+
+    background:#22c55e;
+
+    color:#fff;
+
+}
+
+.btn-success:hover{
+
+    background:#34d06d;
+
+}
+
+/* ==========================================
+   DANGER
+========================================== */
+
+.btn-danger,
+.dangerButton{
+
+    background:#dc2626;
+
+    color:#fff;
+
+}
+
+.btn-danger:hover{
+
+    background:#ef4444;
+
+}
+
+/* ==========================================
+   SMALL
+========================================== */
+
+.btn-sm{
+
+    padding:10px 18px;
+
+    font-size:13px;
+
+}
+
+/* ==========================================
+   LARGE
+========================================== */
+
+.btn-lg{
+
+    padding:18px 36px;
+
+    font-size:17px;
+
+}
+
+/* ==========================================
+   ICON BUTTON
+========================================== */
+
+.btn-icon{
+
+    width:48px;
+
+    height:48px;
+
+    padding:0;
+
+}
+
+/* ==========================================
+   FULL WIDTH
+========================================== */
+
+.btn-block{
+
+    width:100%;
+
+}

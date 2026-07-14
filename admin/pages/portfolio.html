@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Portfolio | EC Framework</title>
+
+<link rel="stylesheet" href="../css/admin.css">
+<link rel="stylesheet" href="../css/buttons.css">
+<link rel="stylesheet" href="../css/cards.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/modals.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboardLayout">
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<img src="../images/ec-gold-logo.png" alt="Echo Craft">
+
+<h2>Control Center</h2>
+
+<span>Framework Core</span>
+
+</div>
+
+<nav>
+
+<a href="../dashboard.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="clients.html">
+<i class="fa-solid fa-users"></i>
+Clients
+</a>
+
+<a href="../projects.html">
+<i class="fa-solid fa-folder-open"></i>
+Projects
+</a>
+
+<a href="quotes.html">
+<i class="fa-solid fa-file-signature"></i>
+Quotes
+</a>
+
+<a href="portfolio.html" class="active">
+<i class="fa-solid fa-image"></i>
+Portfolio
+</a>
+
+<a href="referrals.html">
+<i class="fa-solid fa-user-group"></i>
+Referral Network
+</a>
+
+<a href="analytics.html">
+<i class="fa-solid fa-chart-column"></i>
+Analytics
+</a>
+
+<a href="../settings.html">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</nav>
+
+</aside>
+
+<main class="mainContent">
+
+<header class="pageHeader">
+
+<div>
+
+<span class="section-tag">
+
+CREATIVE SHOWCASE
+
+</span>
+
+<h1>Portfolio</h1>
+
+<p>
+
+Manage completed work and featured client projects.
+
+</p>
+
+</div>
+
+<button
+    type="button"
+    class="primaryButton"
+    data-modal="newPortfolioModal">
+
+<i class="fa-solid fa-plus"></i>
+
+New Portfolio Item
+
+</button>
+
+</header>
+
+<section class="statsGrid">
+
+<div class="statCard">
+
+<h3>Total Projects</h3>
+
+<span>0</span>
+
+</div>
+
+<div class="statCard">
+
+<h3>Featured</h3>
+
+<span>0</span>
+
+</div>
+
+<div class="statCard">
+
+<h3>Categories</h3>
+
+<span>0</span>
+
+</div>
+
+<div class="statCard">
+
+<h3>Media Items</h3>
+
+<span>0</span>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<div id="newPortfolioModal" class="ec-modal-overlay">
+
+    <div class="ec-modal ec-modal-md">
+
+        <div class="ec-modal-header">
+
+            <div>
+
+                <h2 class="ec-modal-title">
+                    New Portfolio Item
+                </h2>
+
+                <p class="ec-modal-subtitle">
+                    Add a completed project to your portfolio.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                class="ec-modal-close"
+                data-close-modal>
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <form id="newPortfolioForm" class="ec-form">
+
+            <div class="ec-modal-body">
+
+                <div class="ec-form-grid">
+
+                    <div class="ec-form-group">
+
+                        <label>Project Title</label>
+
+                        <input
+                            id="portfolioTitle"
+                            class="ec-input"
+                            required>
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>Category</label>
+
+                        <select
+                            id="portfolioCategory"
+                            class="ec-select">
+
+                            <option>Website</option>
+                            <option>Logo</option>
+                            <option>Branding</option>
+                            <option>Podcast</option>
+                            <option>Video</option>
+                            <option>Photography</option>
+                            <option>Music</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>Media URL</label>
+
+                        <input
+                            id="portfolioMedia"
+                            class="ec-input">
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            <input
+                                id="portfolioFeatured"
+                                type="checkbox">
+
+                            Featured Project
+
+                        </label>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="ec-modal-footer">
+
+                <button
+                    type="button"
+                    class="secondaryButton"
+                    data-close-modal>
+
+                    Cancel
+
+                </button>
+
+                <button
+                    type="submit"
+                    class="primaryButton">
+
+                    Save Item
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../js/modal-engine.js"></script>
+<script src="../js/forms-engine.js"></script>
+<script src="../js/portfolio-engine.js"></script>
+<script src="../js/portfolio.js"></script>
+
+</body>
+
+</html>

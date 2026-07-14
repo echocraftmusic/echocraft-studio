@@ -1,0 +1,279 @@
+/* ==========================================================
+   EC FRAMEWORK
+   MODAL SYSTEM
+   Version: 1.0
+   Reusable Across All Modules
+========================================================== */
+
+/* ==========================================================
+   MODAL OVERLAY
+========================================================== */
+
+.ec-modal-overlay{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(6px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+    opacity:0;
+    visibility:hidden;
+    transition:.30s ease;
+    z-index:5000;
+}
+
+.ec-modal-overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+/* ==========================================================
+   MODAL WINDOW
+========================================================== */
+
+.ec-modal{
+    width:100%;
+    max-width:700px;
+    background:#171717;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    box-shadow:0 25px 80px rgba(0,0,0,.45);
+    overflow:hidden;
+    transform:translateY(20px) scale(.98);
+    transition:.30s ease;
+}
+
+.ec-modal-overlay.active .ec-modal{
+    transform:translateY(0) scale(1);
+}
+
+/* ==========================================================
+   SIZES
+========================================================== */
+
+.ec-modal-sm{
+    max-width:480px;
+}
+
+.ec-modal-md{
+    max-width:700px;
+}
+
+.ec-modal-lg{
+    max-width:950px;
+}
+
+.ec-modal-xl{
+    max-width:1200px;
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.ec-modal-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:24px 30px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+    background:#1d1d1d;
+}
+
+.ec-modal-title{
+    margin:0;
+    color:#fff;
+    font-size:1.4rem;
+    font-weight:700;
+}
+
+.ec-modal-subtitle{
+    margin-top:6px;
+    color:#9d9d9d;
+    font-size:.92rem;
+}
+
+/* ==========================================================
+   CLOSE BUTTON
+========================================================== */
+
+.ec-modal-close{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:#282828;
+    color:#fff;
+    cursor:pointer;
+    transition:.25s;
+    font-size:18px;
+}
+
+.ec-modal-close:hover{
+    background:#d8b45d;
+    color:#111;
+    transform:rotate(90deg);
+}
+
+/* ==========================================================
+   BODY
+========================================================== */
+
+.ec-modal-body{
+    padding:30px;
+    color:#ddd;
+    max-height:70vh;
+    overflow-y:auto;
+}
+
+/* ==========================================================
+   FOOTER
+========================================================== */
+
+.ec-modal-footer{
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:14px;
+    padding:22px 30px;
+    border-top:1px solid rgba(255,255,255,.08);
+    background:#1b1b1b;
+}
+
+/* ==========================================================
+   DIVIDERS
+========================================================== */
+
+.ec-modal-divider{
+    height:1px;
+    background:rgba(255,255,255,.08);
+    margin:28px 0;
+}
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+.ec-modal-body::-webkit-scrollbar{
+    width:8px;
+}
+
+.ec-modal-body::-webkit-scrollbar-thumb{
+    background:#555;
+    border-radius:999px;
+}
+
+.ec-modal-body::-webkit-scrollbar-thumb:hover{
+    background:#777;
+}
+
+/* ==========================================================
+   DIALOG TYPES
+========================================================== */
+
+.ec-modal-success{
+    border-top:4px solid #2ecc71;
+}
+
+.ec-modal-warning{
+    border-top:4px solid #f1c40f;
+}
+
+.ec-modal-danger{
+    border-top:4px solid #e74c3c;
+}
+
+.ec-modal-info{
+    border-top:4px solid #3498db;
+}
+
+/* ==========================================================
+   ICON
+========================================================== */
+
+.ec-modal-icon{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    margin:0 auto 24px;
+    background:rgba(216,180,93,.12);
+    color:#d8b45d;
+}
+
+/* ==========================================================
+   LOADING
+========================================================== */
+
+.ec-modal-loading{
+    text-align:center;
+    padding:60px 30px;
+}
+
+.ec-modal-spinner{
+    width:52px;
+    height:52px;
+    border:5px solid rgba(255,255,255,.15);
+    border-top-color:#d8b45d;
+    border-radius:50%;
+    margin:0 auto 20px;
+    animation:ecSpin 1s linear infinite;
+}
+
+/* ==========================================================
+   FORM LAYOUT
+========================================================== */
+
+.ec-modal-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:20px;
+}
+
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
+
+@keyframes ecSpin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width:768px){
+
+    .ec-modal-overlay{
+        padding:18px;
+        align-items:flex-end;
+    }
+
+    .ec-modal{
+        max-width:none;
+        width:100%;
+        border-radius:22px 22px 0 0;
+    }
+
+    .ec-modal-header,
+    .ec-modal-body,
+    .ec-modal-footer{
+        padding:22px;
+    }
+
+    .ec-modal-footer{
+        flex-direction:column;
+    }
+
+    .ec-modal-footer>*{
+        width:100%;
+    }
+
+}

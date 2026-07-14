@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Projects | EC Control Center</title>
+
+<link rel="stylesheet" href="css/admin.css">
+<link rel="stylesheet" href="css/buttons.css">
+<link rel="stylesheet" href="css/cards.css">
+<link rel="stylesheet" href="css/forms.css">
+<link rel="stylesheet" href="css/badges.css">
+<link rel="stylesheet" href="css/tables.css">
+<link rel="stylesheet" href="css/modals.css">
+<link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/clients.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboardLayout">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+        <img src="images/ec-gold-logo.png" alt="Echo Craft">
+        
+            <h2>Control Center</h2>
+
+            <span>Framework Core</span>
+
+        </div>
+
+        <nav>
+
+            <a href="../dashboard.html">
+                <i class="fa-solid fa-chart-line"></i>
+                Dashboard
+            </a>
+
+            <a href="clients.html">
+                <i class="fa-solid fa-users"></i>
+                Clients
+            </a>
+
+            <a href="projects.html" class="active">
+                <i class="fa-solid fa-folder-open"></i>
+                Projects
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-image"></i>
+                Portfolio
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-file-signature"></i>
+                Quotes
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-user-group"></i>
+                Referral Network
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-chart-column"></i>
+                Analytics
+            </a>
+
+            <a href="#">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <main class="mainContent">
+
+        <header class="pageHeader">
+
+            <div>
+
+                <span class="section-tag">
+                    PROJECT MANAGEMENT
+                </span>
+
+                <h1>Projects</h1>
+
+                <p>
+                    Organize every client project from discovery through final delivery.
+                </p>
+
+            </div>
+
+            <button
+    type="button"
+    class="primaryButton"
+    data-modal="newProjectModal">
+
+    <i class="fa-solid fa-plus"></i>
+
+    New Project
+
+</button>
+
+        </header>
+
+        <section class="statsGrid">
+
+            <div class="statCard">
+                <h3>Active Projects</h3>
+                <span>0</span>
+            </div>
+
+            <div class="statCard">
+                <h3>Awaiting Review</h3>
+                <span>0</span>
+            </div>
+
+            <div class="statCard">
+                <h3>Completed</h3>
+                <span>0</span>
+            </div>
+
+            <div class="statCard">
+                <h3>Projected Revenue</h3>
+                <span>$0</span>
+            </div>
+
+        </section>
+
+        <section class="activityCard">
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;gap:20px;flex-wrap:wrap;">
+
+                <div>
+
+                    <h2>Project Pipeline</h2>
+
+                    <p>
+                        Visual production workflow. Drag & drop functionality will be added in a future phase.
+                    </p>
+
+                </div>
+
+                <button class="primaryButton">
+
+                    View All Projects
+
+                </button>
+
+            </div>
+
+            <div class="pipelineBoard">
+
+                <!-- NEW LEADS -->
+
+                <div class="pipelineColumn">
+
+                    <h3>
+
+                        New Leads
+
+                        <span class="badge">0</span>
+
+                    </h3>
+
+                    <div class="pipelineEmpty">
+
+                        <i class="fa-solid fa-circle-plus"></i>
+
+                        <h4>No Leads</h4>
+
+                        <p>
+
+                            New inquiries will appear here before becoming active projects.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- DISCOVERY -->
+
+                <div class="pipelineColumn">
+
+                    <h3>
+
+                        Discovery
+
+                        <span class="badge">0</span>
+
+                    </h3>
+
+                    <div class="pipelineEmpty">
+
+                        <i class="fa-solid fa-comments"></i>
+
+                        <h4>No Discovery Projects</h4>
+
+                        <p>
+
+                            Consultation and planning projects appear here.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                   <!-- PRODUCTION -->
+
+                <div class="pipelineColumn">
+
+                    <h3>
+
+                        Production
+
+                        <span class="badge">0</span>
+
+                    </h3>
+
+                    <div class="pipelineEmpty">
+
+                        <i class="fa-solid fa-gears"></i>
+
+                        <h4>No Active Production</h4>
+
+                        <p>
+
+                            Projects currently being designed, developed or produced will appear here.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- REVIEW -->
+
+                <div class="pipelineColumn">
+
+                    <h3>
+
+                        Review
+
+                        <span class="badge">0</span>
+
+                    </h3>
+
+                    <div class="pipelineEmpty">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <h4>No Projects Under Review</h4>
+
+                        <p>
+
+                            Awaiting client approval or requested revisions.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- COMPLETED -->
+
+                <div class="pipelineColumn">
+
+                    <h3>
+
+                        Completed
+
+                        <span class="badge">0</span>
+
+                    </h3>
+
+                    <div class="pipelineEmpty">
+
+                        <i class="fa-solid fa-circle-check"></i>
+
+                        <h4>No Completed Projects</h4>
+
+                        <p>
+
+                            Delivered projects will automatically move here.
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="activityCard">
+
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;flex-wrap:wrap;gap:20px;">
+
+                <div>
+
+                    <h2>Recent Projects</h2>
+
+                    <p>
+                        This reusable card layout will eventually populate from the project database.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="cardsGrid">
+
+                <div class="infoCard emptyState">
+
+                    <i class="fa-solid fa-folder-open"></i>
+
+                    <h3>No Projects Yet</h3>
+
+                    <p>
+
+                        Create your first project to begin tracking production, deadlines and client progress.
+
+                    </p>
+
+                    <button class="primaryButton">
+
+                        <i class="fa-solid fa-plus"></i>
+
+                        Create Project
+
+                    </button>
+
+                </div>
+
+                <div class="infoCard emptyState">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                    <h3>Upcoming Milestones</h3>
+
+                    <p>
+
+                        Project deadlines and milestones will appear here as projects become active.
+
+                    </p>
+
+                </div>
+
+                <div class="infoCard emptyState">
+
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+
+                    <h3>Recent Activity</h3>
+
+                    <p>
+
+                        Changes, uploads, approvals and production updates will be displayed here.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+<div id="newProjectModal" class="ec-modal-overlay">
+
+    <div class="ec-modal ec-modal-lg">
+
+        <div class="ec-modal-header">
+
+            <div>
+
+                <h2 class="ec-modal-title">
+
+                    New Project
+
+                </h2>
+
+                <p class="ec-modal-subtitle">
+
+                    Create a new project.
+
+                </p>
+
+            </div>
+
+            <button
+                class="ec-modal-close"
+                data-close-modal>
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <form
+            id="newProjectForm"
+            class="ec-form">
+
+            <div class="ec-modal-body">
+
+                <div class="ec-form-grid">
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            Project Name
+
+                        </label>
+
+                        <input
+                            class="ec-input"
+                            id="projectName"
+                            required>
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            Client
+
+                        </label>
+
+                        <input
+                            class="ec-input"
+                            id="projectClient">
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            Project Value
+
+                        </label>
+
+                        <input
+                            type="number"
+                            class="ec-input"
+                            id="projectValue">
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            Stage
+
+                        </label>
+
+                        <select
+                            class="ec-input"
+                            id="projectStage">
+
+                            <option>New Lead</option>
+                            <option>Discovery</option>
+                            <option>Production</option>
+                            <option>Review</option>
+                            <option>Completed</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="ec-modal-footer">
+
+                <button
+                    type="button"
+                    class="secondaryButton"
+                    data-close-modal>
+
+                    Cancel
+
+                </button>
+
+                <button
+                    type="submit"
+                    class="primaryButton">
+
+                    Save Project
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="js/admin.js"></script>
+
+<script src="js/modal-engine.js"></script>
+<script src="js/forms-engine.js"></script>
+<script src="js/storage-engine.js"></script>
+
+<script src="js/project-engine.js"></script>
+<script src="js/projects.js"></script>
+
+</body>
+
+</html>             

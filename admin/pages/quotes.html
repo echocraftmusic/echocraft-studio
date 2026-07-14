@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Quotes | EC Framework</title>
+
+<link rel="stylesheet" href="../css/admin.css">
+<link rel="stylesheet" href="../css/buttons.css">
+<link rel="stylesheet" href="../css/cards.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/tables.css">
+<link rel="stylesheet" href="../css/modals.css">
+<link rel="stylesheet" href="../css/forms-engine.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboardLayout">
+
+    <aside class="sidebar">
+
+        <div class="logo">
+
+            <img src="../images/ec-gold-logo.png" alt="Echo Craft">
+
+            <h2>Control Center</h2>
+
+            <span>Framework Core</span>
+
+        </div>
+
+        <nav>
+
+            <a href="../dashboard.html">
+                <i class="fa-solid fa-chart-line"></i>
+                Dashboard
+            </a>
+
+            <a href="clients.html">
+                <i class="fa-solid fa-users"></i>
+                Clients
+            </a>
+
+            <a href="../projects.html">
+                <i class="fa-solid fa-folder-open"></i>
+                Projects
+            </a>
+
+            <a href="quotes.html" class="active">
+                <i class="fa-solid fa-file-signature"></i>
+                Quotes
+            </a>
+
+            <a href="portfolio.html">
+                <i class="fa-solid fa-image"></i>
+                Portfolio
+            </a>
+
+            <a href="referrals.html">
+                <i class="fa-solid fa-user-group"></i>
+                Referral Network
+            </a>
+
+            <a href="analytics.html">
+                <i class="fa-solid fa-chart-column"></i>
+                Analytics
+            </a>
+
+            <a href="../settings.html">
+                <i class="fa-solid fa-gear"></i>
+                Settings
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <main class="mainContent">
+
+        <header class="pageHeader">
+
+            <div>
+
+                <span class="section-tag">
+                    SALES PIPELINE
+                </span>
+
+                <h1>Quotes</h1>
+
+                <p>
+                    Create and manage customer quotes.
+                </p>
+
+            </div>
+
+            <button
+    type="button"
+    class="primaryButton"
+    data-modal="newQuoteModal">
+
+    <i class="fa-solid fa-plus"></i>
+
+    New Quote
+
+</button>
+
+        </header>
+
+        <section class="statsGrid">
+
+            <div class="statCard">
+
+                <h3>Draft Quotes</h3>
+
+                <span>0</span>
+
+            </div>
+
+            <div class="statCard">
+
+                <h3>Pending</h3>
+
+                <span>0</span>
+
+            </div>
+
+            <div class="statCard">
+
+                <h3>Approved</h3>
+
+                <span>0</span>
+
+            </div>
+
+            <div class="statCard">
+
+                <h3>Total Value</h3>
+
+                <span>$0</span>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div id="newQuoteModal" class="ec-modal-overlay">
+
+    <div class="ec-modal ec-modal-md">
+
+        <div class="ec-modal-header">
+
+            <div>
+
+                <h2 class="ec-modal-title">
+                    New Quote
+                </h2>
+
+                <p class="ec-modal-subtitle">
+                    Create a new quote.
+                </p>
+
+            </div>
+
+            <button
+                type="button"
+                class="ec-modal-close"
+                data-close-modal>
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <form id="newQuoteForm" class="ec-form">
+
+            <div class="ec-modal-body">
+
+                <div class="ec-form-grid">
+
+                    <div class="ec-form-group">
+
+                        <label>Client</label>
+
+                        <input
+                            id="quoteClient"
+                            class="ec-input"
+                            required>
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>Project</label>
+
+                        <input
+                            id="quoteProject"
+                            class="ec-input"
+                            required>
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>Total</label>
+
+                        <input
+                            id="quoteTotal"
+                            type="number"
+                            class="ec-input"
+                            required>
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>Status</label>
+
+                        <select
+                            id="quoteStatus"
+                            class="ec-select">
+
+                            <option>Draft</option>
+                            <option>Pending</option>
+                            <option>Approved</option>
+                            <option>Declined</option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="ec-modal-footer">
+
+                <button
+                    type="button"
+                    class="secondaryButton"
+                    data-close-modal>
+
+                    Cancel
+
+                </button>
+
+                <button
+                    type="submit"
+                    class="primaryButton">
+
+                    Save Quote
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../js/modal-engine.js"></script>
+<script src="../js/forms-engine.js"></script>
+<script src="../js/quote-engine.js"></script>
+<script src="../js/quotes.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,270 @@
+/* ==========================================================
+   EC FRAMEWORK
+   DASHBOARD LAYOUT
+   Version 2.0
+========================================================== */
+
+/* ==========================================================
+   PAGE HEADER
+========================================================== */
+
+.pageHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
+    margin-bottom:36px;
+    flex-wrap:wrap;
+}
+
+.pageHeader h1{
+    margin:8px 0;
+    font-size:2.3rem;
+    font-weight:700;
+    color:#ffffff;
+}
+
+.pageHeader p{
+    color:#9f9f9f;
+    max-width:650px;
+    line-height:1.7;
+}
+
+.section-tag{
+    display:inline-block;
+    padding:6px 14px;
+    border-radius:999px;
+    background:rgba(216,180,93,.12);
+    border:1px solid rgba(216,180,93,.30);
+    color:#d8b45d;
+    font-size:.75rem;
+    font-weight:700;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+/* ==========================================================
+   STATS
+========================================================== */
+
+.statsGrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:24px;
+    margin-bottom:36px;
+}
+
+.statCard{
+    background:#1b1b1b;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
+    padding:24px;
+    transition:.25s;
+}
+
+.statCard:hover{
+    transform:translateY(-5px);
+    border-color:rgba(216,180,93,.35);
+    box-shadow:0 20px 40px rgba(0,0,0,.30);
+}
+
+.statCard h3{
+    margin:0 0 14px;
+    color:#9e9e9e;
+    font-size:.92rem;
+    font-weight:600;
+}
+
+.statCard span{
+    font-size:2rem;
+    color:#ffffff;
+    font-weight:700;
+}
+
+/* ==========================================================
+   CONTENT CARDS
+========================================================== */
+
+.activityCard{
+    background:#181818;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:22px;
+    padding:30px;
+    margin-bottom:32px;
+    box-shadow:0 18px 45px rgba(0,0,0,.20);
+}
+
+.activityCard h2{
+    color:#ffffff;
+    margin-bottom:8px;
+}
+
+.activityCard p{
+    color:#9c9c9c;
+}
+
+/* ==========================================================
+   PIPELINE
+========================================================== */
+
+.pipelineBoard{
+    display:grid;
+    grid-template-columns:repeat(5,minmax(280px,1fr));
+    gap:22px;
+    overflow-x:auto;
+    padding-bottom:10px;
+}
+
+.pipelineColumn{
+    min-height:460px;
+    background:#121212;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
+    padding:18px;
+    transition:.25s;
+}
+
+.pipelineColumn:hover{
+    border-color:rgba(216,180,93,.25);
+}
+
+.pipelineColumn h3{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+    color:#fff;
+    font-size:1rem;
+}
+
+/* ==========================================================
+   BADGE
+========================================================== */
+
+.badge{
+    min-width:30px;
+    height:30px;
+    border-radius:999px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#d8b45d;
+    color:#111;
+    font-size:.82rem;
+    font-weight:700;
+}
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+.pipelineEmpty{
+    min-height:340px;
+    border:2px dashed rgba(255,255,255,.08);
+    border-radius:16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:30px;
+    transition:.25s;
+}
+
+.pipelineEmpty:hover{
+    border-color:rgba(216,180,93,.40);
+    background:rgba(216,180,93,.03);
+}
+
+.pipelineEmpty i{
+    font-size:2.6rem;
+    color:#d8b45d;
+    margin-bottom:18px;
+}
+
+.pipelineEmpty h4{
+    color:#ffffff;
+    margin-bottom:10px;
+}
+
+.pipelineEmpty p{
+    color:#8d8d8d;
+    line-height:1.6;
+}
+
+/* ==========================================================
+   INFO CARDS
+========================================================== */
+
+.cardsGrid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:24px;
+}
+
+.infoCard{
+    background:#151515;
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:18px;
+    padding:30px;
+    transition:.25s;
+}
+
+.infoCard:hover{
+    transform:translateY(-5px);
+    border-color:rgba(216,180,93,.30);
+}
+
+.emptyState{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.emptyState i{
+    font-size:2.8rem;
+    color:#d8b45d;
+    margin-bottom:20px;
+}
+
+.emptyState h3{
+    color:#fff;
+    margin-bottom:12px;
+}
+
+.emptyState p{
+    color:#969696;
+    line-height:1.7;
+    margin-bottom:24px;
+}
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media(max-width:1200px){
+
+    .pipelineBoard{
+        grid-template-columns:repeat(5,300px);
+    }
+
+}
+
+@media(max-width:768px){
+
+    .pageHeader{
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .activityCard{
+        padding:22px;
+    }
+
+    .pipelineColumn{
+        min-height:420px;
+    }
+
+}
+

@@ -1,0 +1,211 @@
+/* ==========================================================
+   EC FRAMEWORK
+   COMMAND PALETTE
+   Version 1.0
+========================================================== */
+
+/* ==========================================================
+   OVERLAY
+========================================================== */
+
+.ec-command-overlay{
+
+    position:fixed;
+    inset:0;
+    display:none;
+    justify-content:center;
+    align-items:flex-start;
+    padding-top:10vh;
+
+    background:rgba(0,0,0,.72);
+    backdrop-filter:blur(10px);
+
+    z-index:10000;
+
+}
+
+.ec-command-overlay.active{
+
+    display:flex;
+
+}
+
+/* ==========================================================
+   WINDOW
+========================================================== */
+
+.ec-command{
+
+    width:min(720px,92vw);
+
+    background:#171717;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    overflow:hidden;
+
+    box-shadow:0 35px 90px rgba(0,0,0,.45);
+
+    animation:ecCommandOpen .22s ease;
+
+}
+
+/* ==========================================================
+   SEARCH
+========================================================== */
+
+.ec-command-search{
+
+    width:100%;
+
+    padding:22px 26px;
+
+    background:#1d1d1d;
+
+    color:#fff;
+
+    border:none;
+
+    outline:none;
+
+    font-size:1.05rem;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+}
+
+.ec-command-search::placeholder{
+
+    color:#7c7c7c;
+
+}
+
+/* ==========================================================
+   RESULTS
+========================================================== */
+
+.ec-command-results{
+
+    max-height:500px;
+
+    overflow-y:auto;
+
+}
+
+.ec-command-item{
+
+    padding:18px 24px;
+
+    color:#ddd;
+
+    cursor:pointer;
+
+    transition:.20s;
+
+    border-bottom:1px solid rgba(255,255,255,.05);
+
+}
+
+.ec-command-item:last-child{
+
+    border-bottom:none;
+
+}
+
+.ec-command-item:hover{
+
+    background:rgba(216,180,93,.10);
+
+    color:#fff;
+
+    padding-left:34px;
+
+}
+
+/* ==========================================================
+   SCROLLBAR
+========================================================== */
+
+.ec-command-results::-webkit-scrollbar{
+
+    width:8px;
+
+}
+
+.ec-command-results::-webkit-scrollbar-thumb{
+
+    background:#4a4a4a;
+
+    border-radius:999px;
+
+}
+
+.ec-command-results::-webkit-scrollbar-thumb:hover{
+
+    background:#666;
+
+}
+
+/* ==========================================================
+   ANIMATION
+========================================================== */
+
+@keyframes ecCommandOpen{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(-18px) scale(.98);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0) scale(1);
+
+    }
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media(max-width:768px){
+
+    .ec-command-overlay{
+
+        padding:20px;
+
+        align-items:flex-start;
+
+    }
+
+    .ec-command{
+
+        width:100%;
+
+        border-radius:18px;
+
+    }
+
+    .ec-command-search{
+
+        padding:18px;
+
+        font-size:1rem;
+
+    }
+
+    .ec-command-item{
+
+        padding:16px 18px;
+
+    }
+
+}

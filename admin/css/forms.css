@@ -1,0 +1,152 @@
+/* =====================================================
+   EC FRAMEWORK
+   FORMS.CSS
+   Universal Form System
+===================================================== */
+
+/* ==========================================
+   FORM GROUP
+========================================== */
+
+.form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+
+    margin-bottom:24px;
+
+}
+
+/* ==========================================
+   LABELS
+========================================== */
+
+.form-group label{
+
+    color:#D4AF37;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    letter-spacing:.5px;
+
+}
+
+/* ==========================================
+   INPUTS
+========================================== */
+
+.form-group input,
+.form-group textarea,
+.form-group select{
+
+    width:100%;
+
+    padding:16px 18px;
+
+    background:#181818;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:14px;
+
+    color:#ffffff;
+
+    font-size:15px;
+
+    transition:.25s ease;
+
+}
+
+/* ==========================================
+   FOCUS
+========================================== */
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+
+    outline:none;
+
+    border-color:#D4AF37;
+
+    box-shadow:0 0 0 3px rgba(212,175,55,.12);
+
+}
+
+/* ==========================================
+   TEXTAREA
+========================================== */
+
+.form-group textarea{
+
+    resize:vertical;
+
+    min-height:160px;
+
+}
+
+/* ==========================================
+   PLACEHOLDER
+========================================== */
+
+.form-group input::placeholder,
+.form-group textarea::placeholder{
+
+    color:#777;
+
+}
+
+/* ==========================================
+   SEARCH BAR
+========================================== */
+
+.searchBox{
+
+    position:relative;
+
+}
+
+.searchBox input{
+
+    width:100%;
+
+    padding:16px 20px 16px 52px;
+
+    border-radius:999px;
+
+}
+
+.searchBox i{
+
+    position:absolute;
+
+    left:20px;
+
+    top:50%;
+
+    transform:translateY(-50%);
+
+    color:#888;
+
+}
+
+/* ==========================================
+   INLINE FORMS
+========================================== */
+
+.form-inline{
+
+    display:flex;
+
+    gap:18px;
+
+    align-items:flex-end;
+
+    flex-wrap:wrap;
+
+}

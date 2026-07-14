@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Referral Network | EC Control Center</title>
+
+<link rel="stylesheet" href="../css/admin.css">
+<link rel="stylesheet" href="../css/cards.css">
+<link rel="stylesheet" href="../css/dashboard.css">
+<link rel="stylesheet" href="../css/tables.css">
+<link rel="stylesheet" href="../css/modals.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboardLayout">
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<img src="../images/ec-gold-logo.png" alt="Echo Craft">
+
+<h2>Control Center</h2>
+
+<span>Framework Core</span>
+
+</div>
+
+<nav>
+
+<a href="../dashboard.html">
+<i class="fa-solid fa-chart-line"></i>
+Dashboard
+</a>
+
+<a href="clients.html">
+<i class="fa-solid fa-users"></i>
+Clients
+</a>
+
+<a href="projects.html">
+<i class="fa-solid fa-folder-open"></i>
+Projects
+</a>
+
+<a href="quotes.html">
+<i class="fa-solid fa-file-signature"></i>
+Quotes
+</a>
+
+<a href="referrals.html" class="active">
+<i class="fa-solid fa-user-group"></i>
+Referral Network
+</a>
+
+<a href="#">
+<i class="fa-solid fa-image"></i>
+Portfolio
+</a>
+
+<a href="#">
+<i class="fa-solid fa-chart-column"></i>
+Analytics
+</a>
+
+<a href="#">
+<i class="fa-solid fa-gear"></i>
+Settings
+</a>
+
+</nav>
+
+</aside>
+
+<main class="mainContent">
+
+<header class="pageHeader">
+
+<div>
+
+<span class="section-tag">
+
+ECPP
+
+</span>
+
+<h1>Referral Network</h1>
+
+<p>
+
+Track every referral partner, quote, client conversion and commission.
+
+</p>
+
+</div>
+
+<button
+    class="primaryButton"
+    data-modal="newReferralModal">
+
+    <i class="fa-solid fa-plus"></i>
+
+    New Partner
+
+</button>
+
+</header>
+
+<section class="statsGrid">
+
+<div class="statCard">
+<h3>Referral Partners</h3>
+<span>0</span>
+</div>
+
+<div class="statCard">
+<h3>Referral Clicks</h3>
+<span>0</span>
+</div>
+
+<div class="statCard">
+<h3>Client Conversions</h3>
+<span>0</span>
+</div>
+
+<div class="statCard">
+<h3>Commissions Owed</h3>
+<span>$0</span>
+</div>
+
+</section>
+
+<section class="activityCard">
+
+<h2>Referral Partners</h2>
+
+<p>
+
+Each partner receives a unique Referral ID, referral link and QR Code. Commissions are earned only after a completed sale.
+
+</p>
+
+<div class="ec-table-wrapper">
+
+<table class="ec-table">
+
+<thead>
+
+<tr>
+
+<th>Referral ID</th>
+<th>Partner</th>
+<th>Clicks</th>
+<th>Quotes</th>
+<th>Clients</th>
+<th>Commission</th>
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td colspan="7">
+
+<div class="ec-table-empty">
+
+<i class="fa-solid fa-users" style="font-size:48px;color:#d8b45d;margin-bottom:18px;"></i>
+
+<h3>No Referral Partners</h3>
+
+<p>
+
+Your referral network will appear here once partners begin joining your program.
+
+</p>
+
+</div>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</section>
+
+</main>
+
+</div>
+
+<script src="../js/modal-engine.js"></script>
+<script src="../js/forms-engine.js"></script>
+<script src="../js/referral-engine.js"></script>
+<script src="../js/referrals.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Clients | EC Control Center</title>
+
+<link rel="stylesheet" href="../css/admin.css">
+<link rel="stylesheet" href="../css/buttons.css">
+<link rel="stylesheet" href="../css/clients.css">
+<link rel="stylesheet" href="../css/tables.css">
+<link rel="stylesheet" href="../css/modals.css">
+<link rel="stylesheet" href="../css/forms-engine.css">
+
+<link rel="preconnect"
+      href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="dashboardLayout">
+
+    <!-- ==========================================
+         SIDEBAR
+    =========================================== -->
+
+    <aside class="sidebar">
+
+<div class="logo">
+
+    <img
+        src="../images/ec-gold-logo.png" 
+        alt="Echo Craft">
+        
+
+    <h2>Control Center</h2>
+
+    <span>Framework Core</span>
+
+</div>
+
+        <nav>
+
+            <a href="../dashboard.html">
+
+                <i class="fa-solid fa-chart-line"></i>
+
+                Dashboard
+
+            </a>
+
+            <a href="clients.html"
+               class="active">
+
+                <i class="fa-solid fa-users"></i>
+
+                Clients
+
+            </a>
+
+            <a href="projects.html">
+
+                <i class="fa-solid fa-folder-open"></i>
+
+                Projects
+
+            </a>
+
+            <a href="portfolio.html">
+
+                <i class="fa-solid fa-images"></i>
+
+                Portfolio
+
+            </a>
+
+            <a href="quotes.html">
+
+                <i class="fa-solid fa-file-signature"></i>
+
+                Quotes
+
+            </a>
+
+            <a href="referrals.html">
+
+                <i class="fa-solid fa-user-group"></i>
+
+                Referral Network
+
+            </a>
+
+            <a href="analytics.html">
+
+                <i class="fa-solid fa-chart-simple"></i>
+
+                Analytics
+
+            </a>
+
+            <a href="../settings.html">
+
+                <i class="fa-solid fa-gear"></i>
+
+                Settings
+
+            </a>
+
+        </nav>
+
+    </aside>
+
+    <!-- ==========================================
+         CLIENTS CONTENT
+    =========================================== -->
+
+    <main class="dashboardContent clientsPage">
+
+        <header class="pageHeader">
+
+            <div>
+
+                <span class="pageEyebrow">
+
+                    CLIENT MANAGEMENT
+
+                </span>
+
+                <h1>Clients</h1>
+
+                <p>
+
+                    Manage leads, active clients, completed projects and
+                    long-term business relationships.
+
+                </p>
+
+            </div>
+
+            <button
+    type="button"
+    class="primaryAction"
+    data-modal="newClientModal">
+
+    <i class="fa-solid fa-plus"></i>
+
+    New Client
+
+</button>
+
+        </header>
+
+        <!-- ======================================
+             CLIENT STATISTICS
+        ======================================= -->
+
+        <section class="clientStats">
+
+            <article class="clientStatCard">
+
+                <div class="statIcon">
+
+                    <i class="fa-solid fa-users"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Total Clients</span>
+
+                    <strong>0</strong>
+
+                </div>
+
+            </article>
+
+            <article class="clientStatCard">
+
+                <div class="statIcon">
+
+                    <i class="fa-solid fa-user-clock"></i>
+
+                </div>
+
+                <div>
+
+                    <span>New Leads</span>
+
+                    <strong>0</strong>
+
+                </div>
+
+            </article>
+
+            <article class="clientStatCard">
+
+                <div class="statIcon">
+
+                    <i class="fa-solid fa-briefcase"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Active Clients</span>
+
+                    <strong>0</strong>
+
+                </div>
+
+            </article>
+
+            <article class="clientStatCard">
+
+                <div class="statIcon">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <div>
+
+                    <span>Completed</span>
+
+                    <strong>0</strong>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <!-- ======================================
+             SEARCH AND FILTERS
+        ======================================= -->
+
+        <section class="clientToolbar">
+
+            <div class="clientSearch">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input
+                    type="search"
+                    id="clientSearch"
+                    placeholder="Search by client, business or email">
+
+            </div>
+
+            <div class="clientFilters">
+
+                <button
+                    type="button"
+                    class="filterButton active"
+                    data-filter="all">
+
+                    All
+
+                </button>
+
+                <button
+                    type="button"
+                    class="filterButton"
+                    data-filter="lead">
+
+                    Leads
+
+                </button>
+
+                <button
+                    type="button"
+                    class="filterButton"
+                    data-filter="active">
+
+                    Active
+
+                </button>
+
+                <button
+                    type="button"
+                    class="filterButton"
+                    data-filter="completed">
+
+                    Completed
+
+                </button>
+
+                <button
+                    type="button"
+                    class="filterButton"
+                    data-filter="archived">
+
+                    Archived
+
+                </button>
+
+            </div>
+
+        </section>
+
+        <!-- ======================================
+             CLIENT TABLE
+        ======================================= -->
+
+        <section class="clientTablePanel">
+
+            <div class="tableHeader">
+
+                <div>
+
+                    <h2>Client Directory</h2>
+
+                    <p>
+
+                        Client records will appear here as they are added.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="tableWrapper">
+
+                <table class="clientTable">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Client</th>
+
+                            <th>Business</th>
+
+                            <th>Status</th>
+
+                            <th>Projects</th>
+
+                            <th>Referral Source</th>
+
+                            <th>Last Updated</th>
+
+                            <th aria-label="Actions"></th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="clientTableBody">
+
+                        <tr class="emptyTableRow">
+
+                            <td colspan="7">
+
+                                <div class="emptyState">
+
+                                    <div class="emptyStateIcon">
+
+                                        <i class="fa-solid fa-users"></i>
+
+                                    </div>
+
+                                    <h3>No Clients Yet</h3>
+
+                                    <p>
+
+                                        Add your first client or wait for a new
+                                        lead to enter the EC Control Center.
+
+                                    </p>
+
+                                    <button
+                                        type="button"
+                                        class="primaryAction">
+
+                                        <i class="fa-solid fa-plus"></i>
+
+                                        Add First Client
+
+                                    </button>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+<div id="newClientModal" class="ec-modal-overlay">
+
+    <div class="ec-modal ec-modal-lg">
+
+        <div class="ec-modal-header">
+
+            <div>
+
+                <h2 class="ec-modal-title">
+
+                    New Client
+
+                </h2>
+
+                <p class="ec-modal-subtitle">
+
+                    Create a new client record.
+
+                </p>
+
+            </div>
+
+            <button
+                class="ec-modal-close"
+                data-close-modal>
+
+                <i class="fa-solid fa-xmark"></i>
+
+            </button>
+
+        </div>
+
+        <form
+            id="newClientForm"
+            class="ec-form">
+
+            <div class="ec-modal-body">
+
+                <div class="ec-form-grid">
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            Client Name
+
+                        </label>
+
+                        <input
+                            class="ec-input"
+                            id="clientName"
+                            required>
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            Company
+
+                        </label>
+
+                        <input
+                            class="ec-input"
+                            id="clientCompany">
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            Email
+
+                        </label>
+
+                        <input
+                            type="email"
+                            class="ec-input"
+                            id="clientEmail">
+
+                    </div>
+
+                    <div class="ec-form-group">
+
+                        <label>
+
+                            Phone
+
+                        </label>
+
+                        <input
+                            class="ec-input"
+                            id="clientPhone">
+
+                    </div>
+
+                </div>
+
+<div class="ec-modal-footer">
+
+    <button
+        type="button"
+        class="secondaryButton"
+        data-close-modal>
+
+        Cancel
+
+    </button>
+
+    <button
+        type="submit"
+        class="primaryButton">
+
+        Save Client
+
+    </button>
+
+</div>
+
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../js/admin.js"></script>
+<script src="../js/clients.js"></script>
+
+<script src="../js/modal-engine.js"></script>
+<script src="../js/forms-engine.js"></script>
+<script src="../js/storage-engine.js"></script>
+<script src="../js/client-engine.js"></script>
+<script src="../js/create-engine.js"></script>
+<script src="../js/activity-engine.js"></script>
+<script src="../js/notification-engine.js"></script>
+<script src="../js/render-engine.js"></script>
+<script src="../js/dashboard-engine.js"></script>
+<script src="../js/analytics-engine.js"></script>
+<script src="../js/relationship-engine.js"></script>
+
+</body>
+
+</html>

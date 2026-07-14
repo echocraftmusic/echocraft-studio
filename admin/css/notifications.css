@@ -1,0 +1,205 @@
+/* ==========================================================
+   EC FRAMEWORK
+   NOTIFICATION SYSTEM
+   Version 1.0
+========================================================== */
+
+/* ==========================================================
+   CONTAINER
+========================================================== */
+
+.ec-notifications{
+    position:fixed;
+    top:24px;
+    right:24px;
+    width:380px;
+    max-width:calc(100vw - 30px);
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    z-index:9999;
+    pointer-events:none;
+}
+
+/* ==========================================================
+   CARD
+========================================================== */
+
+.ec-notification{
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+    padding:18px;
+    background:#181818;
+    border:1px solid rgba(255,255,255,.08);
+    border-left:5px solid #d8b45d;
+    border-radius:16px;
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+    color:#fff;
+    pointer-events:auto;
+    animation:ecNotificationIn .35s ease;
+}
+
+.ec-notification:hover{
+    transform:translateY(-2px);
+}
+
+/* ==========================================================
+   ICON
+========================================================== */
+
+.ec-notification-icon{
+    width:48px;
+    height:48px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(216,180,93,.15);
+    color:#d8b45d;
+    font-size:20px;
+    flex-shrink:0;
+}
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.ec-notification-content{
+    flex:1;
+}
+
+.ec-notification-title{
+    margin:0 0 6px;
+    font-size:1rem;
+    font-weight:700;
+    color:#fff;
+}
+
+.ec-notification-message{
+    margin:0;
+    color:#b5b5b5;
+    line-height:1.6;
+    font-size:.92rem;
+}
+
+/* ==========================================================
+   CLOSE
+========================================================== */
+
+.ec-notification-close{
+    background:none;
+    border:none;
+    color:#888;
+    cursor:pointer;
+    font-size:18px;
+    transition:.2s;
+}
+
+.ec-notification-close:hover{
+    color:#fff;
+}
+
+/* ==========================================================
+   TYPES
+========================================================== */
+
+.ec-success{
+    border-left-color:#2ecc71;
+}
+
+.ec-success .ec-notification-icon{
+    background:rgba(46,204,113,.15);
+    color:#2ecc71;
+}
+
+.ec-warning{
+    border-left-color:#f1c40f;
+}
+
+.ec-warning .ec-notification-icon{
+    background:rgba(241,196,15,.15);
+    color:#f1c40f;
+}
+
+.ec-danger{
+    border-left-color:#e74c3c;
+}
+
+.ec-danger .ec-notification-icon{
+    background:rgba(231,76,60,.15);
+    color:#e74c3c;
+}
+
+.ec-info{
+    border-left-color:#3498db;
+}
+
+.ec-info .ec-notification-icon{
+    background:rgba(52,152,219,.15);
+    color:#3498db;
+}
+
+/* ==========================================================
+   PROGRESS BAR
+========================================================== */
+
+.ec-notification-progress{
+    position:absolute;
+    left:0;
+    bottom:0;
+    height:4px;
+    width:100%;
+    background:#d8b45d;
+    border-radius:0 0 16px 16px;
+}
+
+/* ==========================================================
+   ANIMATIONS
+========================================================== */
+
+@keyframes ecNotificationIn{
+
+    from{
+        opacity:0;
+        transform:translateX(40px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateX(0);
+    }
+
+}
+
+@keyframes ecNotificationOut{
+
+    from{
+        opacity:1;
+        transform:translateX(0);
+    }
+
+    to{
+        opacity:0;
+        transform:translateX(40px);
+    }
+
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width:768px){
+
+    .ec-notifications{
+
+        top:auto;
+        bottom:20px;
+        left:15px;
+        right:15px;
+        width:auto;
+
+    }
+
+}

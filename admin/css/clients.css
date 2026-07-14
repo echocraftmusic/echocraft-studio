@@ -1,0 +1,235 @@
+/* ======================================================
+   CLIENTS PAGE
+====================================================== */
+
+.clientsPage{
+    display:flex;
+    flex-direction:column;
+    gap:2rem;
+}
+
+/* Header */
+
+.pageHeader{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:2rem;
+}
+
+.pageEyebrow{
+    display:inline-block;
+    color:#c8a64b;
+    text-transform:uppercase;
+    letter-spacing:3px;
+    font-size:.75rem;
+    margin-bottom:.75rem;
+}
+
+.pageHeader h1{
+    font-family:"Cormorant Garamond",serif;
+    font-size:3rem;
+    margin:0;
+}
+
+.pageHeader p{
+    max-width:700px;
+    color:#cfcfcf;
+    margin-top:.75rem;
+    line-height:1.8;
+}
+
+/* Button */
+
+.primaryAction{
+    background:#d4af37;
+    color:#111;
+    border:none;
+    border-radius:999px;
+    padding:15px 28px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.25s;
+}
+
+.primaryAction:hover{
+    transform:translateY(-3px);
+}
+
+/* Statistics */
+
+.clientStats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+}
+
+.clientStatCard{
+    background:#201b16;
+    border:1px solid rgba(212,175,55,.25);
+    border-radius:18px;
+    padding:24px;
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.statIcon{
+    width:58px;
+    height:58px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:rgba(212,175,55,.08);
+    color:#d4af37;
+    font-size:1.25rem;
+}
+
+.clientStatCard span{
+    color:#b8b8b8;
+    font-size:.9rem;
+}
+
+.clientStatCard strong{
+    display:block;
+    font-size:2rem;
+    color:#d4af37;
+    margin-top:4px;
+}
+
+/* Toolbar */
+
+.clientToolbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:2rem;
+    flex-wrap:wrap;
+}
+
+.clientSearch{
+    width:420px;
+    max-width:100%;
+    position:relative;
+}
+
+.clientSearch i{
+    position:absolute;
+    left:18px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#888;
+}
+
+.clientSearch input{
+    width:100%;
+    background:#191919;
+    border:1px solid #333;
+    border-radius:999px;
+    color:#fff;
+    padding:16px 20px 16px 48px;
+}
+
+.clientFilters{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+
+.filterButton{
+    background:#1b1b1b;
+    color:#ddd;
+    border:1px solid #333;
+    border-radius:999px;
+    padding:10px 20px;
+    cursor:pointer;
+}
+
+.filterButton.active{
+    background:#d4af37;
+    color:#111;
+    border-color:#d4af37;
+}
+
+/* Table */
+
+.clientTablePanel{
+    background:#201b16;
+    border:1px solid rgba(212,175,55,.25);
+    border-radius:22px;
+    overflow:hidden;
+}
+
+.tableHeader{
+    padding:30px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.tableHeader h2{
+    font-family:"Cormorant Garamond",serif;
+    font-size:2rem;
+    margin-bottom:.5rem;
+}
+
+.tableHeader p{
+    color:#bbb;
+}
+
+.tableWrapper{
+    overflow-x:auto;
+}
+
+.clientTable{
+    width:100%;
+    border-collapse:collapse;
+}
+
+.clientTable th{
+    text-align:left;
+    padding:20px 30px;
+    color:#c8a64b;
+    font-size:.8rem;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+.clientTable td{
+    padding:24px 30px;
+    border-top:1px solid rgba(255,255,255,.05);
+}
+
+/* Empty */
+
+.emptyState{
+    text-align:center;
+    padding:80px 20px;
+}
+
+.emptyStateIcon{
+    width:90px;
+    height:90px;
+    margin:auto;
+    border-radius:50%;
+    background:rgba(212,175,55,.08);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:2rem;
+    color:#d4af37;
+    margin-bottom:24px;
+}
+
+.emptyState h3{
+    font-family:"Cormorant Garamond",serif;
+    font-size:2rem;
+    margin-bottom:12px;
+}
+
+.emptyState p{
+    max-width:500px;
+    margin:auto;
+    color:#b8b8b8;
+    line-height:1.8;
+    margin-bottom:30px;
+}
