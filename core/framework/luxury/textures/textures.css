@@ -1,0 +1,65 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  TEXTURE SYSTEM
+  Version: 1.0
+==================================================*/
+
+/* Quartz */
+
+.ec-texture-quartz::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.08;
+
+    background-image:
+        radial-gradient(circle at 25% 20%, rgba(255,255,255,.05), transparent 45%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.03), transparent 50%);
+
+}
+
+/* Slate */
+
+.ec-texture-slate::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    opacity:.05;
+
+    background:
+        linear-gradient(135deg,
+        rgba(255,255,255,.02),
+        transparent 40%);
+
+}
+
+/* Gold Glow */
+
+.ec-gold-glow::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(circle at top,
+        rgba(212,175,55,.12),
+        transparent 55%);
+
+}

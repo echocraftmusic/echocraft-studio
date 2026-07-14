@@ -1,0 +1,65 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  FOUNDATION.CSS
+  Version: 1.0
+==================================================*/
+
+/*=============================================
+  DESIGN TOKENS
+=============================================*/
+
+:root {
+
+    /* Primary Brand */
+
+    --ec-gold: #d4af37;
+    --ec-gold-light: #e4c96c;
+    --ec-gold-dark: #8b6b18;
+
+    /* Backgrounds */
+
+    --ec-black: #050505;
+    --ec-charcoal: #111111;
+    --ec-slate: #1a1a1a;
+    --ec-panel: #1f1b18;
+
+    /* Text */
+
+    --ec-white: #ffffff;
+    --ec-text: #d8d8d8;
+    --ec-muted: #9b9b9b;
+
+    /* Borders */
+
+    --ec-border: rgba(212,175,55,.18);
+
+    /* Shadows */
+
+    --ec-shadow-sm: 0 8px 24px rgba(0,0,0,.25);
+    --ec-shadow-md: 0 18px 45px rgba(0,0,0,.35);
+    --ec-shadow-lg: 0 30px 70px rgba(0,0,0,.45);
+
+    /* Radius */
+
+    --radius-sm: 10px;
+    --radius-md: 18px;
+    --radius-lg: 28px;
+    --radius-xl: 42px;
+
+    /* Layout */
+
+    --container-width: 1280px;
+
+    --section-space: 140px;
+
+    --content-width: 720px;
+
+    /* Animation */
+
+    --speed-fast: .20s;
+
+    --speed-normal: .35s;
+
+    --speed-slow: .60s;
+
+}

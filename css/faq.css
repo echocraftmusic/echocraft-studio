@@ -1,0 +1,605 @@
+/* ==========================================
+   ECHO CRAFT CREATIVE STUDIO
+   FAQ PAGE
+   Version 1.0
+========================================== */
+
+
+/* ==========================================
+   PAGE FOUNDATION
+========================================== */
+
+body {
+    background: #070707;
+}
+
+.faqHero,
+.faqQuestions,
+.faqCTA {
+    position: relative;
+}
+
+.faqHero .container,
+.faqQuestions .container,
+.faqCTA .container {
+    width: min(92%, 1200px);
+    margin: 0 auto;
+}
+
+
+/* ==========================================
+   FAQ HERO
+========================================== */
+
+.faqHero {
+    min-height: 76vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 150px 0 110px;
+
+    background:
+        linear-gradient(
+            rgba(6, 6, 6, 0.76),
+            rgba(6, 6, 6, 0.94)
+        ),
+        url("../images/backgrounds/project-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.faqHeroOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background:
+        radial-gradient(
+            circle at 78% 12%,
+            rgba(212, 175, 55, 0.14),
+            transparent 38%
+        ),
+        linear-gradient(
+            90deg,
+            rgba(4, 4, 4, 0.95) 0%,
+            rgba(4, 4, 4, 0.74) 50%,
+            rgba(4, 4, 4, 0.4) 100%
+        );
+
+    pointer-events: none;
+}
+
+.faqHeroContent {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+}
+
+.faqHero .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+
+    color: #d8b36a;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.faqHero .hero-badge::before {
+    width: 44px;
+    height: 1px;
+
+    background: #d8b36a;
+
+    content: "";
+}
+
+.faqHero h1 {
+    max-width: 820px;
+    margin: 0 0 30px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(4.3rem, 7vw, 6.6rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+
+    text-shadow: 0 14px 42px rgba(0, 0, 0, 0.55);
+}
+
+.faqHero .text-gold {
+    display: block;
+    color: #d4af37;
+}
+
+.faqHero .hero-lead {
+    max-width: 760px;
+    margin: 0 0 18px;
+
+    color: #e5e5e5;
+
+    font-size: 1.12rem;
+    line-height: 1.9;
+}
+
+.faqHero .hero-sub {
+    max-width: 730px;
+    margin: 0 0 38px;
+
+    color: #bfbfbf;
+
+    font-size: 1.02rem;
+    line-height: 1.9;
+}
+
+
+/* ==========================================
+   SECTION HEADINGS
+========================================== */
+
+.section-heading {
+    max-width: 900px;
+    margin: 0 auto 62px;
+    text-align: center;
+}
+
+.section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+
+    color: #d4af37;
+
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.section-tag::before {
+    width: 44px;
+    height: 1px;
+
+    background: #d4af37;
+
+    content: "";
+}
+
+.section-heading h2 {
+    margin: 0 0 24px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(3rem, 5vw, 4.8rem);
+    font-weight: 600;
+    line-height: 1.05;
+}
+
+.section-heading p {
+    max-width: 760px;
+    margin: 0 auto;
+
+    color: #c8c8c8;
+
+    font-size: 1.06rem;
+    line-height: 1.9;
+}
+
+
+/* ==========================================
+   FAQ QUESTIONS
+========================================== */
+
+.faqQuestions {
+    padding: 130px 0;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(212, 175, 55, 0.07),
+            transparent 34%
+        ),
+        linear-gradient(
+            rgba(7, 7, 7, 0.97),
+            rgba(7, 7, 7, 0.99)
+        ),
+        url("../images/backgrounds/services-texture.png");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.faqGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 30px;
+}
+
+.faqCard {
+    position: relative;
+    min-height: 340px;
+    overflow: hidden;
+    padding: 42px;
+
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212, 175, 55, 0.045),
+            transparent 62%
+        ),
+        rgba(30, 24, 18, 0.84);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+
+    transition:
+        transform 0.38s ease,
+        border-color 0.38s ease,
+        box-shadow 0.38s ease;
+}
+
+.faqCard::after {
+    position: absolute;
+    right: -55px;
+    bottom: -55px;
+
+    width: 145px;
+    height: 145px;
+
+    border: 1px solid rgba(212, 175, 55, 0.07);
+    border-radius: 50%;
+
+    content: "";
+}
+
+.faqCard:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(212, 175, 55, 0.58);
+
+    box-shadow:
+        0 26px 60px rgba(0, 0, 0, 0.44),
+        0 0 28px rgba(212, 175, 55, 0.08);
+}
+
+.faqNumber {
+    display: flex;
+    width: 56px;
+    height: 56px;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 24px;
+
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 50%;
+
+    background: rgba(212, 175, 55, 0.08);
+
+    color: #d4af37;
+
+    font-weight: 700;
+}
+
+.faqCard h3 {
+    margin: 0 0 18px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.1rem;
+    font-weight: 600;
+    line-height: 1.14;
+}
+
+.faqCard p {
+    margin: 0;
+
+    color: #d0d0d0;
+
+    font-size: 1rem;
+    line-height: 1.86;
+}
+
+
+/* ==========================================
+   FINAL CTA
+========================================== */
+
+.faqCTA {
+    padding: 130px 0;
+
+    background:
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(212, 175, 55, 0.08),
+            transparent 28%
+        ),
+        linear-gradient(
+            rgba(7, 7, 7, 0.97),
+            rgba(7, 7, 7, 0.99)
+        ),
+        url("../images/backgrounds/project-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.cta-panel {
+    position: relative;
+    max-width: 920px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 82px 70px;
+
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 28px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212, 175, 55, 0.05),
+            transparent 60%
+        ),
+        rgba(28, 23, 18, 0.9);
+
+    text-align: center;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow: 0 26px 68px rgba(0, 0, 0, 0.48);
+}
+
+.cta-panel h2 {
+    margin: 22px 0 24px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(3rem, 5vw, 4.6rem);
+    font-weight: 600;
+    line-height: 1.04;
+}
+
+.cta-panel p {
+    max-width: 700px;
+    margin: 0 auto 36px;
+
+    color: #d0d0d0;
+
+    font-size: 1.06rem;
+    line-height: 1.9;
+}
+
+
+/* ==========================================
+   CAROUSEL FOUNDATION
+========================================== */
+
+.faqQuestions .mobileCarouselShell {
+    position: relative;
+}
+
+.faqQuestions .mobileCarouselHint {
+    display: none;
+}
+
+
+/* ==========================================
+   TABLETS
+========================================== */
+
+@media (max-width: 991px) {
+
+    .faqHero {
+        min-height: auto;
+        padding: 150px 0 100px;
+
+        text-align: center;
+    }
+
+    .faqHeroOverlay {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(5, 5, 5, 0.7),
+                rgba(5, 5, 5, 0.92)
+            );
+    }
+
+    .faqHeroContent {
+        max-width: 820px;
+        margin: 0 auto;
+    }
+
+    .faqHero .hero-badge {
+        justify-content: center;
+    }
+
+    .faqHero .hero-lead,
+    .faqHero .hero-sub {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .faqQuestions,
+    .faqCTA {
+        padding: 95px 0;
+    }
+
+    .faqGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-panel {
+        padding: 64px 40px;
+    }
+
+}
+
+
+/* ==========================================
+   MOBILE SWIPE MODE
+========================================== */
+
+@media (max-width: 768px) {
+
+    .faqGrid {
+        display: flex;
+        grid-template-columns: none;
+        gap: 16px;
+
+        width: auto;
+        max-width: none;
+
+        margin: 0 -20px;
+        padding: 8px 34px 24px;
+
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        scrollbar-width: none;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .faqGrid::-webkit-scrollbar {
+        display: none;
+    }
+
+    .faqCard {
+        flex: 0 0 88%;
+        width: 88%;
+        max-width: 420px;
+        min-height: 360px;
+
+        scroll-snap-align: center;
+        scroll-snap-stop: always;
+    }
+
+    .faqQuestions .mobileCarouselHint {
+        display: flex;
+        justify-content: center;
+        margin-top: 22px;
+    }
+
+}
+
+
+/* ==========================================
+   PHONES
+========================================== */
+
+@media (max-width: 576px) {
+
+    .faqHero {
+        padding: 122px 0 82px;
+    }
+
+    .faqHero .container {
+        width: 100%;
+        padding: 0 22px;
+    }
+
+    .faqHero .hero-badge {
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+    }
+
+    .faqHero .hero-badge::before {
+        width: 28px;
+    }
+
+    .faqHero h1 {
+        font-size: clamp(3.2rem, 14vw, 4.35rem);
+    }
+
+    .faqHero .hero-lead {
+        font-size: 1rem;
+        line-height: 1.82;
+    }
+
+    .faqHero .hero-sub {
+        font-size: 0.96rem;
+        line-height: 1.82;
+    }
+
+    .faqQuestions,
+    .faqCTA {
+        padding: 74px 0;
+    }
+
+    .faqQuestions .container,
+    .faqCTA .container {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .section-heading {
+        margin-bottom: 46px;
+    }
+
+    .section-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+    }
+
+    .section-tag::before {
+        width: 30px;
+    }
+
+    .section-heading h2 {
+        font-size: 2.75rem;
+    }
+
+    .section-heading p {
+        font-size: 0.98rem;
+        line-height: 1.82;
+    }
+
+    .faqCard {
+        min-height: 350px;
+        padding: 36px 28px;
+    }
+
+    .faqCard h3 {
+        font-size: 2rem;
+    }
+
+    .faqGrid {
+        gap: 14px;
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    .faqCard {
+        flex-basis: 90%;
+        width: 90%;
+    }
+
+    .cta-panel {
+        padding: 52px 26px;
+    }
+
+    .cta-panel h2 {
+        font-size: 3rem;
+    }
+
+}

@@ -1,0 +1,66 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  TESTIMONIAL SYSTEM
+  Version: 1.0
+==================================================*/
+
+.ec-testimonials{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(320px,1fr));
+
+    gap:32px;
+
+}
+
+.ec-testimonial{
+
+    position:relative;
+
+    padding:36px;
+
+    background:var(--ec-charcoal);
+
+    border:1px solid var(--ec-border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--ec-shadow-sm);
+
+}
+
+.ec-testimonial-stars{
+
+    color:var(--ec-gold);
+
+    margin-bottom:20px;
+
+}
+
+.ec-testimonial-text{
+
+    margin-bottom:24px;
+
+    color:var(--ec-text);
+
+    line-height:1.8;
+
+}
+
+.ec-testimonial-author{
+
+    font-weight:600;
+
+    color:var(--ec-white);
+
+}
+
+.ec-testimonial-company{
+
+    color:var(--ec-muted);
+
+    font-size:.95rem;
+
+}

@@ -1,0 +1,57 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  SIDEBAR SYSTEM
+  Version: 1.0
+==================================================*/
+
+.ec-sidebar{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:300px;
+
+    height:100vh;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    background:var(--ec-black);
+
+    border-right:1px solid var(--ec-border);
+
+    z-index:1000;
+
+}
+
+.ec-sidebar-logo{
+
+    padding:40px;
+
+    text-align:center;
+
+}
+
+.ec-sidebar-nav{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+    padding:40px;
+
+}
+
+.ec-sidebar-footer{
+
+    padding:40px;
+
+}

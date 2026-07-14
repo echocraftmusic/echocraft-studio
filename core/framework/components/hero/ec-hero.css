@@ -1,0 +1,75 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  HERO SYSTEM
+  Version: 1.0
+==================================================*/
+
+/*=============================================
+  HERO
+=============================================*/
+
+.ec-hero{
+
+    position:relative;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+    min-height:100vh;
+
+    padding:120px 0;
+
+}
+
+.ec-hero-content{
+
+    max-width:760px;
+
+}
+
+.ec-hero-badge{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    margin-bottom:30px;
+
+    padding:10px 22px;
+
+    border-radius:999px;
+
+    background:rgba(212,175,55,.10);
+
+    border:1px solid rgba(212,175,55,.20);
+
+}
+
+.ec-hero-title{
+
+    margin-bottom:24px;
+
+}
+
+.ec-hero-subtitle{
+
+    max-width:650px;
+
+    margin-bottom:42px;
+
+}
+
+.ec-hero-actions{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:20px;
+
+}

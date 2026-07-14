@@ -1,0 +1,106 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  BUTTON SYSTEM
+  Version: 1.0
+==================================================*/
+
+/* Primary */
+
+.ec-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:10px;
+
+    padding:16px 34px;
+
+    border:none;
+
+    border-radius:999px;
+
+    cursor:pointer;
+
+    text-decoration:none;
+
+    font-weight:600;
+
+    transition:
+        all var(--speed-normal);
+
+}
+
+.ec-btn-primary{
+
+    color:var(--ec-black);
+
+    background:var(--ec-gold);
+
+}
+
+.ec-btn-primary:hover{
+
+    background:var(--ec-gold-light);
+
+    transform:translateY(-3px);
+
+    box-shadow:var(--ec-shadow-md);
+
+}
+
+/* Secondary */
+
+.ec-btn-secondary{
+
+    color:var(--ec-white);
+
+    border:1px solid var(--ec-border);
+
+    background:transparent;
+
+}
+
+.ec-btn-secondary:hover{
+
+    background:rgba(255,255,255,.05);
+
+    transform:translateY(-3px);
+
+}
+
+/* Outline */
+
+.ec-btn-outline{
+
+    color:var(--ec-gold);
+
+    border:1px solid var(--ec-gold);
+
+    background:transparent;
+
+}
+
+.ec-btn-outline:hover{
+
+    background:rgba(212,175,55,.12);
+
+}
+
+/* Ghost */
+
+.ec-btn-ghost{
+
+    color:var(--ec-white);
+
+    background:transparent;
+
+}
+
+.ec-btn-ghost:hover{
+
+    color:var(--ec-gold);
+
+}

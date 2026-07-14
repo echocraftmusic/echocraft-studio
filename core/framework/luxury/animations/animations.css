@@ -1,0 +1,66 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  ANIMATION SYSTEM
+  Version: 1.0
+==================================================*/
+
+/*----------------------------------------------
+  Fade Up
+----------------------------------------------*/
+
+.ec-fade-up{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+    transition:
+        opacity var(--speed-slow),
+        transform var(--speed-slow);
+
+}
+
+.ec-fade-up.ec-visible{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+/*----------------------------------------------
+  Lift
+----------------------------------------------*/
+
+.ec-lift{
+
+    transition:
+        transform var(--speed-normal),
+        box-shadow var(--speed-normal);
+
+}
+
+.ec-lift:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--ec-shadow-lg);
+
+}
+
+/*----------------------------------------------
+  Soft Scale
+----------------------------------------------*/
+
+.ec-scale{
+
+    transition:
+        transform var(--speed-normal);
+
+}
+
+.ec-scale:hover{
+
+    transform:scale(1.02);
+
+}

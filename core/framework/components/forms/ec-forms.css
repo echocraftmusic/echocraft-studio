@@ -1,0 +1,108 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  FORM SYSTEM
+  Version: 1.0
+==================================================*/
+
+/* Form */
+
+.ec-form{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:28px;
+
+}
+
+/* Group */
+
+.ec-form-group{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:12px;
+
+}
+
+/* Label */
+
+.ec-label{
+
+    font-weight:600;
+
+    color:var(--ec-white);
+
+}
+
+/* Inputs */
+
+.ec-input,
+.ec-select,
+.ec-textarea{
+
+    width:100%;
+
+    padding:18px 20px;
+
+    color:var(--ec-white);
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid var(--ec-border);
+
+    border-radius:var(--radius-md);
+
+    transition:
+        border-color var(--speed-normal),
+        box-shadow var(--speed-normal),
+        background var(--speed-normal);
+
+}
+
+/* Focus */
+
+.ec-input:focus,
+.ec-select:focus,
+.ec-textarea:focus{
+
+    outline:none;
+
+    border-color:var(--ec-gold);
+
+    background:rgba(255,255,255,.05);
+
+    box-shadow:
+        0 0 0 4px rgba(212,175,55,.10);
+
+}
+
+/* Textarea */
+
+.ec-textarea{
+
+    min-height:180px;
+
+    resize:vertical;
+
+}
+
+/* Placeholder */
+
+.ec-input::placeholder,
+.ec-textarea::placeholder{
+
+    color:var(--ec-muted);
+
+}
+
+/* Required */
+
+.ec-required{
+
+    color:var(--ec-gold);
+
+}

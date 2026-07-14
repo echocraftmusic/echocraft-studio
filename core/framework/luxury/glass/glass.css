@@ -1,0 +1,41 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  GLASS SYSTEM
+  Version: 1.0
+==================================================*/
+
+.ec-glass-panel{
+
+    background:
+        rgba(255,255,255,.04);
+
+    backdrop-filter:
+        blur(18px);
+
+    -webkit-backdrop-filter:
+        blur(18px);
+
+    border:
+        1px solid rgba(255,255,255,.08);
+
+    border-radius:
+        var(--radius-lg);
+
+    box-shadow:
+        var(--ec-shadow-md);
+
+}
+
+.ec-glass-gold{
+
+    border-color:
+        rgba(212,175,55,.20);
+
+}
+
+.ec-glass-dark{
+
+    background:
+        rgba(0,0,0,.35);
+
+}

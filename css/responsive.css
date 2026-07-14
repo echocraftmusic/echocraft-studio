@@ -1,0 +1,89 @@
+/* ==========================================
+   EC Framework v1.0
+   Responsive
+========================================== */
+
+@media (max-width:1200px){
+
+    .hero h1{
+        font-size:4rem;
+    }
+
+}
+
+@media (max-width:991px){
+
+    section{
+        padding:90px 0;
+    }
+
+    .hero{
+        text-align:center;
+        min-height:90vh;
+    }
+
+    .hero-content{
+        margin:auto;
+    }
+
+    .hero-buttons{
+        justify-content:center;
+    }
+
+    .grid-2,
+    .grid-3{
+        grid-template-columns:1fr;
+    }
+
+    .section-title h2{
+        font-size:2.5rem;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .hero{
+        padding-top:100px;
+    }
+
+    .hero h1{
+        font-size:3rem;
+    }
+
+    .hero-description{
+        font-size:1.05rem;
+    }
+
+    .btn,
+    .btn-outline{
+        width:100%;
+        text-align:center;
+    }
+
+    #cta .glass{
+        padding:50px 30px;
+    }
+
+    #cta h2{
+        font-size:2.2rem;
+    }
+
+}
+
+@media (max-width:480px){
+
+    .hero h1{
+        font-size:2.4rem;
+    }
+
+    .hero-tag{
+        letter-spacing:2px;
+        font-size:.85rem;
+    }
+
+    .section-title h2{
+        font-size:2rem;
+    }
+
+}

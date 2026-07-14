@@ -1,0 +1,107 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  BACKGROUND SYSTEM
+  Version: 1.0
+==================================================*/
+
+/*=============================================
+  SECTION BACKGROUNDS
+=============================================*/
+
+.ec-bg-executive { 
+
+    background:
+        linear-gradient(
+            180deg,
+            #050505 0%,
+            #101010 100%
+        );
+
+}
+
+.ec-bg-charcoal {
+
+    background:
+        linear-gradient(
+            180deg,
+            #101010 0%,
+            #171717 100%
+        );
+
+}
+
+.ec-bg-slate {
+
+    background:
+        linear-gradient(
+            180deg,
+            #161616 0%,
+            #202020 100%
+        );
+
+}
+
+.ec-bg-gold {
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(212,175,55,.12),
+            transparent 45%
+        ),
+        #111111;
+
+}
+
+.ec-bg-studio {
+
+    background:
+        linear-gradient(
+            135deg,
+            #050505,
+            #171717,
+            #0b0b0b
+        );
+
+}
+
+/*=============================================
+  UNIVERSAL SECTION SPACING
+=============================================*/
+
+.ec-section{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:
+        var(--section-space)
+        0;
+
+}
+
+/*=============================================
+  CONTAINER
+=============================================*/
+
+.ec-container{
+
+    width:min(
+        var(--container-width),
+        calc(100% - 80px)
+    );
+
+    margin:auto;
+
+}
+
+/*=============================================
+  FUTURE EXPANSION
+
+  Quartz
+  Brushed Metal
+  Concrete
+  Ambient Lighting
+  Noise Overlay
+=============================================*/

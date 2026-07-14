@@ -1,0 +1,80 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  NAVIGATION SYSTEM
+  Version: 1.0
+==================================================*/
+
+/* Desktop Navigation */
+
+.ec-nav{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:32px;
+
+}
+
+/* Navigation Links */
+
+.ec-nav-links{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:24px;
+
+}
+
+.ec-nav-link{
+
+    color:var(--ec-text);
+
+    text-decoration:none;
+
+    transition:
+        color var(--speed-normal);
+
+}
+
+.ec-nav-link:hover{
+
+    color:var(--ec-gold);
+
+}
+
+/* Active Link */
+
+.ec-nav-link.ec-active{
+
+    color:var(--ec-gold);
+
+    font-weight:600;
+
+}
+
+/* Mobile Toggle */
+
+.ec-nav-toggle{
+
+    display:none;
+
+    cursor:pointer;
+
+    background:none;
+
+    border:none;
+
+}
+
+/* Mobile Menu */
+
+.ec-mobile-nav{
+
+    display:none;
+
+}

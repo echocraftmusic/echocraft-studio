@@ -1,0 +1,58 @@
+/* ==========================================
+   EC Framework v1.0
+   Forms
+========================================== */
+
+form{
+    width:100%;
+}
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-bottom:20px;
+
+    background:#111;
+
+    color:#fff;
+
+    border:1px solid rgba(255,255,255,.12);
+
+    border-radius:10px;
+
+    font-size:1rem;
+
+    outline:none;
+
+    transition:.30s;
+
+}
+
+input:focus,
+textarea:focus,
+select:focus{
+
+    border-color:var(--accent);
+
+}
+
+textarea{
+
+    resize:vertical;
+
+    min-height:180px;
+
+}
+
+button{
+
+    cursor:pointer;
+
+    border:none;
+
+}

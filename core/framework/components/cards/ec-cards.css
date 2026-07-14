@@ -1,0 +1,80 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  CARD SYSTEM
+  Version: 1.0
+==================================================*/
+
+/* Standard Card */
+
+.ec-card{
+
+    position:relative;
+
+    overflow:hidden;
+
+    padding:40px;
+
+    background:var(--ec-charcoal);
+
+    border:1px solid var(--ec-border);
+
+    border-radius:var(--radius-lg);
+
+    box-shadow:var(--ec-shadow-sm);
+
+    transition:
+        transform var(--speed-normal),
+        box-shadow var(--speed-normal),
+        border-color var(--speed-normal);
+
+}
+
+/* Hover */
+
+.ec-card:hover{
+
+    transform:translateY(-8px);
+
+    border-color:rgba(212,175,55,.30);
+
+    box-shadow:var(--ec-shadow-lg);
+
+}
+
+/* Premium */
+
+.ec-card-premium{
+
+    background:
+
+        linear-gradient(
+
+            180deg,
+
+            rgba(255,255,255,.03),
+
+            rgba(255,255,255,.01)
+
+        ),
+
+        var(--ec-charcoal);
+
+}
+
+/* Glass */
+
+.ec-card-glass{
+
+    backdrop-filter:blur(18px);
+
+    -webkit-backdrop-filter:blur(18px);
+
+}
+
+/* Gold Accent */
+
+.ec-card-gold{
+
+    border-top:3px solid var(--ec-gold);
+
+}

@@ -1,0 +1,68 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  LIGHTING SYSTEM
+  Version: 1.0
+==================================================*/
+
+/* Top Spotlight */
+
+.ec-light-top::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            ellipse at top,
+            rgba(255,255,255,.08),
+            transparent 60%
+        );
+
+}
+
+/* Gold Spotlight */
+
+.ec-light-gold::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(212,175,55,.10),
+            transparent 55%
+        );
+
+}
+
+/* Corner Light */
+
+.ec-light-corner::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    background:
+        radial-gradient(
+            circle at top right,
+            rgba(255,255,255,.05),
+            transparent 45%
+        );
+
+}

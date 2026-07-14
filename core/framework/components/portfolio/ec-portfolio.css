@@ -1,0 +1,68 @@
+/*==================================================
+  ECHO CRAFT FRAMEWORK
+  PORTFOLIO SYSTEM
+  Version: 1.0
+==================================================*/
+
+.ec-portfolio{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(auto-fit,minmax(320px,1fr));
+
+    gap:32px;
+
+}
+
+.ec-portfolio-item{
+
+    position:relative;
+
+    overflow:hidden;
+
+    border-radius:var(--radius-lg);
+
+    background:var(--ec-charcoal);
+
+    border:1px solid var(--ec-border);
+
+    transition:
+        transform var(--speed-normal),
+        box-shadow var(--speed-normal);
+
+}
+
+.ec-portfolio-item:hover{
+
+    transform:translateY(-8px);
+
+    box-shadow:var(--ec-shadow-lg);
+
+}
+
+.ec-portfolio-image{
+
+    width:100%;
+
+    display:block;
+
+}
+
+.ec-portfolio-content{
+
+    padding:28px;
+
+}
+
+.ec-portfolio-title{
+
+    margin-bottom:12px;
+
+}
+
+.ec-portfolio-description{
+
+    color:var(--ec-text);
+
+}

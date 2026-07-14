@@ -1,0 +1,1019 @@
+/* ==========================================
+   ECHO CRAFT CREATIVE STUDIO
+   PACKAGES PAGE
+   Version 2.0
+========================================== */
+
+
+/* ==========================================
+   PAGE FOUNDATION
+========================================== */
+
+body {
+    background: #070707;
+}
+
+.packagesHero,
+.packagesIntro,
+.packageExperience,
+.packageComparison,
+.investmentGuide {
+    position: relative;
+}
+
+.packagesHero .container,
+.packagesIntro .container,
+.packageExperience .container,
+.packageComparison .container,
+.investmentGuide .container {
+    width: min(92%, 1200px);
+    margin: 0 auto;
+}
+
+
+/* ==========================================
+   PACKAGES HERO
+========================================== */
+
+.packagesHero {
+    min-height: 78vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    padding: 150px 0 115px;
+
+    background:
+        linear-gradient(
+            rgba(7, 7, 7, 0.76),
+            rgba(7, 7, 7, 0.94)
+        ),
+        url("../images/backgrounds/project-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.packagesHero::after {
+    position: absolute;
+    right: 3%;
+    bottom: -210px;
+    width: 520px;
+    height: 520px;
+    border: 1px solid rgba(212, 175, 55, 0.07);
+    border-radius: 50%;
+    content: "";
+
+    box-shadow:
+        0 0 0 70px rgba(212, 175, 55, 0.018),
+        0 0 0 140px rgba(212, 175, 55, 0.01);
+
+    pointer-events: none;
+}
+
+.packagesHeroOverlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    background:
+        radial-gradient(
+            circle at 80% 15%,
+            rgba(212, 175, 55, 0.14),
+            transparent 38%
+        ),
+        linear-gradient(
+            90deg,
+            rgba(4, 4, 4, 0.96) 0%,
+            rgba(4, 4, 4, 0.76) 48%,
+            rgba(4, 4, 4, 0.42) 100%
+        );
+
+    pointer-events: none;
+}
+
+.packagesHeroContent {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+}
+
+.packagesHero .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+
+    color: #d8b36a;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.packagesHero .hero-badge::before {
+    width: 44px;
+    height: 1px;
+    background: #d8b36a;
+    content: "";
+}
+
+.packagesHero h1 {
+    max-width: 880px;
+    margin: 0 0 30px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(4.4rem, 7vw, 6.8rem);
+    font-weight: 600;
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+
+    text-shadow: 0 14px 42px rgba(0, 0, 0, 0.56);
+}
+
+.packagesHero .text-gold {
+    display: block;
+    color: #d4af37;
+}
+
+.packagesHero .hero-lead {
+    max-width: 780px;
+    margin: 0 0 18px;
+
+    color: #e7e7e7;
+
+    font-size: 1.14rem;
+    line-height: 1.9;
+}
+
+.packagesHero .hero-sub {
+    max-width: 740px;
+    margin: 0 0 40px;
+
+    color: #bfbfbf;
+
+    font-size: 1.02rem;
+    line-height: 1.9;
+}
+
+.packagesHero .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.packagesHero .hero-actions .btn,
+.packagesHero .hero-actions .btn-outline {
+    display: inline-flex;
+    min-width: 210px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ==========================================
+   PACKAGE INTRODUCTION
+========================================== */
+
+.packagesIntro {
+    padding: 120px 0 95px;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(212, 175, 55, 0.07),
+            transparent 36%
+        ),
+        #080808;
+}
+
+.section-heading {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 20px;
+
+    color: #d4af37;
+
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.section-tag::before {
+    width: 44px;
+    height: 1px;
+    background: #d4af37;
+    content: "";
+}
+
+.section-heading h2 {
+    margin: 0 0 24px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(3rem, 5vw, 4.8rem);
+    font-weight: 600;
+    line-height: 1.04;
+}
+
+.section-heading p {
+    max-width: 760px;
+    margin: 0 auto;
+
+    color: #c8c8c8;
+
+    font-size: 1.08rem;
+    line-height: 1.9;
+}
+
+
+/* ==========================================
+   PACKAGE EXPERIENCE SECTIONS
+========================================== */
+
+.packageExperience {
+    padding: 70px 0 110px;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            rgba(7, 7, 7, 0.97),
+            rgba(7, 7, 7, 0.99)
+        ),
+        url("../images/backgrounds/project-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.signaturePackage {
+    background:
+        radial-gradient(
+            circle at 75% 20%,
+            rgba(212, 175, 55, 0.08),
+            transparent 32%
+        ),
+        linear-gradient(
+            rgba(11, 10, 9, 0.97),
+            rgba(8, 8, 8, 0.99)
+        ),
+        url("../images/backgrounds/services-texture.png");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.executivePackage {
+    background:
+        radial-gradient(
+            circle at 25% 30%,
+            rgba(212, 175, 55, 0.07),
+            transparent 34%
+        ),
+        linear-gradient(
+            rgba(6, 6, 6, 0.97),
+            rgba(6, 6, 6, 0.99)
+        ),
+        url("../images/backgrounds/project-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.packagePanel {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+    gap: 64px;
+    align-items: center;
+
+    min-height: 620px;
+    padding: 64px;
+
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212, 175, 55, 0.045),
+            transparent 58%
+        ),
+        rgba(25, 21, 17, 0.9);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow:
+        0 28px 80px rgba(0, 0, 0, 0.42),
+        inset 0 1px 0 rgba(255, 255, 255, 0.025);
+}
+
+.packagePanelReverse .packageContent {
+    order: 2;
+}
+
+.packagePanelReverse .packageVisual {
+    order: 1;
+}
+
+.packageIdentity {
+    display: flex;
+    gap: 24px;
+    align-items: flex-start;
+    margin-bottom: 28px;
+}
+
+.packageNumber {
+    display: flex;
+    width: 62px;
+    height: 62px;
+    flex: 0 0 62px;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(212, 175, 55, 0.32);
+    border-radius: 50%;
+
+    background: rgba(212, 175, 55, 0.07);
+
+    color: #d4af37;
+
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.packageLabel {
+    display: block;
+    margin-bottom: 12px;
+
+    color: #d4af37;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+}
+
+.packageContent h2 {
+    max-width: 650px;
+    margin: 0;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.8rem, 4vw, 4.2rem);
+    font-weight: 600;
+    line-height: 1.04;
+}
+
+.packageDescription {
+    max-width: 700px;
+    margin: 0 0 30px;
+
+    color: #d0d0d0;
+
+    font-size: 1.05rem;
+    line-height: 1.9;
+}
+
+.experienceList {
+    list-style: none;
+    margin: 0 0 34px;
+    padding: 0;
+}
+
+.experienceList li {
+    position: relative;
+    margin-bottom: 16px;
+    padding-left: 34px;
+
+    color: #ececec;
+
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.experienceList li::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    color: #d4af37;
+
+    content: "✓";
+
+    font-weight: 700;
+}
+
+.packageActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 18px;
+    align-items: center;
+}
+
+.packageBestFor {
+    max-width: 260px;
+
+    color: #a9a9a9;
+
+    font-size: 0.82rem;
+    font-style: italic;
+    line-height: 1.5;
+}
+
+.packageImageFrame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+    overflow: hidden;
+
+    border: 1px solid rgba(212, 175, 55, 0.22);
+    border-radius: 28px;
+
+    background: #111111;
+
+    box-shadow:
+        0 28px 65px rgba(0, 0, 0, 0.46),
+        0 0 32px rgba(212, 175, 55, 0.05);
+}
+
+.packageImageFrame::before {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent 40%,
+            rgba(5, 5, 5, 0.92) 100%
+        );
+
+    content: "";
+
+    pointer-events: none;
+}
+
+.packageImageFrame img {
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    display: block;
+
+    object-fit: cover;
+    object-position: center;
+
+    transition: transform 0.6s ease;
+}
+
+.packagePanel:hover .packageImageFrame img {
+    transform: scale(1.035);
+}
+
+.packageImageOverlay {
+    position: absolute;
+    right: 34px;
+    bottom: 30px;
+    left: 34px;
+    z-index: 3;
+}
+
+.packageImageOverlay span {
+    display: block;
+    margin-bottom: 8px;
+
+    color: #d4af37;
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.packageImageOverlay strong {
+    display: block;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.4rem;
+    font-weight: 600;
+}
+
+
+/* ==========================================
+   PACKAGE COMPARISON
+========================================== */
+
+.packageComparison {
+    padding: 120px 0;
+
+    background:
+        radial-gradient(
+            circle at 50% 0%,
+            rgba(212, 175, 55, 0.07),
+            transparent 34%
+        ),
+        #080808;
+}
+
+.comparisonGrid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+}
+
+.comparisonCard {
+    position: relative;
+    min-height: 300px;
+    overflow: hidden;
+    padding: 42px 36px;
+
+    border: 1px solid rgba(212, 175, 55, 0.16);
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212, 175, 55, 0.035),
+            transparent 60%
+        ),
+        #191511;
+
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+
+    transition:
+        transform 0.38s ease,
+        border-color 0.38s ease,
+        box-shadow 0.38s ease;
+}
+
+.comparisonCard:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(212, 175, 55, 0.55);
+
+    box-shadow:
+        0 26px 60px rgba(0, 0, 0, 0.44),
+        0 0 28px rgba(212, 175, 55, 0.07);
+}
+
+.comparisonCard > span {
+    display: inline-flex;
+    width: 54px;
+    height: 54px;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 26px;
+
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    border-radius: 50%;
+
+    background: rgba(212, 175, 55, 0.07);
+
+    color: #d4af37;
+
+    font-weight: 700;
+}
+
+.comparisonCard h3 {
+    margin: 0 0 18px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.35rem;
+    font-weight: 600;
+}
+
+.comparisonCard p {
+    margin: 0;
+
+    color: #c9c9c9;
+
+    line-height: 1.85;
+}
+
+.featuredComparison {
+    transform: translateY(-14px);
+
+    border-color: rgba(212, 175, 55, 0.52);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212, 175, 55, 0.09),
+            transparent 62%
+        ),
+        #211a13;
+}
+
+.featuredComparison:hover {
+    transform: translateY(-20px);
+}
+
+.popularBadge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+
+    padding: 8px 14px;
+
+    border: 1px solid rgba(212, 175, 55, 0.28);
+    border-radius: 999px;
+
+    background: rgba(212, 175, 55, 0.08);
+
+    color: #d4af37;
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+
+/* ==========================================
+   INVESTMENT GUIDE
+========================================== */
+
+.investmentGuide {
+    padding: 130px 0;
+
+    background:
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(212, 175, 55, 0.08),
+            transparent 28%
+        ),
+        linear-gradient(
+            rgba(7, 7, 7, 0.97),
+            rgba(7, 7, 7, 0.99)
+        ),
+        url("../images/backgrounds/project-bg.jpg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.cta-panel {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 84px 70px;
+
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 30px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(212, 175, 55, 0.05),
+            transparent 60%
+        ),
+        rgba(28, 23, 18, 0.9);
+
+    text-align: center;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.5);
+}
+
+.cta-panel::after {
+    position: absolute;
+    right: -120px;
+    bottom: -120px;
+
+    width: 320px;
+    height: 320px;
+
+    border: 1px solid rgba(212, 175, 55, 0.08);
+    border-radius: 50%;
+
+    content: "";
+
+    box-shadow:
+        0 0 0 55px rgba(212, 175, 55, 0.018),
+        0 0 0 110px rgba(212, 175, 55, 0.012);
+}
+
+.cta-panel .section-tag,
+.cta-panel h2,
+.cta-panel p,
+.cta-actions {
+    position: relative;
+    z-index: 2;
+}
+
+.cta-panel h2 {
+    margin: 22px 0 26px;
+
+    color: #ffffff;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(3rem, 5vw, 4.8rem);
+    font-weight: 600;
+    line-height: 1.04;
+}
+
+.cta-panel p {
+    max-width: 740px;
+    margin: 0 auto 38px;
+
+    color: #d0d0d0;
+
+    font-size: 1.06rem;
+    line-height: 1.92;
+}
+
+.cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+}
+
+.cta-actions .btn,
+.cta-actions .btn-outline {
+    display: inline-flex;
+    min-width: 220px;
+    align-items: center;
+    justify-content: center;
+}
+
+
+/* ==========================================
+   RESPONSIVE — TABLETS
+========================================== */
+
+@media (max-width: 1100px) {
+
+    .packagePanel {
+        grid-template-columns: 1fr;
+        gap: 44px;
+    }
+
+    .packagePanelReverse .packageContent,
+    .packagePanelReverse .packageVisual {
+        order: initial;
+    }
+
+    .packageImageFrame,
+    .packageImageFrame img {
+        min-height: 430px;
+    }
+
+    .comparisonGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .featuredComparison,
+    .featuredComparison:hover {
+        transform: none;
+    }
+
+}
+
+
+@media (max-width: 991px) {
+
+    .packagesHero {
+        min-height: auto;
+        padding: 150px 0 100px;
+        text-align: center;
+    }
+
+    .packagesHeroOverlay {
+        background:
+            linear-gradient(
+                180deg,
+                rgba(5, 5, 5, 0.7),
+                rgba(5, 5, 5, 0.92)
+            );
+    }
+
+    .packagesHeroContent {
+        max-width: 820px;
+        margin: 0 auto;
+    }
+
+    .packagesHero .hero-badge {
+        justify-content: center;
+    }
+
+    .packagesHero .hero-lead,
+    .packagesHero .hero-sub {
+        margin-right: auto;
+        margin-left: auto;
+    }
+
+    .packagesHero .hero-actions {
+        justify-content: center;
+    }
+
+    .packagesIntro {
+        padding: 95px 0 75px;
+    }
+
+    .packageExperience {
+        padding: 55px 0 90px;
+    }
+
+    .packagePanel {
+        min-height: auto;
+        padding: 46px;
+    }
+
+    .packageComparison,
+    .investmentGuide {
+        padding: 95px 0;
+    }
+
+    .cta-panel {
+        padding: 66px 40px;
+    }
+
+}
+
+
+/* ==========================================
+   RESPONSIVE — PHONES
+========================================== */
+
+@media (max-width: 576px) {
+
+    .packagesHero {
+        padding: 122px 0 82px;
+    }
+
+    .packagesHero .container {
+        width: 100%;
+        padding: 0 22px;
+    }
+
+    .packagesHero .hero-badge {
+        font-size: 0.68rem;
+        letter-spacing: 0.15em;
+    }
+
+    .packagesHero .hero-badge::before {
+        width: 28px;
+    }
+
+    .packagesHero h1 {
+        font-size: clamp(3.2rem, 14vw, 4.4rem);
+        line-height: 0.98;
+    }
+
+    .packagesHero .hero-lead {
+        font-size: 1rem;
+        line-height: 1.82;
+    }
+
+    .packagesHero .hero-sub {
+        font-size: 0.96rem;
+        line-height: 1.82;
+    }
+
+    .packagesHero .hero-actions {
+        flex-direction: column;
+    }
+
+    .packagesHero .hero-actions .btn,
+    .packagesHero .hero-actions .btn-outline {
+        width: 100%;
+    }
+
+    .packagesIntro,
+    .packageComparison,
+    .investmentGuide {
+        padding: 74px 0;
+    }
+
+    .packageExperience {
+        padding: 38px 0 72px;
+    }
+
+    .packagesIntro .container,
+    .packageExperience .container,
+    .packageComparison .container,
+    .investmentGuide .container {
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .section-tag {
+        font-size: 0.68rem;
+        letter-spacing: 0.16em;
+    }
+
+    .section-tag::before {
+        width: 30px;
+    }
+
+    .section-heading h2 {
+        font-size: 2.75rem;
+    }
+
+    .section-heading p {
+        font-size: 0.98rem;
+        line-height: 1.82;
+    }
+
+    .packagePanel {
+        gap: 36px;
+        padding: 34px 26px;
+        border-radius: 24px;
+    }
+
+    .packageIdentity {
+        gap: 16px;
+    }
+
+    .packageNumber {
+        width: 54px;
+        height: 54px;
+        flex-basis: 54px;
+    }
+
+    .packageContent h2 {
+        font-size: 2.65rem;
+    }
+
+    .packageDescription {
+        font-size: 0.98rem;
+        line-height: 1.82;
+    }
+
+    .experienceList li {
+        font-size: 0.96rem;
+    }
+
+    .packageActions {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .packageActions .btn {
+        width: 100%;
+    }
+
+    .packageBestFor {
+        max-width: none;
+    }
+
+    .packageImageFrame,
+.packageImageFrame img {
+    min-height: 0;
+}
+    .packageImageOverlay {
+        right: 24px;
+        bottom: 24px;
+        left: 24px;
+    }
+
+    .packageImageOverlay strong {
+        font-size: 2.05rem;
+    }
+
+    .comparisonCard {
+        min-height: 270px;
+        padding: 36px 28px;
+    }
+
+    .cta-panel {
+        padding: 52px 26px;
+    }
+
+    .cta-panel h2 {
+        font-size: 3rem;
+    }
+
+    .cta-actions {
+        flex-direction: column;
+    }
+
+    .cta-actions .btn,
+    .cta-actions .btn-outline {
+        width: 100%;
+    }
+
+}
+Alright so great job with everything everything looks fabulous now the pictures that need to be swapped out
