@@ -1,27 +1,44 @@
 document.addEventListener("DOMContentLoaded", async () => {
 
-    const portfolioContainer = document.getElementById("portfolioProjects");
+    const portfolioContainer =
+        document.getElementById("portfolioProjects");
 
-    if (!portfolioContainer) return;
+    if (!portfolioContainer) {
+        return;
+    }
 
     try {
 
-        const response = await fetch("data/portfolio.json");
+        const response = await fetch(
+            `data/portfolio.json?v=${Date.now()}`,
+            {
+                cache: "no-store"
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(
+                `Portfolio data request failed: ${response.status}`
+            );
+        }
+
         const projects = await response.json();
 
         portfolioContainer.innerHTML = "";
 
         projects.forEach(project => {
 
-            portfolioContainer.insertAdjacentHTML("beforeend", `
-
+            portfolioContainer.insertAdjacentHTML(
+                "beforeend",
+                `
                 <article class="portfolio-card">
 
                     <div class="portfolio-thumb">
 
                         <img
                             src="${project.thumbnail}"
-                            alt="${project.title}">
+                            alt="${project.title}"
+                        >
 
                     </div>
 
@@ -31,29 +48,35 @@ document.addEventListener("DOMContentLoaded", async () => {
                             ${project.category}
                         </span>
 
-                        <h3>${project.title}</h3>
+                        <h3>
+                            ${project.title}
+                        </h3>
 
-                        <p>${project.description}</p>
+                        <p>
+                            ${project.description}
+                        </p>
 
                         <a
                             href="${project.url}"
-                            class="primaryButton">
-
+                            class="primaryButton"
+                        >
                             View Project
-
                         </a>
 
                     </div>
 
                 </article>
-
-            `);
+                `
+            );
 
         });
 
     } catch (error) {
 
-        console.error("Portfolio could not be loaded.", error);
+        console.error(
+            "Portfolio could not be loaded.",
+            error
+        );
 
     }
 
