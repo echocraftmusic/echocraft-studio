@@ -2627,13 +2627,14 @@ downloadPartnerQrButton?.addEventListener(
 
         try {
             
-                   const [
-                applicationsResult,
-                partnersResult,
-                referralsResult,
-                commissionsResult,
-                payoutsResult
-            ] = await Promise.all([
+const [
+    applicationsResult,
+    partnersResult,
+    referralsResult,
+    referralVisitsResult,
+    commissionsResult,
+    payoutsResult
+] = await Promise.all([
 
                 supabaseClient
                     .from(
@@ -2691,29 +2692,36 @@ downloadPartnerQrButton?.addEventListener(
                         }
                     ),
 
-                supabaseClient
-                    .from("referrals")
-                    .select(
-                        `
-                        id,
-                        prospective_client_name,
-                        project_type,
-                        status,
-                        created_at,
-                        partner_id
-                        `
-                    )
-                    .order(
-                        "created_at",
-                        {
-                            ascending: false
-                        }
-                    )
-                    .limit(50),
+supabaseClient
+    .from("referrals")
+    .select(
+        `
+        id,
+        prospective_client_name,
+        project_type,
+        status,
+        created_at,
+        partner_id
+        `
+    )
+    .order(
+        "created_at",
+        {
+            ascending: false
+        }
+    )
+    .limit(50),
 
-                supabaseClient
-                    .from("commissions")
-                    .select(
+supabaseClient.rpc(
+    "get_admin_referral_visits",
+    {
+        p_limit: 100
+    }
+),
+
+supabaseClient
+    .from("commissions")
+                        .select(
                         `
                         id,
                         commission_amount,
@@ -2754,12 +2762,13 @@ downloadPartnerQrButton?.addEventListener(
             ]);
 
             const results = [
-                applicationsResult,
-                partnersResult,
-                referralsResult,
-                commissionsResult,
-                payoutsResult
-            ];
+    applicationsResult,
+    partnersResult,
+    referralsResult,
+    referralVisitsResult,
+    commissionsResult,
+    payoutsResult
+];
 
             const failedResult =
                 results.find(
@@ -2779,10 +2788,13 @@ downloadPartnerQrButton?.addEventListener(
                 partnersResult.data || [];
 
             const referrals =
-                referralsResult.data || [];
+    referralsResult.data || [];
 
-            const commissions =
-                commissionsResult.data || [];
+const referralVisits =
+    referralVisitsResult.data || [];
+
+const commissions =
+    commissionsResult.data || [];
 
             const payouts =
                 payoutsResult.data || [];
@@ -2854,11 +2866,10 @@ downloadPartnerQrButton?.addEventListener(
 
             if (referralVisitCount) {
 
-                referralVisitCount.textContent =
-                    referrals.length;
+    referralVisitCount.textContent =
+        referralVisits.length;
 
-            }
-
+}
             if (pendingCommissionTotal) {
 
                 pendingCommissionTotal.textContent =
@@ -2890,18 +2901,18 @@ downloadPartnerQrButton?.addEventListener(
 
             if (referralLabel) {
 
-                referralLabel.textContent =
-                    "Tracked Referrals";
+    referralLabel.textContent =
+        "Referral Visits";
 
-            }
+}
 
-            if (referralSmall) {
+if (referralSmall) {
 
-                referralSmall.textContent =
-                    "Total referral records";
+    referralSmall.textContent =
+        "Verified partner-link visits";
 
-            }
-
+}
+        
 
             /* ==================================
                BUILD PARTNER SUMMARY DATA
@@ -2912,25 +2923,32 @@ downloadPartnerQrButton?.addEventListener(
                     partner => {
 
                         const partnerReferrals =
-                            referrals.filter(
-                                referral =>
-                                    referral.partner_id ===
-                                    partner.id
-                            );
+    referrals.filter(
+        referral =>
+            referral.partner_id ===
+            partner.id
+    );
 
-                        const partnerCommissions =
-                            commissions.filter(
-                                commission =>
-                                    commission.partner_id ===
-                                    partner.id
-                            );
+const partnerReferralVisits =
+    referralVisits.filter(
+        visit =>
+            visit.partner_id ===
+            partner.id
+    );
+
+const partnerCommissions =
+    commissions.filter(
+        commission =>
+            commission.partner_id ===
+            partner.id
+    );
 
                         return {
 
                             ...partner,
 
                             referral_count:
-                                partnerReferrals.length,
+    partnerReferralVisits.length,
 
                             client_count:
                                 partnerReferrals.filter(
