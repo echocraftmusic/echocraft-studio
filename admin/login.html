@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow, noarchive"
+    >
+
+    <title>Control Center Access | Echo Craft Studio</title>
+
+    <meta
+        name="description"
+        content="Private administrator access for the Echo Craft Studio Control Center."
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/admin.css"
+    >
+
+</head>
+
+<body class="controlCenterLoginPage">
+
+    <main class="loginExperience">
+
+        <!-- ==========================================
+             BACKGROUND ATMOSPHERE
+        =========================================== -->
+
+        <div
+            class="loginAtmosphere"
+            aria-hidden="true"
+        >
+
+            <span class="atmosphereGlow atmosphereGlowOne"></span>
+            <span class="atmosphereGlow atmosphereGlowTwo"></span>
+            <span class="atmosphereGrid"></span>
+
+        </div>
+
+        <!-- ==========================================
+             RETURN TO WEBSITE
+        =========================================== -->
+
+        <a
+            class="returnToStudio"
+            href="../portfolio.html"
+            aria-label="Return to the Echo Craft Studio portfolio"
+        >
+
+            <i class="fa-solid fa-arrow-left"></i>
+
+            <span>Return to Studio</span>
+
+        </a>
+
+        <!-- ==========================================
+             LOGIN SHELL
+        =========================================== -->
+
+        <section
+            class="loginShell"
+            aria-labelledby="controlCenterTitle"
+        >
+
+            <!-- ======================================
+                 BRAND PANEL
+            ======================================= -->
+
+            <div class="loginBrandPanel">
+
+                <div class="brandPanelContent">
+
+                    <div class="controlCenterMark">
+
+                        <img
+                            src="../images/branding/logos/ec-gold-logo.png"
+                            alt="Echo Craft Studio"
+                        >
+
+                    </div>
+
+                    <p class="controlCenterEyebrow">
+
+                        Private Studio Operations
+
+                    </p>
+
+                    <h1 id="controlCenterTitle">
+
+                        Echo Craft
+                        <span>Control Center</span>
+
+                    </h1>
+
+                    <p class="controlCenterIntroduction">
+
+                        Secure access to the systems that power
+                        Echo Craft Studio, its partner network,
+                        business operations, and future creative tools.
+
+                    </p>
+
+                    <div class="controlCenterStatus">
+
+                        <span class="statusIndicator"></span>
+
+                        <span>Authorized access only</span>
+
+                    </div>
+
+                </div>
+
+                <div
+                    class="brandPanelFooter"
+                    aria-hidden="true"
+                >
+
+                    <span>EC</span>
+
+                    <div></div>
+
+                    <span>CONTROL</span>
+
+                </div>
+
+            </div>
+
+            <!-- ======================================
+                 LOGIN PANEL
+            ======================================= -->
+
+            <div class="loginFormPanel">
+
+                <div class="loginFormHeader">
+
+                    <span class="loginFormIcon">
+
+                        <i class="fa-solid fa-fingerprint"></i>
+
+                    </span>
+
+                    <p class="loginFormLabel">
+
+                        Administrator Authentication
+
+                    </p>
+
+                    <h2>
+
+                        Welcome Back
+
+                    </h2>
+
+                    <p>
+
+                        Enter your authorized Echo Craft administrator
+                        credentials to continue.
+
+                    </p>
+
+                </div>
+
+                <!-- ==================================
+                     LOGIN ALERT
+                =================================== -->
+
+                <div
+                    id="loginAlert"
+                    class="loginAlert"
+                    role="alert"
+                    aria-live="polite"
+                    hidden
+                >
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    <span id="loginAlertMessage">
+
+                        Unable to sign in. Please verify your credentials.
+
+                    </span>
+
+                </div>
+
+                <!-- ==================================
+                     LOGIN FORM
+                =================================== -->
+
+                <form
+                    id="adminLoginForm"
+                    class="adminLoginForm"
+                    autocomplete="on"
+                    novalidate
+                >
+
+                    <div class="formField">
+
+                        <label for="adminEmail">
+
+                            Administrator Email
+
+                        </label>
+
+                        <div class="inputShell">
+
+                            <i
+                                class="fa-regular fa-envelope"
+                                aria-hidden="true"
+                            ></i>
+
+                            <input
+                                id="adminEmail"
+                                name="email"
+                                type="email"
+                                inputmode="email"
+                                autocomplete="username"
+                                placeholder="name@echocraft.studio"
+                                required
+                                aria-describedby="adminEmailError"
+                            >
+
+                        </div>
+
+                        <span
+                            id="adminEmailError"
+                            class="fieldError"
+                            aria-live="polite"
+                        ></span>
+
+                    </div>
+
+                    <div class="formField">
+
+                        <div class="fieldLabelRow">
+
+                            <label for="adminPassword">
+
+                                Password
+
+                            </label>
+
+                            <button
+                                id="forgotPasswordButton"
+                                class="textButton"
+                                type="button"
+                            >
+
+                                Forgot password?
+
+                            </button>
+
+                        </div>
+
+                        <div class="inputShell">
+
+                            <i
+                                class="fa-solid fa-lock"
+                                aria-hidden="true"
+                            ></i>
+
+                            <input
+                                id="adminPassword"
+                                name="password"
+                                type="password"
+                                autocomplete="current-password"
+                                placeholder="Enter your password"
+                                required
+                                aria-describedby="adminPasswordError"
+                            >
+
+                            <button
+                                id="togglePasswordButton"
+                                class="passwordToggle"
+                                type="button"
+                                aria-label="Show password"
+                                aria-pressed="false"
+                            >
+
+                                <i
+                                    class="fa-regular fa-eye"
+                                    aria-hidden="true"
+                                ></i>
+
+                            </button>
+
+                        </div>
+
+                        <span
+                            id="adminPasswordError"
+                            class="fieldError"
+                            aria-live="polite"
+                        ></span>
+
+                    </div>
+
+                    <label class="rememberSession">
+
+                        <input
+                            id="rememberSession"
+                            name="rememberSession"
+                            type="checkbox"
+                        >
+
+                        <span class="customCheckbox">
+
+                            <i class="fa-solid fa-check"></i>
+
+                        </span>
+
+                        <span>
+
+                            Keep this device signed in
+
+                        </span>
+
+                    </label>
+
+                    <button
+                        id="adminLoginButton"
+                        class="adminLoginButton"
+                        type="submit"
+                    >
+
+                        <span class="buttonDefaultContent">
+
+                            Enter Control Center
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </span>
+
+                        <span
+                            class="buttonLoadingContent"
+                            aria-hidden="true"
+                        >
+
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+
+                            Verifying Access
+
+                        </span>
+
+                    </button>
+
+                </form>
+
+                <!-- ==================================
+                     SECURITY NOTE
+                =================================== -->
+
+                <div class="loginSecurityNotice">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <p>
+
+                        This private system is restricted to authorized
+                        Echo Craft administrators. Access attempts may
+                        be recorded for security purposes.
+
+                    </p>
+
+                </div>
+
+                <p class="loginCopyright">
+
+                    &copy;
+                    <span id="currentYear"></span>
+                    Echo Craft Studio. All rights reserved.
+
+                </p>
+
+            </div>
+
+        </section>
+
+    </main>
+    
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/admin-auth.js"></script>
+
+</body>
+
+</html>
