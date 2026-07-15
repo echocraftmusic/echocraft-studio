@@ -1,6 +1,6 @@
 /* ==========================================
    Echo Craft Mobile Carousels
-   Featured Work • Creative Services • Process
+   Supports static and dynamically loaded cards
 ========================================== */
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -42,9 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const firstCard = cards[0];
-
-            const trackStyles =
-                window.getComputedStyle(track);
+            const trackStyles = window.getComputedStyle(track);
 
             const gap =
                 parseFloat(trackStyles.columnGap) ||
@@ -65,15 +63,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         };
 
-        previousButton.addEventListener("click", () => {
-            scrollCarousel(-1);
-        });
-
-        nextButton.addEventListener("click", () => {
-            scrollCarousel(1);
-        });
-
         const updateButtons = () => {
+
+            const cards = getCards();
+
+            if (cards.length === 0) {
+                previousButton.disabled = true;
+                nextButton.disabled = true;
+                return;
+            }
 
             const maximumScroll =
                 track.scrollWidth - track.clientWidth;
@@ -85,9 +83,17 @@ document.addEventListener("DOMContentLoaded", () => {
                 currentScroll <= 5;
 
             nextButton.disabled =
+                maximumScroll <= 5 ||
                 currentScroll >= maximumScroll - 5;
-
         };
+
+        previousButton.addEventListener("click", () => {
+            scrollCarousel(-1);
+        });
+
+        nextButton.addEventListener("click", () => {
+            scrollCarousel(1);
+        });
 
         track.addEventListener(
             "scroll",
@@ -99,6 +105,21 @@ document.addEventListener("DOMContentLoaded", () => {
             "resize",
             updateButtons
         );
+
+        const cardObserver = new MutationObserver(() => {
+
+            requestAnimationFrame(() => {
+
+                track.scrollLeft = 0;
+                updateButtons();
+
+            });
+
+        });
+
+        cardObserver.observe(track, {
+            childList: true
+        });
 
         updateButtons();
 
