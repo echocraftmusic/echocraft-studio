@@ -902,3 +902,25 @@ a {
     }
 
 }
+
+/* ==========================================
+   LOWER SECTION HEADING REFINEMENT
+========================================== */
+
+@media (min-width: 901px) {
+
+    .partnerFaqSection .partnerSectionIntroduction h2 {
+        font-size: clamp(2.4rem, 3.6vw, 3.7rem);
+    }
+
+    .partnerProgramCallToAction h2 {
+        font-size: clamp(2.4rem, 3.8vw, 3.9rem);
+        max-width: 760px;
+    }
+
+    .partnerProgramCallToAction {
+        padding-top: 32px;
+        padding-bottom: 32px;
+    }
+
+}
