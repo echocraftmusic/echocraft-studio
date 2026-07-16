@@ -1548,3 +1548,55 @@ a {
 
 }
 
+/* ==========================================
+   PARTNER IDENTITY + METRIC ALIGNMENT
+========================================== */
+
+.partnerSidebarAvatar {
+    font-family: "Inter", sans-serif;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    line-height: 1;
+    text-align: center;
+}
+
+@media (min-width: 901px) {
+
+    .partnerMetricCard {
+        display: grid;
+        grid-template-columns: 48px minmax(0, 1fr);
+        align-items: center;
+        column-gap: 16px;
+    }
+
+    .partnerMetricIcon {
+        width: 48px;
+        height: 48px;
+        align-self: center;
+        justify-self: start;
+    }
+
+    .partnerMetricCard > div {
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    .partnerMetricCard div > span {
+        min-height: 18px;
+        display: flex;
+        align-items: center;
+        line-height: 1.25;
+        white-space: nowrap;
+    }
+
+    .partnerMetricCard strong {
+        margin-top: 7px;
+        line-height: 1;
+    }
+
+}
+

@@ -48,6 +48,11 @@ document.addEventListener("DOMContentLoaded", () => {
             "#partnerRefreshButton"
         );
 
+        const sidebarInitials =
+    document.querySelector(
+        "#partnerSidebarInitials"
+    );
+
     const sidebarName =
         document.querySelector(
             "#partnerSidebarName"
@@ -229,6 +234,33 @@ document.addEventListener("DOMContentLoaded", () => {
         );
 
     }
+
+    function getInitials(fullName) {
+
+    const nameParts =
+        String(fullName || "")
+            .trim()
+            .split(/\s+/)
+            .filter(Boolean);
+
+    if (!nameParts.length) {
+        return "EC";
+    }
+
+    if (nameParts.length === 1) {
+
+        return nameParts[0]
+            .slice(0, 2)
+            .toUpperCase();
+
+    }
+
+    return (
+        nameParts[0][0] +
+        nameParts[nameParts.length - 1][0]
+    ).toUpperCase();
+
+}
 
     function getFirstName(fullName) {
 
@@ -442,6 +474,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const fullName =
             partner?.full_name ||
+            const initials =
+    getInitials(fullName);
             "Echo Craft Partner";
 
         const email =
@@ -455,6 +489,13 @@ document.addEventListener("DOMContentLoaded", () => {
             Number(
                 partner?.commission_rate || 0
             );
+            
+            if (sidebarInitials) {
+
+    sidebarInitials.textContent =
+        initials;
+
+}
 
         if (sidebarName) {
             sidebarName.textContent =
