@@ -1600,3 +1600,146 @@ a {
 
 }
 
+/* ==========================================
+   MOBILE PARTNER TABLE CARDS
+========================================== */
+
+@media (max-width: 600px) {
+
+    .partnerTableCard,
+    .partnerTableScroll {
+        width: 100%;
+        overflow: visible;
+    }
+
+    .partnerDataTable {
+        width: 100%;
+        min-width: 0;
+        display: block;
+    }
+
+    .partnerDataTable thead {
+        display: none;
+    }
+
+    .partnerDataTable tbody {
+        display: grid;
+        gap: 14px;
+        padding: 14px;
+    }
+
+    .partnerDataTable tr {
+        display: grid;
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid rgba(216, 179, 90, 0.18);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+    }
+
+    .partnerDataTable td {
+        width: 100%;
+        min-width: 0;
+        padding: 14px 16px;
+        display: grid;
+        grid-template-columns: 118px minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+        border-bottom: 1px solid rgba(216, 179, 90, 0.12);
+        color: var(--ec-text);
+        font-size: 0.82rem;
+        line-height: 1.45;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .partnerDataTable td:last-child {
+        border-bottom: 0;
+    }
+
+    .partnerDataTable td::before {
+        color: var(--ec-gold);
+        font-size: 0.67rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+    }
+
+
+    /* REFERRAL ACTIVITY */
+
+    #activity .partnerDataTable td:nth-child(1)::before {
+        content: "Date";
+    }
+
+    #activity .partnerDataTable td:nth-child(2)::before {
+        content: "Destination";
+    }
+
+    #activity .partnerDataTable td:nth-child(3)::before {
+        content: "Source";
+    }
+
+    #activity .partnerDataTable td:nth-child(4)::before {
+        content: "Status";
+    }
+
+
+    /* COMMISSIONS */
+
+    #commissions .partnerDataTable td:nth-child(1)::before {
+        content: "Client";
+    }
+
+    #commissions .partnerDataTable td:nth-child(2)::before {
+        content: "Project";
+    }
+
+    #commissions .partnerDataTable td:nth-child(3)::before {
+        content: "Commission";
+    }
+
+    #commissions .partnerDataTable td:nth-child(4)::before {
+        content: "Status";
+    }
+
+
+    /* PAYOUTS */
+
+    #payouts .partnerDataTable td:nth-child(1)::before {
+        content: "Date";
+    }
+
+    #payouts .partnerDataTable td:nth-child(2)::before {
+        content: "Amount";
+    }
+
+    #payouts .partnerDataTable td:nth-child(3)::before {
+        content: "Method";
+    }
+
+    #payouts .partnerDataTable td:nth-child(4)::before {
+        content: "Status";
+    }
+
+
+    /* EMPTY TABLE MESSAGES */
+
+    .partnerDataTable td.partnerEmptyTable {
+        min-height: 130px;
+        padding: 26px 20px;
+        display: grid;
+        place-items: center;
+        grid-template-columns: 1fr;
+        text-align: center;
+        color: var(--ec-muted);
+    }
+
+    .partnerDataTable td.partnerEmptyTable::before {
+        display: none;
+        content: none;
+    }
+
+}
+
