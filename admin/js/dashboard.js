@@ -247,10 +247,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             "#closePartnerDetailsFooter"
         );
 
-    const savePartnerDetailsButton =
-        document.querySelector(
-            "#savePartnerDetails"
-        );
+    const removePartnerFromProgramButton =
+    document.querySelector(
+        "#removePartnerFromProgram"
+    );
 
     const partnerDetailsName =
         document.querySelector(
@@ -2657,6 +2657,103 @@ showToast(
         }
     );
 
+    /* ======================================
+   REMOVE PARTNER FROM PROGRAM
+====================================== */
+
+removePartnerFromProgramButton?.addEventListener(
+    "click",
+    async () => {
+
+        if (
+            !selectedPartner ||
+            !supabaseClient
+        ) {
+            return;
+        }
+
+        const partnerName =
+            selectedPartner.full_name ||
+            "this partner";
+
+        const confirmed =
+            window.confirm(
+                `Remove ${partnerName} from the Echo Craft Partner Program?\n\nTheir account will be closed, but referral and financial history will be preserved.`
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        removePartnerFromProgramButton.disabled =
+            true;
+
+        removePartnerFromProgramButton.classList.add(
+            "isLoading"
+        );
+
+        try {
+
+            const {
+                data: removalResult,
+                error: removalError
+            } = await supabaseClient.rpc(
+                "remove_partner_from_program",
+                {
+                    p_partner_id:
+                        selectedPartner.id
+                }
+            );
+
+            if (removalError) {
+                throw removalError;
+            }
+
+            if (
+                !removalResult ||
+                removalResult.success !== true
+            ) {
+
+                throw new Error(
+                    "Partner removal was not confirmed."
+                );
+
+            }
+
+            closePartnerDetails();
+
+            showToast(
+                `${partnerName} was removed from the partner program.`
+            );
+
+            selectedPartner = null;
+
+            await loadDashboardData(false);
+
+        } catch (error) {
+
+            console.error(
+                "Unable to remove partner:",
+                error
+            );
+
+            showToast(
+                "Unable to remove this partner from the program."
+            );
+
+        } finally {
+
+            removePartnerFromProgramButton.disabled =
+                false;
+
+            removePartnerFromProgramButton.classList.remove(
+                "isLoading"
+            );
+
+        }
+
+    }
+);
 
     /* ======================================
            /* ======================================

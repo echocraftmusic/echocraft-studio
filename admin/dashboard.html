@@ -1827,19 +1827,40 @@
 
         <footer class="partnerDetailsFooter">
 
-            <button
-                id="closePartnerDetailsFooter"
-                class="secondaryDashboardButton"
-                type="button"
-            >
-                Close
-            </button>
+    <button
+        id="removePartnerFromProgram"
+        class="removePartnerButton"
+        type="button"
+    >
+        <span class="removePartnerDefault">
+            <i class="fa-solid fa-user-slash"></i>
+            Remove from Program
+        </span>
 
-            <button
-                id="savePartnerDetails"
-                class="primaryDashboardButton"
-                type="button"
-            >
+        <span
+            class="removePartnerLoading"
+            aria-hidden="true"
+        >
+            <i class="fa-solid fa-spinner fa-spin"></i>
+            Removing
+        </span>
+    </button>
+
+    <div class="partnerDetailsFooterActions">
+
+        <button
+            id="closePartnerDetailsFooter"
+            class="secondaryDashboardButton"
+            type="button"
+        >
+            Close
+        </button>
+
+        <button
+            id="savePartnerDetails"
+            class="primaryDashboardButton"
+            type="button"
+        >
 
                 <span class="partnerDetailsSaveDefault">
                     <i class="fa-solid fa-floppy-disk"></i>
@@ -1855,6 +1876,8 @@
                 </span>
 
             </button>
+
+</div>
 
         </footer>
 
