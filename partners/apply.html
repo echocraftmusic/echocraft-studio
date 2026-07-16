@@ -469,6 +469,28 @@
 
                     </div>
 
+<div class="applicationField applicationFieldFull">
+
+    <label>
+        Security Verification
+        <span aria-hidden="true">*</span>
+    </label>
+
+    <div
+        id="partnerTurnstile"
+        class="cf-turnstile"
+        data-sitekey="0x4AAAAAAD3G-jMEDlGbwFtC"
+        data-theme="dark"
+    ></div>
+
+    <span
+        id="partnerTurnstileError"
+        class="applicationFieldError"
+        aria-live="polite"
+    ></span>
+
+</div>
+
                     <label class="applicationAgreement">
 
                         <input
@@ -535,7 +557,11 @@
         </section>
 
     </main>
-
+<script
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    async
+    defer
+></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="../admin/js/supabase-config.js"></script>
     <script src="js/apply.js"></script>

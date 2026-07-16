@@ -626,18 +626,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
             try {
 
-                const {
-                    data,
-                    error
-                } = await supabaseClient.rpc(
-                    "submit_partner_application",
-                    validation.data
-                );
+                const turnstileToken =
+    document.querySelector(
+        '[name="cf-turnstile-response"]'
+    )?.value || "";
+
+if (!turnstileToken) {
+
+    showAlert(
+        "Complete the security verification before submitting."
+    );
+
+    window.turnstile?.reset();
+
+    return;
+
+}
+
+const {
+    data,
+    error
+} = await supabaseClient.functions.invoke(
+    "submit-partner-application",
+    {
+        body: {
+            ...validation.data,
+            turnstile_token:
+                turnstileToken,
+            website_confirm:
+                ""
+        }
+    }
+);
+
 
                 if (error) {
-                    throw error;
-                }
+    throw error;
+}
 
+if (!data?.success) {
+
+    throw new Error(
+        data?.message ||
+        "The application could not be submitted."
+    );
+
+}
                 if (!data) {
 
                     throw new Error(
@@ -738,9 +772,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
             } finally {
 
-                setLoadingState(false);
+    setLoadingState(false);
 
-            }
+    window.turnstile?.reset();
+
+}
 
         }
     );
