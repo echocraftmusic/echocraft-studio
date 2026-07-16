@@ -1669,73 +1669,257 @@ downloadPartnerQrButton?.addEventListener(
     }
 );
 
-        /* ======================================
-       RENDER APPLICATIONS
-    ====================================== */
+/* ======================================
+   DELETE APPLICATIONS
+====================================== */
 
-    function renderApplications(
-        applications
+async function deleteApplications(
+    applicationIds
+) {
+
+    if (
+        !supabaseClient ||
+        !applicationIds.length
     ) {
+        return;
+    }
 
-        const existingState =
-            applicationsSection?.querySelector(
-                ".dashboardEmptyState"
+    const applicationsToDelete =
+        loadedApplications.filter(
+            application =>
+                applicationIds.includes(
+                    application.id
+                )
+        );
+
+    const protectedApplication =
+        applicationsToDelete.find(
+            application =>
+                application.status ===
+                "approved"
+        );
+
+    if (protectedApplication) {
+
+        showToast(
+            "Approved applications cannot be deleted from application cleanup."
+        );
+
+        return;
+
+    }
+
+    const confirmed =
+        window.confirm(
+            applicationIds.length === 1
+                ? "Permanently delete this application?"
+                : `Permanently delete ${applicationIds.length} selected applications?`
+        );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+
+        for (
+            const applicationId
+            of applicationIds
+        ) {
+
+            const {
+                data: deleteResult,
+                error: deleteError
+            } = await supabaseClient.rpc(
+                "delete_partner_application",
+                {
+                    p_application_id:
+                        applicationId
+                }
+            );
+
+            if (deleteError) {
+                throw deleteError;
+            }
+
+            if (
+                !deleteResult ||
+                deleteResult.success !== true
+            ) {
+
+                throw new Error(
+                    "Application deletion was not confirmed."
+                );
+
+            }
+
+        }
+
+        showToast(
+            applicationIds.length === 1
+                ? "Application deleted."
+                : `${applicationIds.length} applications deleted.`
+        );
+
+        await loadDashboardData(false);
+
+    } catch (error) {
+
+        console.error(
+            "Unable to delete application:",
+            error
+        );
+
+        const errorMessage =
+            String(
+                error?.message || ""
             );
 
         if (
-            !applicationsSection ||
-            !existingState
+            errorMessage.includes(
+                "Approved applications"
+            )
         ) {
-            return;
+
+            showToast(
+                "Approved applications cannot be deleted here."
+            );
+
+        } else {
+
+            showToast(
+                "Unable to delete the selected application."
+            );
+
         }
 
-        if (!applications.length) {
+    }
 
-            existingState.innerHTML = `
-                <span class="dashboardEmptyStateIcon">
-                    <i class="fa-solid fa-user-check"></i>
-                </span>
+}
 
-                <h3>No Applications Yet</h3>
 
-                <p>
-                    New public partner applications
-                    will appear here automatically.
-                </p>
+/* ======================================
+   RENDER APPLICATIONS
+====================================== */
 
-                <a
-                    class="primaryDashboardButton"
-                    href="../partners/apply.html"
-                >
-                    Preview Application Page
-                </a>
-            `;
+function renderApplications(
+    applications
+) {
 
-            return;
-        }
+    const existingState =
+        applicationsSection?.querySelector(
+            ".dashboardEmptyState"
+        );
+
+    if (
+        !applicationsSection ||
+        !existingState
+    ) {
+        return;
+    }
+
+    if (!applications.length) {
 
         existingState.innerHTML = `
-            <div class="ec-table-wrapper">
+            <span class="dashboardEmptyStateIcon">
+                <i class="fa-solid fa-user-check"></i>
+            </span>
 
-                <table class="ec-table">
+            <h3>No Applications Yet</h3>
 
-                    <thead>
+            <p>
+                New public partner applications
+                will appear here automatically.
+            </p>
 
-                        <tr>
-                            <th>Applicant</th>
-                            <th>Business</th>
-                            <th>Status</th>
-                            <th>Submitted</th>
-                            <th>Action</th>
-                        </tr>
+            <a
+                class="primaryDashboardButton"
+                href="../partners/apply.html"
+            >
+                Preview Application Page
+            </a>
+        `;
 
-                    </thead>
+        return;
+    }
 
-                    <tbody>
+    existingState.innerHTML = `
+        <div class="applicationCleanupToolbar">
 
-                        ${applications.map(
-                            application => `
+            <button
+                id="deleteSelectedApplications"
+                class="applicationBulkDeleteButton"
+                type="button"
+                disabled
+            >
+                <i class="fa-solid fa-trash-can"></i>
+
+                Delete Selected
+
+                <span id="selectedApplicationCount">
+                    0
+                </span>
+            </button>
+
+        </div>
+
+        <div class="ec-table-wrapper">
+
+            <table class="ec-table">
+
+                <thead>
+
+                    <tr>
+
+                        <th class="applicationCheckboxColumn">
+
+                            <input
+                                id="selectAllApplications"
+                                type="checkbox"
+                                aria-label="Select all deletable applications"
+                            >
+
+                        </th>
+
+                        <th>Applicant</th>
+                        <th>Business</th>
+                        <th>Status</th>
+                        <th>Submitted</th>
+                        <th>Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    ${applications.map(
+                        application => {
+
+                            const isApproved =
+                                application.status ===
+                                "approved";
+
+                            return `
                                 <tr>
+
+                                    <td class="applicationCheckboxColumn">
+
+                                        <input
+                                            class="applicationSelectCheckbox"
+                                            type="checkbox"
+                                            value="${escapeHtml(
+                                                application.id
+                                            )}"
+                                            aria-label="Select ${escapeHtml(
+                                                application.full_name
+                                            )}"
+                                            ${isApproved
+                                                ? "disabled"
+                                                : ""}
+                                        >
+
+                                    </td>
 
                                     <td>
 
@@ -1784,50 +1968,215 @@ downloadPartnerQrButton?.addEventListener(
 
                                     <td>
 
-                                        <button
-                                            class="applicationReviewButton"
-                                            type="button"
-                                            data-application-id="${escapeHtml(
-                                                application.id
-                                            )}"
-                                        >
-                                            <i class="fa-solid fa-magnifying-glass"></i>
-                                            Review
-                                        </button>
+                                        <div class="applicationRowActions">
+
+                                            <button
+                                                class="applicationReviewButton"
+                                                type="button"
+                                                data-application-id="${escapeHtml(
+                                                    application.id
+                                                )}"
+                                            >
+                                                <i class="fa-solid fa-magnifying-glass"></i>
+
+                                                Review
+                                            </button>
+
+                                            <button
+                                                class="applicationDeleteButton"
+                                                type="button"
+                                                data-application-id="${escapeHtml(
+                                                    application.id
+                                                )}"
+                                                aria-label="Delete ${escapeHtml(
+                                                    application.full_name
+                                                )}"
+                                                title="${isApproved
+                                                    ? "Approved applications are protected"
+                                                    : "Delete application"}"
+                                                ${isApproved
+                                                    ? "disabled"
+                                                    : ""}
+                                            >
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </button>
+
+                                        </div>
 
                                     </td>
 
                                 </tr>
-                            `
-                        ).join("")}
+                            `;
 
-                    </tbody>
+                        }
+                    ).join("")}
 
-                </table>
+                </tbody>
 
-            </div>
-        `;
+            </table>
 
-        existingState
-            .querySelectorAll(
-                ".applicationReviewButton"
+        </div>
+    `;
+
+
+    const selectAllCheckbox =
+        existingState.querySelector(
+            "#selectAllApplications"
+        );
+
+    const deleteSelectedButton =
+        existingState.querySelector(
+            "#deleteSelectedApplications"
+        );
+
+    const selectedCount =
+        existingState.querySelector(
+            "#selectedApplicationCount"
+        );
+
+    const selectableCheckboxes =
+        Array.from(
+            existingState.querySelectorAll(
+                ".applicationSelectCheckbox:not(:disabled)"
             )
-            .forEach(button => {
+        );
 
-                button.addEventListener(
-                    "click",
-                    () => {
 
-                        openApplicationReview(
-                            button.dataset.applicationId
-                        );
+    function updateSelectedApplications() {
 
-                    }
+        const checkedCheckboxes =
+            selectableCheckboxes.filter(
+                checkbox =>
+                    checkbox.checked
+            );
+
+        if (selectedCount) {
+
+            selectedCount.textContent =
+                String(
+                    checkedCheckboxes.length
                 );
 
-            });
+        }
+
+        if (deleteSelectedButton) {
+
+            deleteSelectedButton.disabled =
+                checkedCheckboxes.length === 0;
+
+        }
+
+        if (selectAllCheckbox) {
+
+            selectAllCheckbox.checked =
+                selectableCheckboxes.length > 0 &&
+                checkedCheckboxes.length ===
+                    selectableCheckboxes.length;
+
+            selectAllCheckbox.indeterminate =
+                checkedCheckboxes.length > 0 &&
+                checkedCheckboxes.length <
+                    selectableCheckboxes.length;
+
+        }
 
     }
+
+
+    existingState
+        .querySelectorAll(
+            ".applicationReviewButton"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                () => {
+
+                    openApplicationReview(
+                        button.dataset.applicationId
+                    );
+
+                }
+            );
+
+        });
+
+
+    existingState
+        .querySelectorAll(
+            ".applicationDeleteButton:not(:disabled)"
+        )
+        .forEach(button => {
+
+            button.addEventListener(
+                "click",
+                async () => {
+
+                    await deleteApplications([
+                        button.dataset.applicationId
+                    ]);
+
+                }
+            );
+
+        });
+
+
+    selectableCheckboxes.forEach(
+        checkbox => {
+
+            checkbox.addEventListener(
+                "change",
+                updateSelectedApplications
+            );
+
+        }
+    );
+
+
+    selectAllCheckbox?.addEventListener(
+        "change",
+        () => {
+
+            selectableCheckboxes.forEach(
+                checkbox => {
+
+                    checkbox.checked =
+                        selectAllCheckbox.checked;
+
+                }
+            );
+
+            updateSelectedApplications();
+
+        }
+    );
+
+
+    deleteSelectedButton?.addEventListener(
+        "click",
+        async () => {
+
+            const selectedIds =
+                selectableCheckboxes
+                    .filter(
+                        checkbox =>
+                            checkbox.checked
+                    )
+                    .map(
+                        checkbox =>
+                            checkbox.value
+                    );
+
+            await deleteApplications(
+                selectedIds
+            );
+
+        }
+    );
+
+}
 
         /* ======================================
        RENDER PARTNERS

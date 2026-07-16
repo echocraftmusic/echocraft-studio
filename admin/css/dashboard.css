@@ -2313,3 +2313,112 @@ body.partnerDetailsOpen {
     }
 
 }
+
+/* ==========================================
+   APPLICATION CLEANUP CONTROLS
+========================================== */
+
+.applicationCleanupToolbar {
+    margin-bottom: 14px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.applicationBulkDeleteButton {
+    min-height: 40px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid rgba(255, 107, 107, 0.28);
+    border-radius: 10px;
+    color: #ffb2b2;
+    background: rgba(255, 71, 71, 0.07);
+    font-size: 0.76rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.applicationBulkDeleteButton:hover:not(:disabled) {
+    border-color: rgba(255, 107, 107, 0.48);
+    background: rgba(255, 71, 71, 0.12);
+}
+
+.applicationBulkDeleteButton:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+}
+
+.applicationBulkDeleteButton span {
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
+    display: inline-grid;
+    place-items: center;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.08);
+    font-size: 0.68rem;
+}
+
+.applicationCheckboxColumn {
+    width: 46px;
+    text-align: center !important;
+}
+
+.applicationCheckboxColumn input {
+    width: 16px;
+    height: 16px;
+    accent-color: #d8b35a;
+    cursor: pointer;
+}
+
+.applicationCheckboxColumn input:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+}
+
+.applicationRowActions {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.applicationDeleteButton {
+    width: 38px;
+    height: 38px;
+    display: inline-grid;
+    place-items: center;
+    border: 1px solid rgba(255, 107, 107, 0.24);
+    border-radius: 10px;
+    color: #ff9b9b;
+    background: rgba(255, 71, 71, 0.06);
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.applicationDeleteButton:hover:not(:disabled) {
+    transform: translateY(-1px);
+    border-color: rgba(255, 107, 107, 0.48);
+    background: rgba(255, 71, 71, 0.12);
+}
+
+.applicationDeleteButton:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+@media (max-width: 720px) {
+
+    .applicationCleanupToolbar {
+        justify-content: stretch;
+    }
+
+    .applicationBulkDeleteButton {
+        width: 100%;
+        justify-content: center;
+    }
+
+}
