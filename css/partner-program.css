@@ -939,3 +939,15 @@ a {
 
 }
 
+/* ==========================================
+   HERO TITLE REFINEMENT
+========================================== */
+
+@media (min-width: 901px) {
+
+    .partnerHeroContent h1 {
+        font-size: clamp(3.6rem, 5.8vw, 6rem);
+        line-height: 0.94;
+    }
+
+}
