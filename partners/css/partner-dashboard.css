@@ -1462,3 +1462,89 @@ a {
 .partnerDashboardLoader[hidden] {
     display: none;
 }
+
+/* ==========================================
+   DESKTOP COMPACT DASHBOARD LAYOUT
+========================================== */
+
+@media (min-width: 901px) {
+
+    .partnerDashboardMain {
+        padding-bottom: 48px;
+    }
+
+    .partnerDashboardHeader {
+        min-height: 104px;
+    }
+
+    .partnerDashboardSection {
+        padding-top: 34px;
+    }
+
+    .partnerSectionHeading {
+        margin-bottom: 16px;
+    }
+
+    .partnerMetricGrid {
+        gap: 14px;
+    }
+
+    .partnerMetricCard {
+        min-height: 118px;
+        padding: 18px 20px;
+        gap: 14px;
+    }
+
+    .partnerMetricIcon {
+        width: 46px;
+        height: 46px;
+        border-radius: 13px;
+        font-size: 1.05rem;
+    }
+
+    .partnerMetricCard strong {
+        margin-top: 6px;
+        font-size: 2rem;
+    }
+
+    .partnerReferralToolGrid {
+        gap: 16px;
+    }
+
+    .partnerReferralLinkCard {
+        min-height: 240px;
+        padding: 24px 26px;
+    }
+
+    .partnerReferralLinkCard h3 {
+        margin: 10px 0 18px;
+        font-size: 1.9rem;
+    }
+
+    .partnerReferralLinkShell {
+        min-height: 52px;
+    }
+
+    .partnerQrCard {
+        min-height: 240px;
+        padding: 22px;
+    }
+
+    .partnerQrCode {
+        width: 165px;
+        height: 165px;
+        margin: 14px 0;
+        padding: 10px;
+    }
+
+    .partnerDownloadQrButton {
+        min-height: 40px;
+    }
+
+    .partnerDataTable th,
+    .partnerDataTable td {
+        padding: 14px 18px;
+    }
+
+}
+
