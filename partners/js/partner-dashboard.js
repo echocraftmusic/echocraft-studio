@@ -472,24 +472,25 @@ document.addEventListener("DOMContentLoaded", () => {
         partner
     ) {
 
-        const fullName =
-            partner?.full_name ||
-            const initials =
+const fullName =
+    partner?.full_name ||
+    "Echo Craft Partner";
+
+const email =
+    partner?.email ||
+    "";
+
+const firstName =
+    getFirstName(fullName);
+
+const initials =
     getInitials(fullName);
-            "Echo Craft Partner";
-
-        const email =
-            partner?.email ||
-            "";
-
-        const firstName =
-            getFirstName(fullName);
-
+    
         const rate =
             Number(
                 partner?.commission_rate || 0
             );
-            
+
             if (sidebarInitials) {
 
     sidebarInitials.textContent =
