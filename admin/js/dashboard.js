@@ -2078,40 +2078,49 @@ downloadPartnerQrButton?.addEventListener(
                     }
 
                     const {
-                        data: approvalResult,
-                        error: approvalError
-                    } = await supabaseClient.rpc(
-                        "approve_partner_application",
-                        {
-                            p_application_id:
-                                selectedApplication.id,
+    data: onboardingResult,
+    error: onboardingError
+} =
+    await supabaseClient.functions.invoke(
+        "approve-partner-onboarding",
+        {
+            body: {
+                application_id:
+                    selectedApplication.id,
 
-                            p_administrator_notes:
-                                administratorNotes
-                        }
-                    );
+                administrator_notes:
+                    administratorNotes
+            }
+        }
+    );
 
-                    if (approvalError) {
-                        throw approvalError;
-                    }
+if (onboardingError) {
+    throw onboardingError;
+}
 
-                    if (
-                        !approvalResult ||
-                        approvalResult.success !== true
-                    ) {
+if (
+    !onboardingResult ||
+    onboardingResult.success !== true ||
+    !onboardingResult.partner
+) {
 
-                        throw new Error(
-                            "Partner approval did not return a valid confirmation."
-                        );
+    throw new Error(
+        onboardingResult?.message ||
+        "Partner onboarding did not return a valid confirmation."
+    );
 
-                    }
+}
 
-                    closeApplicationReview();
+const approvedPartner =
+    onboardingResult.partner;
 
-                    showToast(
-                        `Application approved. Referral code ${approvalResult.referral_code} was created.`
-                    );
+closeApplicationReview();
 
+showToast(
+    onboardingResult.invited
+        ? `Application approved. ${approvedPartner.email} was invited to create a partner password.`
+        : `Application approved. The existing login for ${approvedPartner.email} was connected.`
+);
                     await loadDashboardData(false);
 
                     return;
