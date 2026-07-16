@@ -985,3 +985,86 @@ img {
     }
 
 }
+
+/* ==========================================
+   COMPACT DESKTOP APPLICATION LAYOUT
+========================================== */
+
+@media (min-width: 901px) {
+
+    .partnerApplicationExperience {
+        padding-block: 28px;
+    }
+
+    .applicationShell {
+        min-height: auto;
+    }
+
+    .applicationIntroduction,
+    .applicationFormPanel {
+        padding: 42px;
+    }
+
+    .applicationBrand {
+        margin-bottom: 40px;
+    }
+
+    .applicationLead {
+        margin: 18px 0 28px;
+    }
+
+    .applicationBenefits {
+        gap: 12px;
+    }
+
+    .applicationBenefits article {
+        padding: 14px;
+    }
+
+    .applicationFormHeader {
+        margin-bottom: 22px;
+    }
+
+    .partnerApplicationForm {
+        gap: 18px;
+    }
+
+    .applicationFormGrid {
+        gap: 16px;
+    }
+
+    .applicationField {
+        gap: 7px;
+    }
+
+    .applicationInputShell {
+        min-height: 50px;
+    }
+
+    .applicationTextareaShell textarea {
+        min-height: 120px;
+        padding: 14px 16px;
+    }
+
+    #applicantPartnershipReason,
+    #applicantReferralStrategy {
+        min-height: 135px;
+    }
+
+    .applicationAgreement {
+        margin-top: 2px;
+    }
+
+    .cf-turnstile {
+        margin-top: 2px;
+    }
+
+    .applicationSubmitButton {
+        min-height: 54px;
+    }
+
+    .applicationPrivacyNotice {
+        margin-top: 18px;
+    }
+
+}
