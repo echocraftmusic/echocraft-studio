@@ -873,3 +873,32 @@ a {
     }
 
 }
+
+/* ==========================================
+   COMPACT DESKTOP PROGRAM HERO
+========================================== */
+
+@media (min-width: 1101px) {
+
+    .partnerProgramHero {
+        min-height: 680px;
+        padding-top: 64px;
+        padding-bottom: 58px;
+        gap: 48px;
+    }
+
+    .partnerHeroLead {
+        margin-top: 24px;
+        margin-bottom: 18px;
+    }
+
+    .partnerHeroActions {
+        margin-top: 22px;
+    }
+
+    .partnerProgramSection {
+        padding-top: 64px;
+        padding-bottom: 64px;
+    }
+
+}
