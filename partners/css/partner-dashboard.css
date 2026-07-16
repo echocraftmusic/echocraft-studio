@@ -1458,3 +1458,7 @@ a {
     }
 
 }
+
+.partnerDashboardLoader[hidden] {
+    display: none;
+}
