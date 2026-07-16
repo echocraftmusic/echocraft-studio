@@ -246,7 +246,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         document.querySelector(
             "#closePartnerDetailsFooter"
         );
-
+const savePartnerDetailsButton =
+    document.querySelector(
+        "#savePartnerDetails"
+    );
+    
     const removePartnerFromProgramButton =
     document.querySelector(
         "#removePartnerFromProgram"
