@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow, noarchive"
+    >
+
+    <title>Partner Login | Echo Craft Studio</title>
+
+    <meta
+        name="description"
+        content="Secure partner access for the Echo Craft Participation Program."
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/partner-dashboard.css"
+    >
+
+</head>
+
+<body class="partnerLoginPage">
+
+    <main class="partnerLoginExperience">
+
+        <a
+            class="partnerReturnLink"
+            href="../partner-program.html"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+            Return to Partner Program
+        </a>
+
+        <section class="partnerLoginShell">
+
+            <aside class="partnerLoginBrandPanel">
+
+                <a
+                    class="partnerLoginBrand"
+                    href="../index.html"
+                    aria-label="Echo Craft Studio home"
+                >
+
+                    <img
+                        src="../images/branding/logos/ec-gold-logo.png"
+                        alt="Echo Craft Studio"
+                    >
+
+                    <div>
+                        <strong>Echo Craft</strong>
+                        <span>Participation Program</span>
+                    </div>
+
+                </a>
+
+                <p class="partnerLoginEyebrow">
+                    Private Partner Access
+                </p>
+
+                <h1>
+                    Welcome Back,
+                    <span>Partner.</span>
+                </h1>
+
+                <p class="partnerLoginLead">
+                    Access your referral link, QR code, tracked visits,
+                    qualified clients, commissions, and payout history.
+                </p>
+
+                <div class="partnerLoginFeatureList">
+
+                    <article>
+
+                        <i class="fa-solid fa-link"></i>
+
+                        <div>
+
+                            <strong>
+                                Your Referral Tools
+                            </strong>
+
+                            <span>
+                                Access your short link and downloadable QR code.
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <article>
+
+                        <i class="fa-solid fa-chart-line"></i>
+
+                        <div>
+
+                            <strong>
+                                Your Performance
+                            </strong>
+
+                            <span>
+                                Review visits, referrals, and completed clients.
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                    <article>
+
+                        <i class="fa-solid fa-wallet"></i>
+
+                        <div>
+
+                            <strong>
+                                Your Earnings
+                            </strong>
+
+                            <span>
+                                Monitor commissions and payout history.
+                            </span>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </aside>
+
+            <section class="partnerLoginFormPanel">
+
+                <div class="partnerLoginFormHeader">
+
+                    <span class="partnerLoginFormIcon">
+                        <i class="fa-solid fa-user-shield"></i>
+                    </span>
+
+                    <p class="partnerLoginFormLabel">
+                        Echo Craft Partner Portal
+                    </p>
+
+                    <h2>
+                        Sign In
+                    </h2>
+
+                    <p>
+                        Enter the email and password connected to your
+                        approved Echo Craft partner account.
+                    </p>
+
+                </div>
+
+                <div
+                    id="partnerLoginAlert"
+                    class="partnerLoginAlert"
+                    role="alert"
+                    aria-live="polite"
+                    hidden
+                >
+
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    <span id="partnerLoginAlertMessage"></span>
+
+                </div>
+
+                <form
+                    id="partnerLoginForm"
+                    class="partnerLoginForm"
+                    autocomplete="on"
+                    novalidate
+                >
+
+                    <div class="partnerLoginField">
+
+                        <label for="partnerEmail">
+                            Email Address
+                        </label>
+
+                        <div class="partnerInputShell">
+
+                            <i class="fa-regular fa-envelope"></i>
+
+                            <input
+                                id="partnerEmail"
+                                name="email"
+                                type="email"
+                                inputmode="email"
+                                autocomplete="username"
+                                placeholder="you@example.com"
+                                required
+                            >
+
+                        </div>
+
+                        <span
+                            id="partnerEmailError"
+                            class="partnerFieldError"
+                            aria-live="polite"
+                        ></span>
+
+                    </div>
+
+                    <div class="partnerLoginField">
+
+                        <div class="partnerFieldLabelRow">
+
+                            <label for="partnerPassword">
+                                Password
+                            </label>
+
+                            <button
+                                id="partnerForgotPasswordButton"
+                                class="partnerTextButton"
+                                type="button"
+                            >
+                                Forgot password?
+                            </button>
+
+                        </div>
+
+                        <div class="partnerInputShell">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <input
+                                id="partnerPassword"
+                                name="password"
+                                type="password"
+                                autocomplete="current-password"
+                                placeholder="Enter your password"
+                                required
+                            >
+
+                            <button
+                                id="partnerTogglePasswordButton"
+                                class="partnerPasswordToggle"
+                                type="button"
+                                aria-label="Show password"
+                                aria-pressed="false"
+                            >
+
+                                <i class="fa-regular fa-eye"></i>
+
+                            </button>
+
+                        </div>
+
+                        <span
+                            id="partnerPasswordError"
+                            class="partnerFieldError"
+                            aria-live="polite"
+                        ></span>
+
+                    </div>
+
+                    <button
+                        id="partnerLoginButton"
+                        class="partnerLoginButton"
+                        type="submit"
+                    >
+
+                        <span class="partnerLoginDefault">
+
+                            Enter Partner Portal
+
+                            <i class="fa-solid fa-arrow-right"></i>
+
+                        </span>
+
+                        <span
+                            class="partnerLoginLoading"
+                            aria-hidden="true"
+                        >
+
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+
+                            Verifying Access
+
+                        </span>
+
+                    </button>
+
+                </form>
+
+                <div class="partnerLoginSecurityNotice">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <p>
+                        Access is limited to approved Echo Craft partners.
+                    </p>
+
+                </div>
+
+                <p class="partnerLoginHelp">
+
+                    Not yet approved?
+
+                    <a href="apply.html">
+                        Apply to the program
+                    </a>
+
+                </p>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="../admin/js/supabase-config.js"></script>
+
+    <script src="js/partner-auth.js"></script>
+
+</body>
+
+</html>

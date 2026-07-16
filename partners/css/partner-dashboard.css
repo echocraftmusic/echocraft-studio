@@ -1,0 +1,1460 @@
+/* ==========================================
+   ECHO CRAFT PARTICIPATION PROGRAM
+   PARTNER LOGIN + DASHBOARD STYLES
+========================================== */
+
+:root {
+    --ec-black: #070707;
+    --ec-panel: #101010;
+    --ec-panel-soft: #171717;
+    --ec-gold: #d8b35a;
+    --ec-gold-bright: #f0cf78;
+    --ec-gold-dark: #8f6b25;
+    --ec-text: #f5f1e8;
+    --ec-muted: #aaa394;
+    --ec-border: rgba(216, 179, 90, 0.24);
+    --ec-danger: #ff8b8b;
+    --ec-shadow: 0 30px 80px rgba(0, 0, 0, 0.55);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    min-height: 100%;
+    background: var(--ec-black);
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+    color: var(--ec-text);
+    background:
+        radial-gradient(
+            circle at 15% 20%,
+            rgba(216, 179, 90, 0.13),
+            transparent 34%
+        ),
+        radial-gradient(
+            circle at 85% 80%,
+            rgba(216, 179, 90, 0.08),
+            transparent 30%
+        ),
+        linear-gradient(
+            145deg,
+            #050505,
+            #0d0d0d 48%,
+            #050505
+        );
+    font-family: "Inter", sans-serif;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+}
+
+.partnerLoginPage {
+    overflow-x: hidden;
+}
+
+.partnerLoginExperience {
+    position: relative;
+    min-height: 100vh;
+    padding: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partnerLoginExperience::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.28;
+    background-image:
+        linear-gradient(
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.025) 1px,
+            transparent 1px
+        );
+    background-size: 42px 42px;
+}
+
+.partnerReturnLink {
+    position: absolute;
+    top: 30px;
+    left: 34px;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ec-muted);
+    text-decoration: none;
+    font-size: 0.86rem;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.partnerReturnLink:hover {
+    color: var(--ec-gold-bright);
+    transform: translateX(-3px);
+}
+
+.partnerLoginShell {
+    position: relative;
+    z-index: 2;
+    width: min(1120px, 100%);
+    min-height: 680px;
+    display: grid;
+    grid-template-columns: 1.08fr 0.92fr;
+    overflow: hidden;
+    border: 1px solid var(--ec-border);
+    border-radius: 28px;
+    background: rgba(9, 9, 9, 0.92);
+    box-shadow: var(--ec-shadow);
+    backdrop-filter: blur(18px);
+}
+
+.partnerLoginBrandPanel,
+.partnerLoginFormPanel {
+    padding: 64px;
+}
+
+.partnerLoginBrandPanel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    border-right: 1px solid var(--ec-border);
+    background:
+        linear-gradient(
+            rgba(10, 10, 10, 0.9),
+            rgba(7, 7, 7, 0.96)
+        ),
+        repeating-linear-gradient(
+            96deg,
+            rgba(110, 72, 26, 0.22) 0,
+            rgba(110, 72, 26, 0.22) 2px,
+            rgba(36, 23, 10, 0.12) 2px,
+            rgba(36, 23, 10, 0.12) 9px
+        );
+}
+
+.partnerLoginBrandPanel::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            120deg,
+            transparent 15%,
+            rgba(255, 255, 255, 0.035) 42%,
+            transparent 62%
+        );
+}
+
+.partnerLoginBrand {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    width: fit-content;
+    margin-bottom: 72px;
+    text-decoration: none;
+}
+
+.partnerLoginBrand img {
+    width: 58px;
+    height: 58px;
+    object-fit: contain;
+}
+
+.partnerLoginBrand div {
+    display: flex;
+    flex-direction: column;
+}
+
+.partnerLoginBrand strong {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.65rem;
+    line-height: 1;
+    color: var(--ec-gold-bright);
+}
+
+.partnerLoginBrand span {
+    margin-top: 5px;
+    color: var(--ec-muted);
+    font-size: 0.73rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+}
+
+.partnerLoginEyebrow,
+.partnerLoginFormLabel {
+    margin: 0 0 14px;
+    color: var(--ec-gold);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+}
+
+.partnerLoginBrandPanel h1 {
+    position: relative;
+    z-index: 2;
+    max-width: 500px;
+    margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(3.2rem, 5vw, 5.6rem);
+    font-weight: 600;
+    line-height: 0.94;
+}
+
+.partnerLoginBrandPanel h1 span {
+    display: block;
+    color: var(--ec-gold-bright);
+}
+
+.partnerLoginLead {
+    position: relative;
+    z-index: 2;
+    max-width: 540px;
+    margin: 26px 0 38px;
+    color: var(--ec-muted);
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.partnerLoginFeatureList {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 18px;
+}
+
+.partnerLoginFeatureList article {
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 15px;
+    align-items: start;
+}
+
+.partnerLoginFeatureList article > i {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--ec-border);
+    border-radius: 13px;
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.07);
+}
+
+.partnerLoginFeatureList strong,
+.partnerLoginFeatureList span {
+    display: block;
+}
+
+.partnerLoginFeatureList strong {
+    margin-bottom: 5px;
+    font-size: 0.94rem;
+}
+
+.partnerLoginFeatureList span {
+    color: var(--ec-muted);
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+.partnerLoginFormPanel {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(20, 20, 20, 0.98),
+            rgba(11, 11, 11, 0.98)
+        );
+}
+
+.partnerLoginFormHeader {
+    margin-bottom: 30px;
+}
+
+.partnerLoginFormIcon {
+    width: 56px;
+    height: 56px;
+    margin-bottom: 22px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--ec-border);
+    border-radius: 16px;
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.08);
+    font-size: 1.25rem;
+}
+
+.partnerLoginFormHeader h2 {
+    margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+.partnerLoginFormHeader > p:last-child {
+    margin: 13px 0 0;
+    color: var(--ec-muted);
+    font-size: 0.9rem;
+    line-height: 1.65;
+}
+
+.partnerLoginAlert {
+    margin-bottom: 22px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    border: 1px solid rgba(255, 139, 139, 0.3);
+    border-radius: 12px;
+    color: #ffd2d2;
+    background: rgba(255, 71, 71, 0.09);
+    font-size: 0.84rem;
+    line-height: 1.45;
+}
+
+.partnerLoginAlert[hidden] {
+    display: none;
+}
+
+.partnerLoginForm {
+    display: grid;
+    gap: 22px;
+}
+
+.partnerLoginField {
+    display: grid;
+    gap: 9px;
+}
+
+.partnerFieldLabelRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+}
+
+.partnerLoginField label {
+    color: #e9e2d3;
+    font-size: 0.82rem;
+    font-weight: 600;
+}
+
+.partnerInputShell {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: 22px 1fr auto;
+    gap: 10px;
+    align-items: center;
+    padding: 0 17px;
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    border-radius: 13px;
+    background: rgba(255, 255, 255, 0.035);
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.partnerInputShell:focus-within {
+    border-color: var(--ec-gold);
+    background: rgba(216, 179, 90, 0.045);
+    box-shadow: 0 0 0 3px rgba(216, 179, 90, 0.09);
+}
+
+.partnerInputShell > i {
+    color: var(--ec-gold);
+}
+
+.partnerInputShell input {
+    width: 100%;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    color: var(--ec-text);
+    background: transparent;
+}
+
+.partnerInputShell input::placeholder {
+    color: #6f6b64;
+}
+
+.partnerTextButton,
+.partnerPasswordToggle {
+    border: 0;
+    color: var(--ec-gold);
+    background: transparent;
+    cursor: pointer;
+}
+
+.partnerTextButton {
+    padding: 0;
+    font-size: 0.76rem;
+}
+
+.partnerTextButton:hover,
+.partnerPasswordToggle:hover {
+    color: var(--ec-gold-bright);
+}
+
+.partnerPasswordToggle {
+    width: 34px;
+    height: 34px;
+    display: grid;
+    place-items: center;
+}
+
+.partnerFieldError {
+    min-height: 16px;
+    color: var(--ec-danger);
+    font-size: 0.73rem;
+}
+
+.partnerLoginButton {
+    min-height: 58px;
+    margin-top: 2px;
+    border: 1px solid var(--ec-gold);
+    border-radius: 14px;
+    color: #12100a;
+    background:
+        linear-gradient(
+            135deg,
+            var(--ec-gold-bright),
+            var(--ec-gold)
+        );
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 0 12px 30px rgba(216, 179, 90, 0.16);
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        filter 0.2s ease;
+}
+
+.partnerLoginButton:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+    box-shadow: 0 18px 38px rgba(216, 179, 90, 0.23);
+}
+
+.partnerLoginButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+}
+
+.partnerLoginDefault,
+.partnerLoginLoading {
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.partnerLoginDefault {
+    display: flex;
+}
+
+.partnerLoginLoading {
+    display: none;
+}
+
+.partnerLoginButton.isLoading .partnerLoginDefault {
+    display: none;
+}
+
+.partnerLoginButton.isLoading .partnerLoginLoading {
+    display: flex;
+}
+
+.partnerLoginSecurityNotice {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 9px;
+    color: var(--ec-muted);
+    font-size: 0.76rem;
+}
+
+.partnerLoginSecurityNotice p {
+    margin: 0;
+}
+
+.partnerLoginSecurityNotice i {
+    color: var(--ec-gold);
+}
+
+.partnerLoginHelp {
+    margin: 18px 0 0;
+    text-align: center;
+    color: var(--ec-muted);
+    font-size: 0.79rem;
+}
+
+.partnerLoginHelp a {
+    color: var(--ec-gold-bright);
+    text-decoration: none;
+}
+
+.partnerLoginHelp a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 900px) {
+
+    .partnerLoginExperience {
+        padding: 88px 22px 34px;
+    }
+
+    .partnerLoginShell {
+        grid-template-columns: 1fr;
+        max-width: 650px;
+    }
+
+    .partnerLoginBrandPanel {
+        border-right: 0;
+        border-bottom: 1px solid var(--ec-border);
+    }
+
+    .partnerLoginBrandPanel,
+    .partnerLoginFormPanel {
+        padding: 46px;
+    }
+
+    .partnerLoginBrand {
+        margin-bottom: 46px;
+    }
+
+}
+
+@media (max-width: 560px) {
+
+    .partnerLoginExperience {
+        padding: 80px 14px 24px;
+        align-items: flex-start;
+    }
+
+    .partnerReturnLink {
+        top: 24px;
+        left: 20px;
+    }
+
+    .partnerLoginShell {
+        border-radius: 20px;
+    }
+
+    .partnerLoginBrandPanel,
+    .partnerLoginFormPanel {
+        padding: 34px 24px;
+    }
+
+    .partnerLoginBrand {
+        margin-bottom: 38px;
+    }
+
+    .partnerLoginBrand img {
+        width: 48px;
+        height: 48px;
+    }
+
+    .partnerLoginBrand strong {
+        font-size: 1.4rem;
+    }
+
+    .partnerLoginBrandPanel h1 {
+        font-size: 3.4rem;
+    }
+
+    .partnerLoginFeatureList article {
+        grid-template-columns: 40px 1fr;
+    }
+
+    .partnerLoginFeatureList article > i {
+        width: 40px;
+        height: 40px;
+    }
+
+    .partnerLoginFormHeader h2 {
+        font-size: 2.45rem;
+    }
+
+    .partnerFieldLabelRow {
+        align-items: flex-start;
+    }
+
+}
+
+/* ==========================================
+   PARTNER DASHBOARD
+========================================== */
+
+.partnerDashboardPage {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.partnerDashboardLoader {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 18px;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(216, 179, 90, 0.09),
+            transparent 35%
+        ),
+        var(--ec-black);
+}
+
+.partnerDashboardLoader p {
+    margin: 0;
+    color: var(--ec-muted);
+    font-size: 0.82rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.partnerLoaderMark {
+    position: relative;
+    width: 86px;
+    height: 86px;
+    display: grid;
+    place-items: center;
+}
+
+.partnerLoaderMark img {
+    width: 62px;
+    height: 62px;
+    object-fit: contain;
+}
+
+.partnerLoaderMark i {
+    position: absolute;
+    right: -2px;
+    bottom: -2px;
+    width: 30px;
+    height: 30px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--ec-border);
+    border-radius: 50%;
+    color: var(--ec-gold-bright);
+    background: var(--ec-panel);
+}
+
+.partnerDashboardApp {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 290px 1fr;
+    background:
+        radial-gradient(
+            circle at 85% 12%,
+            rgba(216, 179, 90, 0.08),
+            transparent 28%
+        ),
+        #080808;
+}
+
+.partnerDashboardApp[hidden] {
+    display: none;
+}
+
+.partnerSidebar {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--ec-border);
+    background:
+        linear-gradient(
+            rgba(7, 7, 7, 0.9),
+            rgba(5, 5, 5, 0.96)
+        ),
+        repeating-linear-gradient(
+            96deg,
+            rgba(110, 72, 26, 0.23) 0,
+            rgba(110, 72, 26, 0.23) 2px,
+            rgba(36, 23, 10, 0.12) 2px,
+            rgba(36, 23, 10, 0.12) 9px
+        );
+    box-shadow: 14px 0 35px rgba(0, 0, 0, 0.3);
+    z-index: 30;
+}
+
+.partnerSidebar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+        linear-gradient(
+            120deg,
+            transparent 10%,
+            rgba(255, 255, 255, 0.03) 40%,
+            transparent 65%
+        );
+}
+
+.partnerSidebarTop {
+    position: relative;
+    z-index: 2;
+    min-height: 112px;
+    padding: 26px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--ec-border);
+}
+
+.partnerSidebarBrand {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    text-decoration: none;
+}
+
+.partnerSidebarBrand img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.partnerSidebarBrand div {
+    display: flex;
+    flex-direction: column;
+}
+
+.partnerSidebarBrand strong {
+    color: var(--ec-gold-bright);
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.45rem;
+    line-height: 1;
+}
+
+.partnerSidebarBrand span {
+    margin-top: 5px;
+    color: var(--ec-muted);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.partnerSidebarCloseButton {
+    display: none;
+    width: 38px;
+    height: 38px;
+    border: 1px solid var(--ec-border);
+    border-radius: 10px;
+    color: var(--ec-gold-bright);
+    background: rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+}
+
+.partnerSidebarNavigation {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    padding: 28px 18px;
+    display: grid;
+    align-content: start;
+    gap: 8px;
+}
+
+.partnerNavigationLink {
+    min-height: 50px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    border: 1px solid transparent;
+    border-radius: 12px;
+    color: var(--ec-muted);
+    text-decoration: none;
+    font-size: 0.86rem;
+    font-weight: 600;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.partnerNavigationLink i {
+    width: 20px;
+    text-align: center;
+    color: var(--ec-gold);
+}
+
+.partnerNavigationLink:hover {
+    color: var(--ec-text);
+    border-color: rgba(216, 179, 90, 0.18);
+    background: rgba(216, 179, 90, 0.05);
+    transform: translateX(3px);
+}
+
+.partnerNavigationLink.isActive {
+    color: var(--ec-gold-bright);
+    border-color: var(--ec-border);
+    background:
+        linear-gradient(
+            90deg,
+            rgba(216, 179, 90, 0.12),
+            rgba(216, 179, 90, 0.035)
+        );
+}
+
+.partnerSidebarFooter {
+    position: relative;
+    z-index: 2;
+    padding: 22px 18px 26px;
+    border-top: 1px solid var(--ec-border);
+}
+
+.partnerSidebarIdentity {
+    display: grid;
+    grid-template-columns: 42px 1fr;
+    gap: 11px;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.partnerSidebarAvatar {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--ec-border);
+    border-radius: 12px;
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.07);
+}
+
+.partnerSidebarIdentity div {
+    min-width: 0;
+}
+
+.partnerSidebarIdentity strong,
+.partnerSidebarIdentity span {
+    display: block;
+}
+
+.partnerSidebarIdentity strong {
+    font-size: 0.83rem;
+}
+
+.partnerSidebarIdentity span {
+    margin-top: 4px;
+    overflow: hidden;
+    color: var(--ec-muted);
+    font-size: 0.69rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.partnerLogoutButton {
+    width: 100%;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border: 1px solid rgba(255, 255, 255, 0.09);
+    border-radius: 11px;
+    color: var(--ec-muted);
+    background: rgba(255, 255, 255, 0.025);
+    cursor: pointer;
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.partnerLogoutButton:hover {
+    color: var(--ec-gold-bright);
+    border-color: var(--ec-border);
+    background: rgba(216, 179, 90, 0.05);
+}
+
+.partnerDashboardMain {
+    min-width: 0;
+    padding: 0 42px 72px;
+}
+
+.partnerDashboardHeader {
+    min-height: 126px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 22px;
+    align-items: center;
+    border-bottom: 1px solid rgba(216, 179, 90, 0.14);
+}
+
+.partnerMenuButton {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--ec-border);
+    border-radius: 12px;
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.06);
+    cursor: pointer;
+}
+
+.partnerDashboardEyebrow {
+    margin: 0 0 7px;
+    color: var(--ec-gold);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.partnerDashboardHeader h1 {
+    margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.25rem, 4vw, 3.7rem);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.partnerDashboardHeader h1 span {
+    color: var(--ec-gold-bright);
+}
+
+.partnerAccountStatus {
+    min-width: 205px;
+    padding: 14px 17px;
+    display: grid;
+    grid-template-columns: 12px 1fr;
+    gap: 11px;
+    align-items: center;
+    border: 1px solid var(--ec-border);
+    border-radius: 14px;
+    background: rgba(216, 179, 90, 0.045);
+}
+
+.partnerStatusIndicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #65d68a;
+    box-shadow: 0 0 14px rgba(101, 214, 138, 0.65);
+}
+
+.partnerAccountStatus strong,
+.partnerAccountStatus span {
+    display: block;
+}
+
+.partnerAccountStatus strong {
+    font-size: 0.78rem;
+}
+
+.partnerAccountStatus span {
+    margin-top: 4px;
+    color: var(--ec-muted);
+    font-size: 0.67rem;
+}
+
+.partnerDashboardSection {
+    padding-top: 54px;
+    scroll-margin-top: 25px;
+}
+
+.partnerSectionHeading {
+    margin-bottom: 22px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.partnerSectionHeading p {
+    margin: 0 0 7px;
+    color: var(--ec-gold);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.17em;
+    text-transform: uppercase;
+}
+
+.partnerSectionHeading h2 {
+    margin: 0;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 600;
+}
+
+.partnerRefreshButton {
+    min-height: 42px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid var(--ec-border);
+    border-radius: 11px;
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.05);
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.partnerRefreshButton:hover {
+    transform: translateY(-2px);
+    background: rgba(216, 179, 90, 0.09);
+}
+
+.partnerRefreshButton.isLoading i {
+    animation: partnerSpin 0.9s linear infinite;
+}
+
+@keyframes partnerSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.partnerMetricGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.partnerMetricCard {
+    min-height: 148px;
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    border: 1px solid var(--ec-border);
+    border-radius: 18px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(24, 24, 24, 0.96),
+            rgba(13, 13, 13, 0.98)
+        );
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.24);
+}
+
+.partnerMetricIcon {
+    flex: 0 0 auto;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border: 1px solid var(--ec-border);
+    border-radius: 15px;
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.07);
+    font-size: 1.2rem;
+}
+
+.partnerMetricCard div {
+    min-width: 0;
+}
+
+.partnerMetricCard span,
+.partnerMetricCard strong {
+    display: block;
+}
+
+.partnerMetricCard div > span {
+    color: var(--ec-muted);
+    font-size: 0.74rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.partnerMetricCard strong {
+    margin-top: 8px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.35rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.partnerReferralToolGrid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.5fr);
+    gap: 20px;
+}
+
+.partnerReferralLinkCard,
+.partnerQrCard,
+.partnerTableCard {
+    border: 1px solid var(--ec-border);
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            145deg,
+            rgba(22, 22, 22, 0.97),
+            rgba(11, 11, 11, 0.98)
+        );
+    box-shadow: 0 16px 35px rgba(0, 0, 0, 0.22);
+}
+
+.partnerReferralLinkCard {
+    padding: 30px;
+}
+
+.partnerQrCard {
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.partnerCardLabel {
+    color: var(--ec-gold);
+    font-size: 0.69rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.partnerReferralLinkCard h3 {
+    margin: 12px 0 24px;
+    max-width: 620px;
+    font-family: "Cormorant Garamond", serif;
+    font-size: 2.1rem;
+    font-weight: 600;
+}
+
+.partnerReferralLinkShell {
+    min-height: 58px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    overflow: hidden;
+    border: 1px solid var(--ec-border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.partnerReferralLinkShell input {
+    min-width: 0;
+    padding: 0 17px;
+    border: 0;
+    outline: 0;
+    color: var(--ec-text);
+    background: transparent;
+}
+
+.partnerReferralLinkShell button {
+    min-width: 112px;
+    border: 0;
+    border-left: 1px solid var(--ec-border);
+    color: #141109;
+    background:
+        linear-gradient(
+            135deg,
+            var(--ec-gold-bright),
+            var(--ec-gold)
+        );
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.partnerReferralLinkCard > p {
+    margin: 14px 0 0;
+    color: var(--ec-muted);
+    font-size: 0.78rem;
+}
+
+.partnerQrCode {
+    width: 190px;
+    height: 190px;
+    margin: 20px 0;
+    padding: 12px;
+    display: grid;
+    place-items: center;
+    border-radius: 16px;
+    background: #ffffff;
+}
+
+.partnerQrCode img,
+.partnerQrCode canvas {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.partnerDownloadQrButton {
+    min-height: 44px;
+    padding: 0 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 1px solid var(--ec-border);
+    border-radius: 11px;
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.05);
+    cursor: pointer;
+}
+
+.partnerTableCard {
+    overflow: hidden;
+}
+
+.partnerTableScroll {
+    overflow-x: auto;
+}
+
+.partnerDataTable {
+    width: 100%;
+    min-width: 720px;
+    border-collapse: collapse;
+}
+
+.partnerDataTable th,
+.partnerDataTable td {
+    padding: 18px 20px;
+    text-align: left;
+    border-bottom: 1px solid rgba(216, 179, 90, 0.11);
+}
+
+.partnerDataTable th {
+    color: var(--ec-gold);
+    background: rgba(216, 179, 90, 0.035);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+.partnerDataTable td {
+    color: #ddd7cb;
+    font-size: 0.82rem;
+}
+
+.partnerDataTable tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.partnerEmptyTable {
+    padding: 36px 20px !important;
+    color: var(--ec-muted) !important;
+    text-align: center !important;
+}
+
+.partnerStatusBadge {
+    display: inline-flex;
+    align-items: center;
+    min-height: 28px;
+    padding: 0 10px;
+    border: 1px solid rgba(101, 214, 138, 0.25);
+    border-radius: 999px;
+    color: #9ee8b4;
+    background: rgba(101, 214, 138, 0.08);
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: capitalize;
+}
+
+.partnerStatusBadge.isPending {
+    border-color: rgba(240, 207, 120, 0.25);
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.08);
+}
+
+.partnerStatusBadge.isPaid {
+    border-color: rgba(101, 214, 138, 0.25);
+    color: #9ee8b4;
+    background: rgba(101, 214, 138, 0.08);
+}
+
+.partnerSidebarBackdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 25;
+    border: 0;
+    background: rgba(0, 0, 0, 0.72);
+    backdrop-filter: blur(4px);
+}
+
+.partnerSidebarBackdrop[hidden] {
+    display: none;
+}
+
+.partnerToast {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 60;
+    max-width: min(420px, calc(100vw - 32px));
+    padding: 14px 17px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--ec-border);
+    border-radius: 13px;
+    color: var(--ec-text);
+    background: rgba(16, 16, 16, 0.96);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.38);
+    font-size: 0.8rem;
+}
+
+.partnerToast i {
+    color: var(--ec-gold-bright);
+}
+
+.partnerToast[hidden] {
+    display: none;
+}
+
+@media (max-width: 1180px) {
+
+    .partnerDashboardApp {
+        grid-template-columns: 250px 1fr;
+    }
+
+    .partnerDashboardMain {
+        padding-inline: 30px;
+    }
+
+    .partnerMetricGrid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .partnerDashboardApp {
+        display: block;
+    }
+
+    .partnerSidebar {
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: min(320px, 88vw);
+        transform: translateX(-104%);
+        transition: transform 0.26s ease;
+    }
+
+    .partnerSidebar.isOpen {
+        transform: translateX(0);
+    }
+
+    .partnerSidebarCloseButton,
+    .partnerMenuButton {
+        display: grid;
+        place-items: center;
+    }
+
+    .partnerDashboardMain {
+        padding: 0 22px 60px;
+    }
+
+    .partnerDashboardHeader {
+        grid-template-columns: auto 1fr;
+        min-height: 108px;
+    }
+
+    .partnerAccountStatus {
+        grid-column: 1 / -1;
+        width: fit-content;
+        margin-bottom: 22px;
+    }
+
+    .partnerReferralToolGrid {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 620px) {
+
+    .partnerDashboardMain {
+        padding-inline: 14px;
+    }
+
+    .partnerDashboardHeader {
+        gap: 14px;
+    }
+
+    .partnerDashboardHeader h1 {
+        font-size: 2.4rem;
+    }
+
+    .partnerMetricGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .partnerMetricCard {
+        min-height: 120px;
+    }
+
+    .partnerSectionHeading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .partnerReferralLinkCard,
+    .partnerQrCard {
+        padding: 22px;
+    }
+
+    .partnerReferralLinkCard h3 {
+        font-size: 1.8rem;
+    }
+
+    .partnerReferralLinkShell {
+        grid-template-columns: 1fr;
+    }
+
+    .partnerReferralLinkShell button {
+        min-height: 50px;
+        border-left: 0;
+        border-top: 1px solid var(--ec-border);
+    }
+
+    .partnerQrCode {
+        width: 170px;
+        height: 170px;
+    }
+
+    .partnerToast {
+        right: 16px;
+        bottom: 16px;
+    }
+
+}

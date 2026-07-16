@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow, noarchive"
+    >
+
+    <title>Partner Dashboard | Echo Craft Studio</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/partner-dashboard.css"
+    >
+
+</head>
+
+<body class="partnerDashboardPage">
+
+    <div
+        id="partnerDashboardLoader"
+        class="partnerDashboardLoader"
+    >
+
+        <div class="partnerLoaderMark">
+
+            <img
+                src="../images/branding/logos/ec-gold-logo.png"
+                alt=""
+            >
+
+            <i class="fa-solid fa-spinner fa-spin"></i>
+
+        </div>
+
+        <p>
+            Loading your partner portal
+        </p>
+
+    </div>
+
+    <div
+        id="partnerDashboardApp"
+        class="partnerDashboardApp"
+        hidden
+    >
+
+        <aside
+            id="partnerSidebar"
+            class="partnerSidebar"
+        >
+
+            <div class="partnerSidebarTop">
+
+                <a
+                    class="partnerSidebarBrand"
+                    href="../index.html"
+                >
+
+                    <img
+                        src="../images/branding/logos/ec-gold-logo.png"
+                        alt="Echo Craft Studio"
+                    >
+
+                    <div>
+
+                        <strong>
+                            Echo Craft
+                        </strong>
+
+                        <span>
+                            Partner Portal
+                        </span>
+
+                    </div>
+
+                </a>
+
+                <button
+                    id="partnerSidebarCloseButton"
+                    class="partnerSidebarCloseButton"
+                    type="button"
+                    aria-label="Close navigation"
+                >
+
+                    <i class="fa-solid fa-xmark"></i>
+
+                </button>
+
+            </div>
+
+            <nav class="partnerSidebarNavigation">
+
+                <a
+                    class="partnerNavigationLink isActive"
+                    href="#overview"
+                >
+
+                    <i class="fa-solid fa-chart-pie"></i>
+
+                    <span>
+                        Overview
+                    </span>
+
+                </a>
+
+                <a
+                    class="partnerNavigationLink"
+                    href="#referral-tools"
+                >
+
+                    <i class="fa-solid fa-link"></i>
+
+                    <span>
+                        Referral Tools
+                    </span>
+
+                </a>
+
+                <a
+                    class="partnerNavigationLink"
+                    href="#activity"
+                >
+
+                    <i class="fa-solid fa-chart-line"></i>
+
+                    <span>
+                        Activity
+                    </span>
+
+                </a>
+
+                <a
+                    class="partnerNavigationLink"
+                    href="#commissions"
+                >
+
+                    <i class="fa-solid fa-coins"></i>
+
+                    <span>
+                        Commissions
+                    </span>
+
+                </a>
+
+                <a
+                    class="partnerNavigationLink"
+                    href="#payouts"
+                >
+
+                    <i class="fa-solid fa-wallet"></i>
+
+                    <span>
+                        Payouts
+                    </span>
+
+                </a>
+
+            </nav>
+
+            <div class="partnerSidebarFooter">
+
+                <div class="partnerSidebarIdentity">
+
+                    <span class="partnerSidebarAvatar">
+
+                        <i class="fa-solid fa-user"></i>
+
+                    </span>
+
+                    <div>
+
+                        <strong id="partnerSidebarName">
+                            Partner
+                        </strong>
+
+                        <span id="partnerSidebarEmail">
+                            Loading account
+                        </span>
+
+                    </div>
+
+                </div>
+
+                <button
+                    id="partnerLogoutButton"
+                    class="partnerLogoutButton"
+                    type="button"
+                >
+
+                    <i class="fa-solid fa-arrow-right-from-bracket"></i>
+
+                    Sign Out
+
+                </button>
+
+            </div>
+
+        </aside>
+
+        <button
+            id="partnerSidebarBackdrop"
+            class="partnerSidebarBackdrop"
+            type="button"
+            aria-label="Close navigation"
+            hidden
+        ></button>
+
+        <main class="partnerDashboardMain">
+
+            <header class="partnerDashboardHeader">
+
+                <button
+                    id="partnerMenuButton"
+                    class="partnerMenuButton"
+                    type="button"
+                    aria-label="Open navigation"
+                >
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+                <div>
+
+                    <p class="partnerDashboardEyebrow">
+                        Echo Craft Participation Program
+                    </p>
+
+                    <h1>
+                        Welcome,
+                        <span id="partnerWelcomeName">
+                            Partner
+                        </span>
+                    </h1>
+
+                </div>
+
+                <div class="partnerAccountStatus">
+
+                    <span class="partnerStatusIndicator"></span>
+
+                    <div>
+
+                        <strong>
+                            Account Active
+                        </strong>
+
+                        <span id="partnerCommissionRate">
+                            15% commission rate
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <section
+                id="overview"
+                class="partnerDashboardSection"
+            >
+
+                <div class="partnerSectionHeading">
+
+                    <div>
+
+                        <p>
+                            Your Performance
+                        </p>
+
+                        <h2>
+                            Partner Overview
+                        </h2>
+
+                    </div>
+
+                    <button
+                        id="partnerRefreshButton"
+                        class="partnerRefreshButton"
+                        type="button"
+                    >
+
+                        <i class="fa-solid fa-rotate"></i>
+
+                        Refresh
+
+                    </button>
+
+                </div>
+
+                <div class="partnerMetricGrid">
+
+                    <article class="partnerMetricCard">
+
+                        <span class="partnerMetricIcon">
+
+                            <i class="fa-solid fa-arrow-pointer"></i>
+
+                        </span>
+
+                        <div>
+
+                            <span>
+                                Referral Visits
+                            </span>
+
+                            <strong id="partnerVisitCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+                    <article class="partnerMetricCard">
+
+                        <span class="partnerMetricIcon">
+
+                            <i class="fa-solid fa-user-check"></i>
+
+                        </span>
+
+                        <div>
+
+                            <span>
+                                Qualified Referrals
+                            </span>
+
+                            <strong id="partnerQualifiedReferralCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+                    <article class="partnerMetricCard">
+
+                        <span class="partnerMetricIcon">
+
+                            <i class="fa-solid fa-handshake"></i>
+
+                        </span>
+
+                        <div>
+
+                            <span>
+                                Paying Clients
+                            </span>
+
+                            <strong id="partnerConvertedClientCount">
+                                0
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+                    <article class="partnerMetricCard">
+
+                        <span class="partnerMetricIcon">
+
+                            <i class="fa-solid fa-sack-dollar"></i>
+
+                        </span>
+
+                        <div>
+
+                            <span>
+                                Total Earned
+                            </span>
+
+                            <strong id="partnerTotalEarned">
+                                $0.00
+                            </strong>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <section
+                id="referral-tools"
+                class="partnerDashboardSection"
+            >
+
+                <div class="partnerSectionHeading">
+
+                    <div>
+
+                        <p>
+                            Share Echo Craft
+                        </p>
+
+                        <h2>
+                            Your Referral Tools
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="partnerReferralToolGrid">
+
+                    <article class="partnerReferralLinkCard">
+
+                        <span class="partnerCardLabel">
+                            Your Referral Link
+                        </span>
+
+                        <h3>
+                            Share your personal Echo Craft link
+                        </h3>
+
+                        <div class="partnerReferralLinkShell">
+
+                            <input
+                                id="partnerReferralLink"
+                                type="text"
+                                readonly
+                                value="Loading..."
+                            >
+
+                            <button
+                                id="partnerCopyLinkButton"
+                                type="button"
+                            >
+
+                                <i class="fa-regular fa-copy"></i>
+
+                                Copy
+
+                            </button>
+
+                        </div>
+
+                        <p id="partnerReferralAliasText">
+                            Referral alias loading
+                        </p>
+
+                    </article>
+
+                    <article class="partnerQrCard">
+
+                        <span class="partnerCardLabel">
+                            Referral QR Code
+                        </span>
+
+                        <div
+                            id="partnerQrCode"
+                            class="partnerQrCode"
+                        ></div>
+
+                        <button
+                            id="partnerDownloadQrButton"
+                            class="partnerDownloadQrButton"
+                            type="button"
+                        >
+
+                            <i class="fa-solid fa-download"></i>
+
+                            Download QR Code
+
+                        </button>
+
+                    </article>
+
+                </div>
+
+            </section>
+
+            <section
+                id="activity"
+                class="partnerDashboardSection"
+            >
+
+                <div class="partnerSectionHeading">
+
+                    <div>
+
+                        <p>
+                            Recent Tracking
+                        </p>
+
+                        <h2>
+                            Referral Activity
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="partnerTableCard">
+
+                    <div class="partnerTableScroll">
+
+                        <table class="partnerDataTable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                    <th>
+                                        Destination
+                                    </th>
+
+                                    <th>
+                                        Source
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="partnerActivityTableBody">
+
+                                <tr>
+
+                                    <td
+                                        colspan="4"
+                                        class="partnerEmptyTable"
+                                    >
+                                        No referral activity has been recorded yet.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section
+                id="commissions"
+                class="partnerDashboardSection"
+            >
+
+                <div class="partnerSectionHeading">
+
+                    <div>
+
+                        <p>
+                            Your Earnings
+                        </p>
+
+                        <h2>
+                            Commissions
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="partnerTableCard">
+
+                    <div class="partnerTableScroll">
+
+                        <table class="partnerDataTable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Client
+                                    </th>
+
+                                    <th>
+                                        Project
+                                    </th>
+
+                                    <th>
+                                        Commission
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="partnerCommissionTableBody">
+
+                                <tr>
+
+                                    <td
+                                        colspan="4"
+                                        class="partnerEmptyTable"
+                                    >
+                                        No commissions have been recorded yet.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+            <section
+                id="payouts"
+                class="partnerDashboardSection"
+            >
+
+                <div class="partnerSectionHeading">
+
+                    <div>
+
+                        <p>
+                            Payment History
+                        </p>
+
+                        <h2>
+                            Payouts
+                        </h2>
+
+                    </div>
+
+                </div>
+
+                <div class="partnerTableCard">
+
+                    <div class="partnerTableScroll">
+
+                        <table class="partnerDataTable">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th>
+                                        Date
+                                    </th>
+
+                                    <th>
+                                        Amount
+                                    </th>
+
+                                    <th>
+                                        Method
+                                    </th>
+
+                                    <th>
+                                        Status
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="partnerPayoutTableBody">
+
+                                <tr>
+
+                                    <td
+                                        colspan="4"
+                                        class="partnerEmptyTable"
+                                    >
+                                        No payouts have been recorded yet.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <div
+        id="partnerToast"
+        class="partnerToast"
+        role="status"
+        aria-live="polite"
+        hidden
+    >
+
+        <i class="fa-solid fa-circle-check"></i>
+
+        <span id="partnerToastMessage"></span>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <script src="../admin/js/supabase-config.js"></script>
+
+    <script src="js/partner-dashboard.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="robots"
+        content="index, follow"
+    >
+
+    <title>Apply to the Echo Craft Participation Program</title>
+
+    <meta
+        name="description"
+        content="Apply to become an Echo Craft Participation Program partner and earn compensation for qualified client referrals."
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="css/apply.css"
+    >
+
+</head>
+
+<body class="partnerApplicationPage">
+
+    <main class="partnerApplicationExperience">
+
+        <div
+            class="applicationAtmosphere"
+            aria-hidden="true"
+        >
+            <span class="applicationGlow applicationGlowOne"></span>
+            <span class="applicationGlow applicationGlowTwo"></span>
+            <span class="applicationGrid"></span>
+        </div>
+
+        <a
+            class="returnToPartnerProgram"
+            href="../partner-program.html"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+            <span>Return to Partner Program</span>
+        </a>
+
+        <section class="applicationShell">
+
+            <aside class="applicationIntroduction">
+
+                <div>
+
+                    <a
+                        class="applicationBrand"
+                        href="../index.html"
+                        aria-label="Echo Craft Studio home"
+                    >
+                        <img
+                            src="../images/branding/logos/ec-gold-logo.png"
+                            alt="Echo Craft Studio"
+                        >
+
+                        <div>
+                            <strong>Echo Craft</strong>
+                            <span>Participation Program</span>
+                        </div>
+                    </a>
+
+                    <p class="applicationEyebrow">
+                        Partner Application
+                    </p>
+
+                    <h1>
+                        Grow With
+                        <span>Echo Craft.</span>
+                    </h1>
+
+                    <p class="applicationLead">
+                        Introduce businesses, creators, and organizations
+                        to Echo Craft Studio and receive compensation when
+                        a qualified referral becomes a paying client.
+                    </p>
+
+                    <div class="applicationBenefits">
+
+                        <article>
+                            <i class="fa-solid fa-link"></i>
+
+                            <div>
+                                <strong>Your Own Referral Link</strong>
+                                <span>
+                                    Approved partners receive a unique
+                                    referral link and QR code.
+                                </span>
+                            </div>
+                        </article>
+
+                        <article>
+                            <i class="fa-solid fa-chart-line"></i>
+
+                            <div>
+                                <strong>Tracked Results</strong>
+                                <span>
+                                    Qualified referrals and completed
+                                    projects are recorded securely.
+                                </span>
+                            </div>
+                        </article>
+
+                        <article>
+                            <i class="fa-solid fa-coins"></i>
+
+                            <div>
+                                <strong>Earned Compensation</strong>
+                                <span>
+                                    Compensation is issued after a referred
+                                    client completes a qualifying paid project.
+                                </span>
+                            </div>
+                        </article>
+
+                    </div>
+
+                </div>
+
+                <div class="applicationIntroductionFooter">
+
+                    <i class="fa-solid fa-shield-halved"></i>
+
+                    <p>
+                        Applications are reviewed individually.
+                        Submission does not guarantee approval.
+                    </p>
+
+                </div>
+
+            </aside>
+
+            <section
+                class="applicationFormPanel"
+                aria-labelledby="applicationTitle"
+            >
+
+                <div class="applicationFormHeader">
+
+                    <span class="applicationFormIcon">
+                        <i class="fa-solid fa-handshake"></i>
+                    </span>
+
+                    <p class="applicationFormLabel">
+                        Echo Craft Participation Program
+                    </p>
+
+                    <h2 id="applicationTitle">
+                        Apply to Become a Partner
+                    </h2>
+
+                    <p>
+                        Tell us who you are, who you serve, and how you
+                        plan to introduce potential clients to Echo Craft.
+                    </p>
+
+                </div>
+
+                <div
+                    id="applicationAlert"
+                    class="applicationAlert"
+                    role="alert"
+                    aria-live="polite"
+                    hidden
+                >
+                    <i class="fa-solid fa-circle-exclamation"></i>
+
+                    <span id="applicationAlertMessage"></span>
+                </div>
+
+                <form
+                    id="partnerApplicationForm"
+                    class="partnerApplicationForm"
+                    novalidate
+                >
+
+                    <div class="applicationFormGrid">
+
+                        <div class="applicationField">
+
+                            <label for="applicantFullName">
+                                Full Name
+                                <span aria-hidden="true">*</span>
+                            </label>
+
+                            <div class="applicationInputShell">
+
+                                <i class="fa-solid fa-user"></i>
+
+                                <input
+                                    id="applicantFullName"
+                                    name="fullName"
+                                    type="text"
+                                    autocomplete="name"
+                                    maxlength="120"
+                                    placeholder="Your full name"
+                                    required
+                                >
+
+                            </div>
+
+                            <span
+                                id="applicantFullNameError"
+                                class="applicationFieldError"
+                                aria-live="polite"
+                            ></span>
+
+                        </div>
+
+                        <div class="applicationField">
+
+                            <label for="applicantEmail">
+                                Email Address
+                                <span aria-hidden="true">*</span>
+                            </label>
+
+                            <div class="applicationInputShell">
+
+                                <i class="fa-solid fa-envelope"></i>
+
+                                <input
+                                    id="applicantEmail"
+                                    name="email"
+                                    type="email"
+                                    autocomplete="email"
+                                    maxlength="254"
+                                    placeholder="you@example.com"
+                                    required
+                                >
+
+                            </div>
+
+                            <span
+                                id="applicantEmailError"
+                                class="applicationFieldError"
+                                aria-live="polite"
+                            ></span>
+
+                        </div>
+
+                        <div class="applicationField">
+
+                            <label for="applicantPhone">
+                                Phone Number
+                            </label>
+
+                            <div class="applicationInputShell">
+
+                                <i class="fa-solid fa-phone"></i>
+
+                                <input
+                                    id="applicantPhone"
+                                    name="phone"
+                                    type="tel"
+                                    autocomplete="tel"
+                                    maxlength="40"
+                                    placeholder="Optional"
+                                >
+
+                            </div>
+
+                            <span
+                                id="applicantPhoneError"
+                                class="applicationFieldError"
+                                aria-live="polite"
+                            ></span>
+
+                        </div>
+
+                        <div class="applicationField">
+
+                            <label for="applicantBusinessName">
+                                Business or Brand
+                            </label>
+
+                            <div class="applicationInputShell">
+
+                                <i class="fa-solid fa-building"></i>
+
+                                <input
+                                    id="applicantBusinessName"
+                                    name="businessName"
+                                    type="text"
+                                    autocomplete="organization"
+                                    maxlength="160"
+                                    placeholder="Optional"
+                                >
+
+                            </div>
+
+                            <span
+                                id="applicantBusinessNameError"
+                                class="applicationFieldError"
+                                aria-live="polite"
+                            ></span>
+
+                        </div>
+
+                        <div class="applicationField">
+
+                            <label for="applicantWebsite">
+                                Website
+                            </label>
+
+                            <div class="applicationInputShell">
+
+                                <i class="fa-solid fa-globe"></i>
+
+                                <input
+                                    id="applicantWebsite"
+                                    name="website"
+                                    type="url"
+                                    maxlength="500"
+                                    placeholder="https://"
+                                >
+
+                            </div>
+
+                            <span
+                                id="applicantWebsiteError"
+                                class="applicationFieldError"
+                                aria-live="polite"
+                            ></span>
+
+                        </div>
+
+                        <div class="applicationField">
+
+                            <label for="applicantSocialMedia">
+                                Social Media Profile
+                            </label>
+
+                            <div class="applicationInputShell">
+
+                                <i class="fa-solid fa-share-nodes"></i>
+
+                                <input
+                                    id="applicantSocialMedia"
+                                    name="socialMedia"
+                                    type="url"
+                                    maxlength="500"
+                                    placeholder="https://"
+                                >
+
+                            </div>
+
+                            <span
+                                id="applicantSocialMediaError"
+                                class="applicationFieldError"
+                                aria-live="polite"
+                            ></span>
+
+                        </div>
+
+                    </div>
+
+                    <div class="applicationField applicationFieldFull">
+
+                        <label for="applicantAudience">
+                            Describe Your Audience or Network
+                        </label>
+
+                        <div class="applicationTextareaShell">
+
+                            <textarea
+                                id="applicantAudience"
+                                name="audienceDescription"
+                                maxlength="3000"
+                                rows="5"
+                                placeholder="Tell us about the businesses, creators, organizations, or communities you are connected to."
+                            ></textarea>
+
+                        </div>
+
+                        <span
+                            id="applicantAudienceError"
+                            class="applicationFieldError"
+                            aria-live="polite"
+                        ></span>
+
+                    </div>
+
+                    <div class="applicationField applicationFieldFull">
+
+                        <label for="applicantPartnershipReason">
+                            Why Would You Like to Join?
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        <div class="applicationTextareaShell">
+
+                            <textarea
+                                id="applicantPartnershipReason"
+                                name="partnershipReason"
+                                maxlength="3000"
+                                rows="6"
+                                placeholder="Explain why the Echo Craft Participation Program is a good fit for you."
+                                required
+                            ></textarea>
+
+                        </div>
+
+                        <span
+                            id="applicantPartnershipReasonError"
+                            class="applicationFieldError"
+                            aria-live="polite"
+                        ></span>
+
+                    </div>
+
+                    <div class="applicationField applicationFieldFull">
+
+                        <label for="applicantReferralStrategy">
+                            How Will You Introduce Potential Clients?
+                            <span aria-hidden="true">*</span>
+                        </label>
+
+                        <div class="applicationTextareaShell">
+
+                            <textarea
+                                id="applicantReferralStrategy"
+                                name="referralStrategy"
+                                maxlength="3000"
+                                rows="6"
+                                placeholder="Describe how you plan to share Echo Craft Studio and connect qualified prospects."
+                                required
+                            ></textarea>
+
+                        </div>
+
+                        <span
+                            id="applicantReferralStrategyError"
+                            class="applicationFieldError"
+                            aria-live="polite"
+                        ></span>
+
+                    </div>
+
+                    <label class="applicationAgreement">
+
+                        <input
+                            id="applicationAgreement"
+                            name="agreement"
+                            type="checkbox"
+                            required
+                        >
+
+                        <span class="applicationCheckbox">
+                            <i class="fa-solid fa-check"></i>
+                        </span>
+
+                        <span>
+                            I understand that submitting this application
+                            does not guarantee acceptance and that compensation
+                            applies only to qualifying paid projects.
+                        </span>
+
+                    </label>
+
+                    <span
+                        id="applicationAgreementError"
+                        class="applicationFieldError applicationAgreementError"
+                        aria-live="polite"
+                    ></span>
+
+                    <button
+                        id="applicationSubmitButton"
+                        class="applicationSubmitButton"
+                        type="submit"
+                    >
+
+                        <span class="applicationButtonDefault">
+                            Submit Application
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </span>
+
+                        <span
+                            class="applicationButtonLoading"
+                            aria-hidden="true"
+                        >
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                            Submitting Application
+                        </span>
+
+                    </button>
+
+                </form>
+
+                <div class="applicationPrivacyNotice">
+
+                    <i class="fa-solid fa-lock"></i>
+
+                    <p>
+                        Your information is used only to review and manage
+                        your Echo Craft Participation Program application.
+                    </p>
+
+                </div>
+
+            </section>
+
+        </section>
+
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="../admin/js/supabase-config.js"></script>
+    <script src="js/apply.js"></script>
+
+</body>
+
+</html>
