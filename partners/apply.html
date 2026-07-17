@@ -48,6 +48,156 @@
         href="css/apply.css"
     >
 
+    <style>
+    body.applicationModalOpen {
+        overflow: hidden;
+    }
+
+    .activationNoticeOverlay {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(0, 0, 0, 0.82);
+        backdrop-filter: blur(8px);
+    }
+
+    .activationNoticeOverlay[hidden] {
+        display: none;
+    }
+
+    .activationNoticeCard {
+        width: min(560px, 100%);
+        padding: 38px;
+        border: 1px solid rgba(215, 175, 91, 0.45);
+        border-radius: 24px;
+        background:
+            linear-gradient(
+                145deg,
+                rgba(31, 27, 20, 0.98),
+                rgba(12, 12, 11, 0.99)
+            );
+        box-shadow:
+            0 30px 90px rgba(0, 0, 0, 0.65),
+            0 0 40px rgba(215, 175, 91, 0.08);
+        color: #f5f0e6;
+        text-align: center;
+    }
+
+    .activationNoticeIcon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 68px;
+        height: 68px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(215, 175, 91, 0.45);
+        border-radius: 50%;
+        background: rgba(215, 175, 91, 0.12);
+        color: #e6bd68;
+        font-size: 1.65rem;
+    }
+
+    .activationNoticeEyebrow {
+        margin: 0 0 10px;
+        color: #e6bd68;
+        font-family: "Inter", sans-serif;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+    }
+
+    .activationNoticeCard h2 {
+        margin: 0 0 18px;
+        font-family: "Cormorant Garamond", serif;
+        font-size: clamp(2rem, 6vw, 3rem);
+        line-height: 1;
+    }
+
+    .activationNoticeCard p {
+        margin: 0 0 16px;
+        color: rgba(245, 240, 230, 0.78);
+        font-family: "Inter", sans-serif;
+        font-size: 0.98rem;
+        line-height: 1.75;
+    }
+
+    .activationNoticeImportant {
+        padding: 16px;
+        border: 1px solid rgba(230, 189, 104, 0.28);
+        border-radius: 14px;
+        background: rgba(230, 189, 104, 0.08);
+        color: #f2d99a !important;
+        font-weight: 600;
+    }
+
+    .activationNoticeAgreement {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin: 24px 0;
+        padding: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.035);
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .activationNoticeAgreement input {
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        accent-color: #d7af5b;
+        flex: 0 0 auto;
+    }
+
+    .activationNoticeAgreement span {
+        color: rgba(245, 240, 230, 0.9);
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        line-height: 1.55;
+    }
+
+    .activationNoticeButton {
+        width: 100%;
+        min-height: 58px;
+        border: 1px solid #d7af5b;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #d7af5b, #a77a2e);
+        color: #111;
+        font-family: "Inter", sans-serif;
+        font-size: 0.84rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+
+    .activationNoticeButton:disabled {
+        border-color: rgba(255, 255, 255, 0.12);
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.35);
+        cursor: not-allowed;
+    }
+
+    .activationDeadlineAgreement {
+        margin-top: 24px;
+    }
+
+    @media (max-width: 600px) {
+        .activationNoticeCard {
+            padding: 28px 22px;
+            border-radius: 20px;
+        }
+    }
+        
+</style>
+
 </head>
 
 <body class="partnerApplicationPage">
@@ -517,6 +667,34 @@
                         class="applicationFieldError applicationAgreementError"
                         aria-live="polite"
                     ></span>
+
+                    <label class="applicationAgreement activationDeadlineAgreement">
+
+    <input
+        id="activationDeadlineAgreement"
+        name="activationDeadlineAgreement"
+        type="checkbox"
+        required
+    >
+
+    <span class="applicationCheckbox">
+        <i class="fa-solid fa-check"></i>
+    </span>
+
+    <span>
+        I understand that if my application is approved,
+        I must use the activation email within 24 hours
+        to create my password. If the link expires, I must
+        contact Echo Craft administration for a new link.
+    </span>
+
+</label>
+
+<span
+    id="activationDeadlineAgreementError"
+    class="applicationFieldError applicationAgreementError"
+    aria-live="polite"
+></span>
 
                     <button
                         id="applicationSubmitButton"
