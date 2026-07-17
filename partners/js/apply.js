@@ -181,6 +181,49 @@ const activationNoticeButton =
 
     }
 
+function openActivationNotice() {
+
+    if (!activationNoticeOverlay) {
+        return;
+    }
+
+    if (activationNoticeCheckbox) {
+        activationNoticeCheckbox.checked = false;
+    }
+
+    if (activationNoticeButton) {
+        activationNoticeButton.disabled = true;
+    }
+
+    activationNoticeOverlay.hidden = false;
+
+    document.body.classList.add(
+        "applicationModalOpen"
+    );
+
+    window.setTimeout(() => {
+        activationNoticeCheckbox?.focus();
+    }, 100);
+
+}
+
+function closeActivationNotice() {
+
+    if (
+        !activationNoticeCheckbox?.checked ||
+        !activationNoticeOverlay
+    ) {
+        return;
+    }
+
+    activationNoticeOverlay.hidden = true;
+
+    document.body.classList.remove(
+        "applicationModalOpen"
+    );
+
+}
+   
     function setLoadingState(isLoading) {
 
         if (!submitButton) {
