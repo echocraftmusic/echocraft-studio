@@ -250,8 +250,9 @@ function closeActivationNotice() {
             socialMediaError,
             audienceError,
             partnershipReasonError,
-            referralStrategyError,
-            agreementError
+           referralStrategyError,
+agreementError,
+activationDeadlineAgreementError
         ];
 
         errors.forEach(errorElement => {
