@@ -57,6 +57,11 @@ document.addEventListener("DOMContentLoaded", () => {
         "#applicantFullNameError"
     );
 
+   const activationDeadlineAgreementInput =
+    document.querySelector(
+        "#activationDeadlineAgreement"
+    );
+
     const emailError = document.querySelector(
         "#applicantEmailError"
     );
@@ -91,6 +96,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const agreementError = document.querySelector(
         "#applicationAgreementError"
+    );
+
+   const activationDeadlineAgreementError =
+    document.querySelector(
+        "#activationDeadlineAgreementError"
+    );
+
+const activationNoticeOverlay =
+    document.querySelector(
+        "#activationNoticeOverlay"
+    );
+
+const activationNoticeCheckbox =
+    document.querySelector(
+        "#activationNoticeCheckbox"
+    );
+
+const activationNoticeButton =
+    document.querySelector(
+        "#activationNoticeButton"
     );
 
     const applicationAlert = document.querySelector(
