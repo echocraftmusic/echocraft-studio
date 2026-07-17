@@ -683,10 +683,10 @@ if (!data?.success) {
                 form.reset();
                 clearErrors();
 
-                showAlert(
-                    "Your application has been submitted successfully. Echo Craft will review your information and contact you by email.",
-                    "success"
-                );
+               showAlert(
+    "Your application has been submitted successfully. Please watch your email for the next step. If your application is approved, you must use the activation link within 24 hours to create your password. Check your spam or junk folder if you do not see the email. If the link expires, contact Echo Craft administration for a new link.",
+    "success"
+);
 
                 if (submitButton) {
 
