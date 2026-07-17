@@ -735,6 +735,73 @@
         </section>
 
     </main>
+
+    <div
+    id="activationNoticeOverlay"
+    class="activationNoticeOverlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="activationNoticeTitle"
+    hidden
+>
+
+    <section class="activationNoticeCard">
+
+        <span class="activationNoticeIcon">
+            <i class="fa-solid fa-envelope-circle-check"></i>
+        </span>
+
+        <p class="activationNoticeEyebrow">
+            Application Submitted
+        </p>
+
+        <h2 id="activationNoticeTitle">
+            Watch for Your Email
+        </h2>
+
+        <p>
+            Echo Craft will review your application and contact
+            you by email if you are approved.
+        </p>
+
+        <p class="activationNoticeImportant">
+            Your activation link must be used within 24 hours
+            to create your password.
+        </p>
+
+        <p>
+            Please check your inbox, spam, and junk folders.
+            If the link expires, contact Echo Craft administration
+            and request a new activation link.
+        </p>
+
+        <label class="activationNoticeAgreement">
+
+            <input
+                id="activationNoticeCheckbox"
+                type="checkbox"
+            >
+
+            <span>
+                I understand that an approved activation link
+                must be used within 24 hours.
+            </span>
+
+        </label>
+
+        <button
+            id="activationNoticeButton"
+            class="activationNoticeButton"
+            type="button"
+            disabled
+        >
+            I Understand
+        </button>
+
+    </section>
+
+</div>
+    
 <script
     src="https://challenges.cloudflare.com/turnstile/v0/api.js"
     async
