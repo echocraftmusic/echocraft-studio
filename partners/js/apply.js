@@ -53,13 +53,13 @@ document.addEventListener("DOMContentLoaded", () => {
         "#applicationAgreement"
     );
 
+    const activationDeadlineAgreementInput =
+        document.querySelector(
+            "#activationDeadlineAgreement"
+        );
+
     const fullNameError = document.querySelector(
         "#applicantFullNameError"
-    );
-
-   const activationDeadlineAgreementInput =
-    document.querySelector(
-        "#activationDeadlineAgreement"
     );
 
     const emailError = document.querySelector(
@@ -98,33 +98,38 @@ document.addEventListener("DOMContentLoaded", () => {
         "#applicationAgreementError"
     );
 
-   const activationDeadlineAgreementError =
-    document.querySelector(
-        "#activationDeadlineAgreementError"
+    const activationDeadlineAgreementError =
+        document.querySelector(
+            "#activationDeadlineAgreementError"
+        );
+
+    const turnstileError = document.querySelector(
+        "#partnerTurnstileError"
     );
 
-const activationNoticeOverlay =
-    document.querySelector(
-        "#activationNoticeOverlay"
-    );
+    const activationNoticeOverlay =
+        document.querySelector(
+            "#activationNoticeOverlay"
+        );
 
-const activationNoticeCheckbox =
-    document.querySelector(
-        "#activationNoticeCheckbox"
-    );
+    const activationNoticeCheckbox =
+        document.querySelector(
+            "#activationNoticeCheckbox"
+        );
 
-const activationNoticeButton =
-    document.querySelector(
-        "#activationNoticeButton"
-    );
+    const activationNoticeButton =
+        document.querySelector(
+            "#activationNoticeButton"
+        );
 
     const applicationAlert = document.querySelector(
         "#applicationAlert"
     );
 
-    const applicationAlertMessage = document.querySelector(
-        "#applicationAlertMessage"
-    );
+    const applicationAlertMessage =
+        document.querySelector(
+            "#applicationAlertMessage"
+        );
 
     const submitButton = document.querySelector(
         "#applicationSubmitButton"
@@ -133,9 +138,11 @@ const activationNoticeButton =
     const supabaseClient =
         window.echoCraftSupabase;
 
+    let submissionSucceeded = false;
+
 
     /* ======================================
-       HELPERS
+       ALERT HELPERS
     ====================================== */
 
     function showAlert(
@@ -181,56 +188,69 @@ const activationNoticeButton =
 
     }
 
-function openActivationNotice() {
 
-    if (!activationNoticeOverlay) {
-        return;
+    /* ======================================
+       ACTIVATION NOTICE POPUP
+    ====================================== */
+
+    function openActivationNotice() {
+
+        if (!activationNoticeOverlay) {
+            return;
+        }
+
+        if (activationNoticeCheckbox) {
+            activationNoticeCheckbox.checked = false;
+        }
+
+        if (activationNoticeButton) {
+            activationNoticeButton.disabled = true;
+        }
+
+        activationNoticeOverlay.hidden = false;
+
+        document.body.classList.add(
+            "applicationModalOpen"
+        );
+
+        window.setTimeout(() => {
+            activationNoticeCheckbox?.focus();
+        }, 100);
+
     }
 
-    if (activationNoticeCheckbox) {
-        activationNoticeCheckbox.checked = false;
+    function closeActivationNotice() {
+
+        if (
+            !activationNoticeOverlay ||
+            !activationNoticeCheckbox?.checked
+        ) {
+            return;
+        }
+
+        activationNoticeOverlay.hidden = true;
+
+        document.body.classList.remove(
+            "applicationModalOpen"
+        );
+
+        submitButton?.focus();
+
     }
 
-    if (activationNoticeButton) {
-        activationNoticeButton.disabled = true;
-    }
 
-    activationNoticeOverlay.hidden = false;
+    /* ======================================
+       FORM STATE
+    ====================================== */
 
-    document.body.classList.add(
-        "applicationModalOpen"
-    );
-
-    window.setTimeout(() => {
-        activationNoticeCheckbox?.focus();
-    }, 100);
-
-}
-
-function closeActivationNotice() {
-
-    if (
-        !activationNoticeCheckbox?.checked ||
-        !activationNoticeOverlay
-    ) {
-        return;
-    }
-
-    activationNoticeOverlay.hidden = true;
-
-    document.body.classList.remove(
-        "applicationModalOpen"
-    );
-
-}
-   
     function setLoadingState(isLoading) {
 
         if (!submitButton) {
             return;
         }
 
-        submitButton.disabled = isLoading;
+        submitButton.disabled =
+            isLoading || submissionSucceeded;
 
         submitButton.classList.toggle(
             "isLoading",
@@ -250,9 +270,10 @@ function closeActivationNotice() {
             socialMediaError,
             audienceError,
             partnershipReasonError,
-           referralStrategyError,
-agreementError,
-activationDeadlineAgreementError
+            referralStrategyError,
+            agreementError,
+            activationDeadlineAgreementError,
+            turnstileError
         ];
 
         errors.forEach(errorElement => {
@@ -264,6 +285,11 @@ activationDeadlineAgreementError
         });
 
     }
+
+
+    /* ======================================
+       VALIDATION HELPERS
+    ====================================== */
 
     function isValidEmail(email) {
 
@@ -338,13 +364,20 @@ activationDeadlineAgreementError
 
     }
 
+    function getTurnstileToken() {
+
+        return document.querySelector(
+            '[name="cf-turnstile-response"]'
+        )?.value || "";
+
+    }
+
 
     /* ======================================
        LIVE ERROR CLEANUP
     ====================================== */
 
     const fieldConnections = [
-
         [fullNameInput, fullNameError],
         [emailInput, emailError],
         [phoneInput, phoneError],
@@ -360,7 +393,6 @@ activationDeadlineAgreementError
             referralStrategyInput,
             referralStrategyError
         ]
-
     ];
 
     fieldConnections.forEach(
@@ -395,35 +427,43 @@ activationDeadlineAgreementError
         }
     );
 
-   activationDeadlineAgreementInput?.addEventListener(
-    "change",
-    () => {
+    activationDeadlineAgreementInput?.addEventListener(
+        "change",
+        () => {
 
-        if (activationDeadlineAgreementError) {
-            activationDeadlineAgreementError.textContent = "";
+            if (
+                activationDeadlineAgreementError
+            ) {
+                activationDeadlineAgreementError
+                    .textContent = "";
+            }
+
+            hideAlert();
+
         }
+    );
 
-        hideAlert();
+    activationNoticeCheckbox?.addEventListener(
+        "change",
+        () => {
 
-    }
-);
+            if (activationNoticeButton) {
+                activationNoticeButton.disabled =
+                    !activationNoticeCheckbox.checked;
+            }
 
-activationNoticeCheckbox?.addEventListener(
-    "change",
-    () => {
-
-        if (activationNoticeButton) {
-            activationNoticeButton.disabled =
-                !activationNoticeCheckbox.checked;
         }
+    );
 
-    }
-);
+    activationNoticeButton?.addEventListener(
+        "click",
+        event => {
 
-activationNoticeButton?.addEventListener(
-    "click",
-    closeActivationNotice
-);
+            event.preventDefault();
+            closeActivationNotice();
+
+        }
+    );
 
 
     /* ======================================
@@ -555,10 +595,8 @@ activationNoticeButton?.addEventListener(
         if (!partnershipReason) {
 
             if (partnershipReasonError) {
-
                 partnershipReasonError.textContent =
                     "Explain why you would like to join.";
-
             }
 
             invalidFields.push(
@@ -570,10 +608,8 @@ activationNoticeButton?.addEventListener(
         ) {
 
             if (partnershipReasonError) {
-
                 partnershipReasonError.textContent =
                     "Please provide at least 20 characters.";
-
             }
 
             invalidFields.push(
@@ -585,10 +621,8 @@ activationNoticeButton?.addEventListener(
         if (!referralStrategy) {
 
             if (referralStrategyError) {
-
                 referralStrategyError.textContent =
                     "Explain how you will introduce potential clients.";
-
             }
 
             invalidFields.push(
@@ -600,10 +634,8 @@ activationNoticeButton?.addEventListener(
         ) {
 
             if (referralStrategyError) {
-
                 referralStrategyError.textContent =
                     "Please provide at least 20 characters.";
-
             }
 
             invalidFields.push(
@@ -615,14 +647,31 @@ activationNoticeButton?.addEventListener(
         if (!agreementInput?.checked) {
 
             if (agreementError) {
-
                 agreementError.textContent =
                     "You must accept the application terms.";
-
             }
 
             invalidFields.push(
                 agreementInput
+            );
+
+        }
+
+        if (
+            !activationDeadlineAgreementInput
+                ?.checked
+        ) {
+
+            if (
+                activationDeadlineAgreementError
+            ) {
+                activationDeadlineAgreementError
+                    .textContent =
+                    "You must acknowledge the 24-hour activation deadline.";
+            }
+
+            invalidFields.push(
+                activationDeadlineAgreementInput
             );
 
         }
@@ -714,6 +763,10 @@ activationNoticeButton?.addEventListener(
 
             event.preventDefault();
 
+            if (submissionSucceeded) {
+                return;
+            }
+
             const validation =
                 validateForm();
 
@@ -721,83 +774,74 @@ activationNoticeButton?.addEventListener(
                 return;
             }
 
+            const turnstileToken =
+                getTurnstileToken();
+
+            if (!turnstileToken) {
+
+                if (turnstileError) {
+                    turnstileError.textContent =
+                        "Complete the security verification before submitting.";
+                }
+
+                showAlert(
+                    "Complete the security verification before submitting."
+                );
+
+                window.turnstile?.reset();
+
+                return;
+
+            }
+
             setLoadingState(true);
 
             try {
 
-                const turnstileToken =
-    document.querySelector(
-        '[name="cf-turnstile-response"]'
-    )?.value || "";
+                const {
+                    data,
+                    error
+                } = await supabaseClient
+                    .functions
+                    .invoke(
+                        "submit-partner-application",
+                        {
+                            body: {
+                                ...validation.data,
 
-if (!turnstileToken) {
+                                turnstile_token:
+                                    turnstileToken,
 
-    showAlert(
-        "Complete the security verification before submitting."
-    );
-
-    window.turnstile?.reset();
-
-    return;
-
-}
-
-const {
-    data,
-    error
-} = await supabaseClient.functions.invoke(
-    "submit-partner-application",
-    {
-        body: {
-            ...validation.data,
-            turnstile_token:
-                turnstileToken,
-            website_confirm:
-                ""
-        }
-    }
-);
-
+                                website_confirm:
+                                    ""
+                            }
+                        }
+                    );
 
                 if (error) {
-    throw error;
-}
+                    throw error;
+                }
 
-if (!data?.success) {
-
-    throw new Error(
-        data?.message ||
-        "The application could not be submitted."
-    );
-
-}
-                if (!data) {
+                if (!data?.success) {
 
                     throw new Error(
-                        "No application confirmation was returned."
+                        data?.message ||
+                        "The application could not be submitted."
                     );
 
                 }
 
+                submissionSucceeded = true;
+
                 form.reset();
                 clearErrors();
 
-               showAlert(
-    "Your application has been submitted successfully. Please watch your email for the next step. If your application is approved, you must use the activation link within 24 hours to create your password. Check your spam or junk folder if you do not see the email. If the link expires, contact Echo Craft administration for a new link.",
-    "success"
-);
+                showAlert(
+                    "Your application has been submitted successfully. Please watch your email for the next step. If your application is approved, you must use the activation link within 24 hours to create your password. Check your spam or junk folder if you do not see the email. If the link expires, contact Echo Craft administration for a new link.",
+                    "success"
+                );
 
-                if (submitButton) {
-
-                    submitButton.disabled = true;
-
-                    window.setTimeout(() => {
-
-                        submitButton.disabled = false;
-
-                    }, 5000);
-
-                }
+                openActivationNotice();
 
             } catch (error) {
 
@@ -871,11 +915,10 @@ if (!data?.success) {
 
             } finally {
 
-    setLoadingState(false);
+                setLoadingState(false);
+                window.turnstile?.reset();
 
-    window.turnstile?.reset();
-
-}
+            }
 
         }
     );
