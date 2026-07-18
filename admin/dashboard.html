@@ -63,6 +63,40 @@
         href="css/tables.css"
     >
 
+
+    <style>
+
+        .partnerActivationBadge {
+            min-height: 30px;
+            padding: 0 11px;
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            border: 1px solid transparent;
+            border-radius: 999px;
+            font-size: 0.7rem;
+            font-weight: 800;
+            white-space: nowrap;
+        }
+
+        .partnerActivationBadge.isActivated {
+            color: #9ee8b4;
+            border-color: rgba(101, 214, 138, 0.34);
+            background: rgba(101, 214, 138, 0.1);
+        }
+
+        .partnerActivationBadge.isNotActivated {
+            color: #ff9f9f;
+            border-color: rgba(255, 107, 107, 0.35);
+            background: rgba(255, 71, 71, 0.1);
+        }
+
+        .partnerActivationBadge i {
+            font-size: 0.72rem;
+        }
+
+    </style>
+
 </head>
 
 <body class="controlCenterDashboardPage">
@@ -1848,6 +1882,26 @@
     </button>
 
     <div class="partnerDetailsFooterActions">
+
+        <button
+            id="resendPartnerActivationLink"
+            class="secondaryDashboardButton"
+            type="button"
+        >
+            <span class="resendActivationDefault">
+                <i class="fa-solid fa-envelope-circle-check"></i>
+                Send New Activation Link
+            </span>
+
+            <span
+                class="resendActivationLoading"
+                aria-hidden="true"
+                hidden
+            >
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Sending
+            </span>
+        </button>
 
         <button
             id="closePartnerDetailsFooter"
