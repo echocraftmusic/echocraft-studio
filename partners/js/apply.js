@@ -395,6 +395,36 @@ activationDeadlineAgreementError
         }
     );
 
+   activationDeadlineAgreementInput?.addEventListener(
+    "change",
+    () => {
+
+        if (activationDeadlineAgreementError) {
+            activationDeadlineAgreementError.textContent = "";
+        }
+
+        hideAlert();
+
+    }
+);
+
+activationNoticeCheckbox?.addEventListener(
+    "change",
+    () => {
+
+        if (activationNoticeButton) {
+            activationNoticeButton.disabled =
+                !activationNoticeCheckbox.checked;
+        }
+
+    }
+);
+
+activationNoticeButton?.addEventListener(
+    "click",
+    closeActivationNotice
+);
+
 
     /* ======================================
        FORM VALIDATION
