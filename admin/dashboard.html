@@ -1849,6 +1849,26 @@
     <div class="partnerDetailsFooterActions">
 
         <button
+            id="resendPartnerActivationLink"
+            class="secondaryDashboardButton"
+            type="button"
+        >
+            <span class="resendActivationDefault">
+                <i class="fa-solid fa-envelope-circle-check"></i>
+                Send New Activation Link
+            </span>
+
+            <span
+                class="resendActivationLoading"
+                aria-hidden="true"
+                hidden
+            >
+                <i class="fa-solid fa-spinner fa-spin"></i>
+                Sending
+            </span>
+        </button>
+
+        <button
             id="closePartnerDetailsFooter"
             class="secondaryDashboardButton"
             type="button"
