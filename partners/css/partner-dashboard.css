@@ -1731,3 +1731,152 @@ a {
 
 }
 
+
+/* ==========================================
+   PARTNER PUBLIC REFERRAL NAME
+========================================== */
+
+.partnerReferralPrivacyNotice {
+    max-width: 720px;
+    margin: -10px 0 22px !important;
+    color: var(--ec-muted);
+    font-size: 0.82rem !important;
+    line-height: 1.65;
+}
+
+.partnerAliasEditor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 10px;
+    align-items: stretch;
+}
+
+.partnerAliasInputShell {
+    min-height: 56px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    overflow: hidden;
+    border: 1px solid var(--ec-border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.partnerAliasInputShell:focus-within {
+    border-color: var(--ec-gold);
+    background: rgba(216, 179, 90, 0.045);
+    box-shadow: 0 0 0 3px rgba(216, 179, 90, 0.08);
+}
+
+.partnerAliasInputShell span {
+    align-self: stretch;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+    color: var(--ec-gold);
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.partnerAliasInputShell input {
+    width: 100%;
+    min-width: 0;
+    align-self: stretch;
+    padding: 0 16px 0 3px;
+    border: 0;
+    outline: 0;
+    color: var(--ec-text);
+    background: transparent;
+}
+
+.partnerAliasInputShell input::placeholder { color: #706b61; }
+
+.partnerAliasCheckButton,
+.partnerAliasSaveButton {
+    min-height: 56px;
+    padding: 0 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 13px;
+    font-weight: 800;
+    cursor: pointer;
+    transition: transform 0.2s ease, opacity 0.2s ease, filter 0.2s ease;
+}
+
+.partnerAliasCheckButton {
+    border: 1px solid var(--ec-border);
+    color: var(--ec-gold-bright);
+    background: rgba(216, 179, 90, 0.06);
+}
+
+.partnerAliasSaveButton {
+    border: 1px solid var(--ec-gold);
+    color: #141109;
+    background: linear-gradient(135deg, var(--ec-gold-bright), var(--ec-gold));
+}
+
+.partnerAliasCheckButton:hover:not(:disabled),
+.partnerAliasSaveButton:hover:not(:disabled) {
+    transform: translateY(-2px);
+    filter: brightness(1.04);
+}
+
+.partnerAliasCheckButton:disabled,
+.partnerAliasSaveButton:disabled {
+    cursor: not-allowed;
+    opacity: 0.48;
+    transform: none;
+}
+
+.partnerAliasMessage {
+    min-height: 20px;
+    margin: 12px 0 0 !important;
+    color: var(--ec-muted);
+    font-size: 0.76rem !important;
+    line-height: 1.5;
+}
+
+.partnerAliasMessage.isChecking { color: var(--ec-gold-bright); }
+.partnerAliasMessage.isAvailable,
+.partnerAliasMessage.isSaved { color: #9ee8b4; }
+.partnerAliasMessage.isUnavailable { color: var(--ec-danger); }
+
+.partnerSavedLinkArea {
+    margin-top: 24px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(216, 179, 90, 0.14);
+}
+
+.partnerSavedLinkLabel {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--ec-gold);
+    font-size: 0.67rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.partnerSavedLinkArea > p {
+    margin: 12px 0 0;
+    color: var(--ec-muted);
+    font-size: 0.76rem;
+}
+
+@media (max-width: 1180px) {
+    .partnerAliasEditor { grid-template-columns: 1fr 1fr; }
+    .partnerAliasInputShell { grid-column: 1 / -1; }
+}
+
+@media (max-width: 620px) {
+    .partnerAliasEditor { grid-template-columns: 1fr; }
+    .partnerAliasInputShell { grid-column: auto; grid-template-columns: 1fr; min-height: 0; }
+    .partnerAliasInputShell span { min-height: 38px; padding: 0 14px; border-bottom: 1px solid rgba(216, 179, 90, 0.12); font-size: 0.73rem; }
+    .partnerAliasInputShell input { min-height: 52px; padding: 0 14px; }
+    .partnerAliasCheckButton,
+    .partnerAliasSaveButton { width: 100%; }
+}
