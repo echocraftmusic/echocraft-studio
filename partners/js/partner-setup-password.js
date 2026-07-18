@@ -366,6 +366,32 @@ document.addEventListener(
                     }
 
 
+                    const {
+                        data: activationResult,
+                        error: activationError
+                    } =
+                        await supabaseClient.rpc(
+                            "mark_partner_activated"
+                        );
+
+
+                    if (activationError) {
+                        throw activationError;
+                    }
+
+
+                    if (
+                        !activationResult ||
+                        activationResult.success !== true
+                    ) {
+
+                        throw new Error(
+                            "Your password was created, but account activation was not confirmed."
+                        );
+
+                    }
+
+
                     window.location.replace(
                         "dashboard.html"
                     );
