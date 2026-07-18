@@ -90,7 +90,7 @@ section{
             rgba(5, 5, 5, 0.38),
             rgba(5, 5, 5, 0.62)
         ),
-        url("../images/hero/creative-studio-bg.png");
+       url("../images/hero/creative-studio-bg.webp");
 
     background-size: cover;
     background-position: center;
