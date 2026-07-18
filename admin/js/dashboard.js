@@ -251,7 +251,13 @@ const savePartnerDetailsButton =
         "#savePartnerDetails"
     );
     
-    const removePartnerFromProgramButton =
+    
+const resendPartnerActivationLinkButton =
+    document.querySelector(
+        "#resendPartnerActivationLink"
+    );
+
+const removePartnerFromProgramButton =
     document.querySelector(
         "#removePartnerFromProgram"
     );
@@ -2662,6 +2668,138 @@ showToast(
     );
 
     /* ======================================
+       SEND NEW PARTNER ACTIVATION LINK
+    ====================================== */
+
+resendPartnerActivationLinkButton?.addEventListener(
+    "click",
+    async () => {
+
+        if (
+            !selectedPartner ||
+            !supabaseClient
+        ) {
+            return;
+        }
+
+        if (!selectedPartner.application_id) {
+
+            showToast(
+                "This partner is not connected to an application record."
+            );
+
+            return;
+
+        }
+
+        const partnerEmail =
+            selectedPartner.email ||
+            "this partner";
+
+        const confirmed =
+            window.confirm(
+                `Send a new activation link to ${partnerEmail}?`
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        resendPartnerActivationLinkButton.disabled =
+            true;
+
+        const defaultContent =
+            resendPartnerActivationLinkButton
+                .querySelector(
+                    ".resendActivationDefault"
+                );
+
+        const loadingContent =
+            resendPartnerActivationLinkButton
+                .querySelector(
+                    ".resendActivationLoading"
+                );
+
+        if (defaultContent) {
+            defaultContent.hidden = true;
+        }
+
+        if (loadingContent) {
+            loadingContent.hidden = false;
+        }
+
+        try {
+
+            const {
+                data: resendResult,
+                error: resendError
+            } =
+                await supabaseClient.functions
+                    .invoke(
+                        "approve-partner-onboarding",
+                        {
+                            body: {
+                                action:
+                                    "resend_activation",
+
+                                application_id:
+                                    selectedPartner
+                                        .application_id
+                            }
+                        }
+                    );
+
+            if (resendError) {
+                throw resendError;
+            }
+
+            if (
+                !resendResult ||
+                resendResult.success !== true
+            ) {
+
+                throw new Error(
+                    resendResult?.message ||
+                    "The activation link was not sent."
+                );
+
+            }
+
+            showToast(
+                `A new activation link was sent to ${partnerEmail}.`
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Unable to resend partner activation:",
+                error
+            );
+
+            showToast(
+                "The new activation link could not be sent."
+            );
+
+        } finally {
+
+            resendPartnerActivationLinkButton.disabled =
+                false;
+
+            if (defaultContent) {
+                defaultContent.hidden = false;
+            }
+
+            if (loadingContent) {
+                loadingContent.hidden = true;
+            }
+
+        }
+
+    }
+);
+
+
+    /* ======================================
    REMOVE PARTNER FROM PROGRAM
 ====================================== */
 
@@ -3132,6 +3270,7 @@ const [
                     .select(
                         `
                         id,
+                        application_id,
                         full_name,
                         email,
                         business_name,
