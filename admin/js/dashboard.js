@@ -251,13 +251,7 @@ const savePartnerDetailsButton =
         "#savePartnerDetails"
     );
     
-    
-const resendPartnerActivationLinkButton =
-    document.querySelector(
-        "#resendPartnerActivationLink"
-    );
-
-const removePartnerFromProgramButton =
+    const removePartnerFromProgramButton =
     document.querySelector(
         "#removePartnerFromProgram"
     );
@@ -545,6 +539,27 @@ const partnerDetailsReferralLink =
                 .replaceAll("_", "-");
 
         return `status-${safeStatus}`;
+
+    }
+
+
+    function getActivationStatus(partner) {
+
+        if (partner?.activated_at) {
+
+            return {
+                label: "Activated",
+                className: "status-active",
+                icon: "fa-circle-check"
+            };
+
+        }
+
+        return {
+            label: "Not Activated",
+            className: "status-pending-activation",
+            icon: "fa-circle-exclamation"
+        };
 
     }
 
@@ -2267,6 +2282,35 @@ function renderApplications(
                     </td>
 
                     <td>
+
+                        ${(() => {
+
+                            const activation =
+                                getActivationStatus(
+                                    partner
+                                );
+
+                            return `
+                                <span
+                                    class="ec-status ${activation.className}"
+                                    title="${
+                                        partner.activated_at
+                                            ? `Activated ${formatDateTime(
+                                                partner.activated_at
+                                            )}`
+                                            : "Approved, but password setup has not been completed"
+                                    }"
+                                >
+                                    <i class="fa-solid ${activation.icon}"></i>
+                                    ${activation.label}
+                                </span>
+                            `;
+
+                        })()}
+
+                    </td>
+
+                    <td>
                         ${partner.referral_count || 0}
                     </td>
 
@@ -2666,138 +2710,6 @@ showToast(
 
         }
     );
-
-    /* ======================================
-       SEND NEW PARTNER ACTIVATION LINK
-    ====================================== */
-
-resendPartnerActivationLinkButton?.addEventListener(
-    "click",
-    async () => {
-
-        if (
-            !selectedPartner ||
-            !supabaseClient
-        ) {
-            return;
-        }
-
-        if (!selectedPartner.application_id) {
-
-            showToast(
-                "This partner is not connected to an application record."
-            );
-
-            return;
-
-        }
-
-        const partnerEmail =
-            selectedPartner.email ||
-            "this partner";
-
-        const confirmed =
-            window.confirm(
-                `Send a new activation link to ${partnerEmail}?`
-            );
-
-        if (!confirmed) {
-            return;
-        }
-
-        resendPartnerActivationLinkButton.disabled =
-            true;
-
-        const defaultContent =
-            resendPartnerActivationLinkButton
-                .querySelector(
-                    ".resendActivationDefault"
-                );
-
-        const loadingContent =
-            resendPartnerActivationLinkButton
-                .querySelector(
-                    ".resendActivationLoading"
-                );
-
-        if (defaultContent) {
-            defaultContent.hidden = true;
-        }
-
-        if (loadingContent) {
-            loadingContent.hidden = false;
-        }
-
-        try {
-
-            const {
-                data: resendResult,
-                error: resendError
-            } =
-                await supabaseClient.functions
-                    .invoke(
-                        "approve-partner-onboarding",
-                        {
-                            body: {
-                                action:
-                                    "resend_activation",
-
-                                application_id:
-                                    selectedPartner
-                                        .application_id
-                            }
-                        }
-                    );
-
-            if (resendError) {
-                throw resendError;
-            }
-
-            if (
-                !resendResult ||
-                resendResult.success !== true
-            ) {
-
-                throw new Error(
-                    resendResult?.message ||
-                    "The activation link was not sent."
-                );
-
-            }
-
-            showToast(
-                `A new activation link was sent to ${partnerEmail}.`
-            );
-
-        } catch (error) {
-
-            console.error(
-                "Unable to resend partner activation:",
-                error
-            );
-
-            showToast(
-                "The new activation link could not be sent."
-            );
-
-        } finally {
-
-            resendPartnerActivationLinkButton.disabled =
-                false;
-
-            if (defaultContent) {
-                defaultContent.hidden = false;
-            }
-
-            if (loadingContent) {
-                loadingContent.hidden = true;
-            }
-
-        }
-
-    }
-);
-
 
     /* ======================================
    REMOVE PARTNER FROM PROGRAM
@@ -3270,7 +3182,6 @@ const [
                     .select(
                         `
                         id,
-                        application_id,
                         full_name,
                         email,
                         business_name,
