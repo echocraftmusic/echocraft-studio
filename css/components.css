@@ -67,7 +67,7 @@
             rgba(10,10,10,.92),
             rgba(10,10,10,.94)
         ),
-        url("../images/backgrounds/project-bg.jpg");
+        url("../images/backgrounds/project-bg3.webp");
 
     background-size:cover;
 
@@ -279,7 +279,7 @@
             rgba(12,12,12,.94),
             rgba(12,12,12,.94)
         ),
-        url("../images/backgrounds/services-texture.png");
+        url("../images/backgrounds/services-texture.webp");
 
     background-size:cover;
 
@@ -414,7 +414,7 @@
             rgba(8,8,8,.93),
             rgba(8,8,8,.95)
         ),
-        url("../images/backgrounds/contact-texture.png");
+        url("../images/backgrounds/contact-texture.webp");
 
     background-size:cover;
 
