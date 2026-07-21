@@ -2754,3 +2754,36 @@ body.clientEditorOpen { overflow: hidden; }
 @media (max-width: 480px) {
     .clientSummaryGrid { grid-template-columns: 1fr; }
 }
+
+
+/* Keep hidden client controls truly hidden. */
+.clientEditorModal [hidden] {
+    display: none !important;
+}
+
+
+/* ==========================================
+   CLIENT RECORD DISPLAY CORRECTIONS
+========================================== */
+
+#clientsEmptyState[hidden],
+#clientsTableWrapper[hidden] {
+    display: none !important;
+}
+
+.clientReferralAttributionMessage {
+    display: block;
+    margin-top: 2px;
+    color: var(--dashboard-muted);
+    font-size: 0.67rem;
+    line-height: 1.45;
+}
+
+.clientReferralAttributionMessage.isLocked {
+    color: var(--dashboard-success);
+}
+
+#clientReferralPartnerId:disabled {
+    cursor: not-allowed;
+    opacity: 0.72;
+}
