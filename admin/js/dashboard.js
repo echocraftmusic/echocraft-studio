@@ -161,7 +161,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         project_type: document.querySelector("#clientProjectType"),
         status: document.querySelector("#clientStatus"),
         lead_source: document.querySelector("#clientLeadSource"),
-        referral_partner_name: document.querySelector("#clientReferralPartner"),
+        referral_partner_id: document.querySelector("#clientReferralPartnerId"),
+        original_referral_partner_id: document.querySelector("#clientOriginalReferralPartnerId"),
+        original_referral_partner_name: document.querySelector("#clientOriginalReferralPartnerName"),
         budget_range: document.querySelector("#clientBudgetRange"),
         desired_launch_date: document.querySelector("#clientDesiredLaunchDate"),
         quoted_price: document.querySelector("#clientQuotedPrice"),
@@ -173,6 +175,15 @@ document.addEventListener("DOMContentLoaded", async () => {
         reference_links: document.querySelector("#clientReferenceLinks"),
         admin_notes: document.querySelector("#clientAdminNotes")
     };
+
+    const clientReferralAttributionMessage =
+        document.querySelector("#clientReferralAttributionMessage");
+
+    const clientLeadSourceSelect =
+        document.querySelector("#clientLeadSource");
+
+    const clientReferralPartnerSelect =
+        document.querySelector("#clientReferralPartnerId");
 
 
     /* ======================================
@@ -546,6 +557,20 @@ const partnerDetailsReferralLink =
             return "—";
         }
 
+        const dateOnlyMatch =
+            String(value).match(
+                /^(\d{4})-(\d{2})-(\d{2})$/
+            );
+
+        const dateValue =
+            dateOnlyMatch
+                ? new Date(
+                    Number(dateOnlyMatch[1]),
+                    Number(dateOnlyMatch[2]) - 1,
+                    Number(dateOnlyMatch[3])
+                )
+                : new Date(value);
+
         return new Intl.DateTimeFormat(
             "en-US",
             {
@@ -553,9 +578,7 @@ const partnerDetailsReferralLink =
                 day: "numeric",
                 year: "numeric"
             }
-        ).format(
-            new Date(value)
-        );
+        ).format(dateValue);
 
     }
 
@@ -3304,22 +3327,186 @@ removePartnerFromProgramButton?.addEventListener(
             .replace(/\b\w/g, letter => letter.toUpperCase());
     }
 
+
+    function populateClientPartnerOptions() {
+
+        if (!clientReferralPartnerSelect) {
+            return;
+        }
+
+        const selectedValue =
+            clientReferralPartnerSelect.value;
+
+        clientReferralPartnerSelect.innerHTML = `
+            <option value="">
+                No referral partner
+            </option>
+
+            ${loadedPartners
+                .filter(
+                    partner =>
+                        partner.status === "active"
+                )
+                .map(
+                    partner => `
+                        <option
+                            value="${escapeHtml(partner.id)}"
+                        >
+                            ${escapeHtml(
+                                partner.full_name ||
+                                partner.business_name ||
+                                partner.email
+                            )}
+                        </option>
+                    `
+                )
+                .join("")}
+        `;
+
+        if (
+            selectedValue &&
+            Array.from(
+                clientReferralPartnerSelect.options
+            ).some(
+                option =>
+                    option.value === selectedValue
+            )
+        ) {
+
+            clientReferralPartnerSelect.value =
+                selectedValue;
+
+        }
+
+    }
+
+    function selectedPartnerName() {
+
+        const selectedOption =
+            clientReferralPartnerSelect
+                ?.selectedOptions?.[0];
+
+        if (
+            !selectedOption ||
+            !selectedOption.value
+        ) {
+            return null;
+        }
+
+        return selectedOption.textContent.trim();
+
+    }
+
+    function updateReferralAttributionControl() {
+
+        if (
+            !clientReferralPartnerSelect ||
+            !clientReferralAttributionMessage
+        ) {
+            return;
+        }
+
+        const isPartnerReferral =
+            clientLeadSourceSelect?.value ===
+            "partner_referral";
+
+        const originalPartnerId =
+            clientFields
+                .original_referral_partner_id
+                ?.value || "";
+
+        if (originalPartnerId) {
+
+            clientReferralPartnerSelect.value =
+                originalPartnerId;
+
+            clientReferralPartnerSelect.disabled =
+                true;
+
+            clientReferralAttributionMessage
+                .textContent =
+                    "Referral attribution is locked to protect commission credit.";
+
+            clientReferralAttributionMessage
+                .classList.add(
+                    "isLocked"
+                );
+
+            return;
+
+        }
+
+        clientReferralPartnerSelect.disabled =
+            !isPartnerReferral;
+
+        clientReferralPartnerSelect.required =
+            isPartnerReferral;
+
+        clientReferralAttributionMessage
+            .classList.remove(
+                "isLocked"
+            );
+
+        clientReferralAttributionMessage
+            .textContent =
+                isPartnerReferral
+                    ? "Select the partner who referred this client. It will lock after the first save."
+                    : "Choose Partner Referral as the lead source to assign a partner.";
+
+        if (!isPartnerReferral) {
+
+            clientReferralPartnerSelect.value =
+                "";
+
+        }
+
+    }
+
     function clientPayloadFromForm() {
         const payload = {};
 
         Object.entries(clientFields).forEach(([key, element]) => {
-            if (!element || key === "id") return;
 
-            let value = element.value?.trim?.() ?? element.value;
+            if (
+                !element ||
+                key === "id" ||
+                key === "original_referral_partner_id" ||
+                key === "original_referral_partner_name"
+            ) {
+                return;
+            }
 
-            if (["quoted_price", "deposit_amount", "final_payment_amount"].includes(key)) {
-                value = value === "" ? 0 : Number(value);
+            let value =
+                element.value?.trim?.() ??
+                element.value;
+
+            if (
+                [
+                    "quoted_price",
+                    "deposit_amount",
+                    "final_payment_amount"
+                ].includes(key)
+            ) {
+
+                value =
+                    value === ""
+                        ? 0
+                        : Number(value);
+
             } else if (value === "") {
+
                 value = null;
+
             }
 
             payload[key] = value;
+
         });
+
+        payload.referral_partner_name =
+            payload.referral_partner_id
+                ? selectedPartnerName()
+                : null;
 
         return payload;
     }
@@ -3330,7 +3517,11 @@ removePartnerFromProgramButton?.addEventListener(
         if (clientFields.status) clientFields.status.value = "lead";
         if (clientFields.payment_status) clientFields.payment_status.value = "not_quoted";
         if (clientFields.lead_source) clientFields.lead_source.value = "direct_contact";
+        if (clientFields.original_referral_partner_id) clientFields.original_referral_partner_id.value = "";
+        if (clientFields.original_referral_partner_name) clientFields.original_referral_partner_name.value = "";
         selectedClient = null;
+        populateClientPartnerOptions();
+        updateReferralAttributionControl();
         if (archiveClientButton) archiveClientButton.hidden = true;
         if (clientEditorTitle) clientEditorTitle.textContent = "Add Client or Lead";
     }
@@ -3347,9 +3538,55 @@ removePartnerFromProgramButton?.addEventListener(
             if (archiveClientButton) archiveClientButton.hidden = record.status === "archived";
 
             Object.entries(clientFields).forEach(([key, element]) => {
-                if (!element) return;
-                element.value = record[key] ?? "";
+
+                if (!element) {
+                    return;
+                }
+
+                if (
+                    key === "original_referral_partner_id"
+                ) {
+
+                    element.value =
+                        record.original_referral_partner_id ||
+                        record.referral_partner_id ||
+                        "";
+
+                    return;
+
+                }
+
+                if (
+                    key === "original_referral_partner_name"
+                ) {
+
+                    element.value =
+                        record.original_referral_partner_name ||
+                        record.referral_partner_name ||
+                        "";
+
+                    return;
+
+                }
+
+                element.value =
+                    record[key] ?? "";
+
             });
+
+            populateClientPartnerOptions();
+
+            if (
+                record.referral_partner_id
+            ) {
+
+                clientReferralPartnerSelect.value =
+                    record.referral_partner_id;
+
+            }
+
+            updateReferralAttributionControl();
+
         }
 
         clientEditorModal?.classList.add("isOpen");
@@ -3409,13 +3646,38 @@ removePartnerFromProgramButton?.addEventListener(
         ));
 
         if (!filtered.length) {
-            if (clientsEmptyState) clientsEmptyState.hidden = false;
-            if (clientsTableWrapper) clientsTableWrapper.hidden = true;
+
+            if (clientsEmptyState) {
+
+                clientsEmptyState.hidden =
+                    false;
+
+            }
+
+            if (clientsTableWrapper) {
+
+                clientsTableWrapper.hidden =
+                    true;
+
+            }
+
             return;
+
         }
 
-        if (clientsEmptyState) clientsEmptyState.hidden = true;
-        if (clientsTableWrapper) clientsTableWrapper.hidden = false;
+        if (clientsEmptyState) {
+
+            clientsEmptyState.hidden =
+                true;
+
+        }
+
+        if (clientsTableWrapper) {
+
+            clientsTableWrapper.hidden =
+                false;
+
+        }
 
         clientsTableBody.innerHTML = filtered.map(client => `
             <tr>
@@ -3469,6 +3731,11 @@ removePartnerFromProgramButton?.addEventListener(
     clientSearchInput?.addEventListener("input", renderClients);
     clientStatusFilter?.addEventListener("change", renderClients);
 
+    clientLeadSourceSelect?.addEventListener(
+        "change",
+        updateReferralAttributionControl
+    );
+
     copyClientIntakeLink?.addEventListener("click", async () => {
         const intakeUrl = new URL("../client-intake.html", window.location.href).href;
 
@@ -3492,6 +3759,39 @@ removePartnerFromProgramButton?.addEventListener(
             return;
         }
 
+        if (
+            payload.lead_source ===
+                "partner_referral" &&
+            !payload.referral_partner_id
+        ) {
+
+            showToast(
+                "Select the referral partner before saving."
+            );
+
+            clientReferralPartnerSelect
+                ?.focus();
+
+            return;
+
+        }
+
+        if (
+            selectedClient
+                ?.original_referral_partner_id &&
+            payload.referral_partner_id !==
+                selectedClient
+                    .original_referral_partner_id
+        ) {
+
+            showToast(
+                "Referral attribution is locked and cannot be changed from this form."
+            );
+
+            return;
+
+        }
+
         saveClientRecordButton.disabled = true;
         saveClientRecordButton.querySelector(".clientSaveDefault")?.setAttribute("hidden", "");
         saveClientRecordButton.querySelector(".clientSaveLoading")?.removeAttribute("hidden");
@@ -3500,9 +3800,26 @@ removePartnerFromProgramButton?.addEventListener(
             let result;
 
             if (selectedClient?.id) {
+                const updatePayload = {
+                    ...payload
+                };
+
+                if (
+                    selectedClient
+                        .original_referral_partner_id
+                ) {
+
+                    delete updatePayload
+                        .referral_partner_id;
+
+                    delete updatePayload
+                        .referral_partner_name;
+
+                }
+
                 result = await supabaseClient
                     .from("clients_leads")
-                    .update(payload)
+                    .update(updatePayload)
                     .eq("id", selectedClient.id)
                     .select("*")
                     .single();
@@ -3511,7 +3828,35 @@ removePartnerFromProgramButton?.addEventListener(
                     .from("clients_leads")
                     .insert({
                         ...payload,
-                        created_by: window.echoCraftAdmin?.id || null
+
+                        original_referral_partner_id:
+                            payload
+                                .referral_partner_id ||
+                            null,
+
+                        original_referral_partner_name:
+                            payload
+                                .referral_partner_name ||
+                            null,
+
+                        referral_attribution_source:
+                            payload
+                                .referral_partner_id
+                                ? "admin_manual"
+                                : null,
+
+                        referral_attributed_at:
+                            payload
+                                .referral_partner_id
+                                ? new Date()
+                                    .toISOString()
+                                : null,
+
+                        created_by:
+                            window
+                                .echoCraftAdmin
+                                ?.id ||
+                            null
                     })
                     .select("*")
                     .single();
@@ -3982,6 +4327,8 @@ const partnerCommissions =
 
             loadedPartners =
                 partnerData;
+
+            populateClientPartnerOptions();
 
 
             /* ==================================
