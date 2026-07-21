@@ -2150,6 +2150,8 @@
             <div class="clientEditorBody">
 
                 <input id="clientRecordId" type="hidden">
+                <input id="clientOriginalReferralPartnerId" type="hidden">
+                <input id="clientOriginalReferralPartnerName" type="hidden">
 
                 <div class="clientFormGrid">
 
@@ -2236,7 +2238,17 @@
 
                     <label>
                         <span>Referral Partner</span>
-                        <input id="clientReferralPartner" type="text" maxlength="180">
+
+                        <select id="clientReferralPartnerId">
+                            <option value="">No referral partner</option>
+                        </select>
+
+                        <small
+                            id="clientReferralAttributionMessage"
+                            class="clientReferralAttributionMessage"
+                        >
+                            Required when Lead Source is Partner Referral.
+                        </small>
                     </label>
 
                     <label>
@@ -2372,7 +2384,7 @@
 
 <script src="js/supabase-config.js"></script>
 <script src="js/admin-guard.js"></script>
-<script src="js/dashboard.js?v=5"></script>
+<script src="js/dashboard.js"></script>
 
 </body>
 
