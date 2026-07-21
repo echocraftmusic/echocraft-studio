@@ -4540,3 +4540,300 @@ document.addEventListener("click", event => {
     );
 
 });
+
+
+/* ==========================================
+   CLIENT FORM LOSS PROTECTION
+   - Clicking outside does not close the form
+   - Unsaved entries are stored locally
+   - Draft is restored when reopening
+========================================== */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const form =
+        document.querySelector("#clientEditorForm");
+
+    const modal =
+        document.querySelector("#clientEditorModal");
+
+    const backdrop =
+        document.querySelector("#clientEditorBackdrop");
+
+    const closeButton =
+        document.querySelector("#closeClientEditor");
+
+    const cancelButton =
+        document.querySelector("#cancelClientEditor");
+
+    const saveButton =
+        document.querySelector("#saveClientRecord");
+
+    const draftKey =
+        "echoCraftClientLeadDraft";
+
+    let formIsDirty = false;
+
+    function getDraftPayload() {
+
+        if (!form) {
+            return {};
+        }
+
+        const payload = {};
+
+        form
+            .querySelectorAll(
+                "input:not([type='hidden']), select, textarea"
+            )
+            .forEach(field => {
+
+                if (!field.id) {
+                    return;
+                }
+
+                payload[field.id] = field.value;
+
+            });
+
+        return payload;
+
+    }
+
+    function saveDraft() {
+
+        if (!form) {
+            return;
+        }
+
+        const recordId =
+            document.querySelector(
+                "#clientRecordId"
+            )?.value;
+
+        if (recordId) {
+            return;
+        }
+
+        localStorage.setItem(
+            draftKey,
+            JSON.stringify(
+                getDraftPayload()
+            )
+        );
+
+    }
+
+    function restoreDraft() {
+
+        if (!form) {
+            return;
+        }
+
+        const recordId =
+            document.querySelector(
+                "#clientRecordId"
+            )?.value;
+
+        if (recordId) {
+            return;
+        }
+
+        const savedDraft =
+            localStorage.getItem(
+                draftKey
+            );
+
+        if (!savedDraft) {
+            return;
+        }
+
+        try {
+
+            const payload =
+                JSON.parse(savedDraft);
+
+            Object.entries(payload)
+                .forEach(
+                    ([fieldId, value]) => {
+
+                        const field =
+                            document.getElementById(
+                                fieldId
+                            );
+
+                        if (field) {
+                            field.value =
+                                value ?? "";
+                        }
+
+                    }
+                );
+
+            formIsDirty = true;
+
+        } catch (error) {
+
+            console.error(
+                "Unable to restore client draft:",
+                error
+            );
+
+        }
+
+    }
+
+    function clearDraft() {
+
+        localStorage.removeItem(
+            draftKey
+        );
+
+        formIsDirty = false;
+
+    }
+
+    function requestClose() {
+
+        if (!formIsDirty) {
+
+            modal?.classList.remove(
+                "isOpen"
+            );
+
+            modal?.setAttribute(
+                "aria-hidden",
+                "true"
+            );
+
+            document.body.classList.remove(
+                "clientEditorOpen"
+            );
+
+            return;
+
+        }
+
+        const confirmed =
+            window.confirm(
+                "You have unsaved client information. Close this form anyway?\n\nYour draft will remain saved and can be restored when you reopen the form."
+            );
+
+        if (!confirmed) {
+            return;
+        }
+
+        modal?.classList.remove(
+            "isOpen"
+        );
+
+        modal?.setAttribute(
+            "aria-hidden",
+            "true"
+        );
+
+        document.body.classList.remove(
+            "clientEditorOpen"
+        );
+
+    }
+
+    form?.addEventListener(
+        "input",
+        () => {
+
+            formIsDirty = true;
+
+            saveDraft();
+
+        }
+    );
+
+    form?.addEventListener(
+        "change",
+        () => {
+
+            formIsDirty = true;
+
+            saveDraft();
+
+        }
+    );
+
+    backdrop?.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+        },
+        true
+    );
+
+    closeButton?.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            requestClose();
+
+        },
+        true
+    );
+
+    cancelButton?.addEventListener(
+        "click",
+        event => {
+
+            event.preventDefault();
+            event.stopImmediatePropagation();
+
+            requestClose();
+
+        },
+        true
+    );
+
+    document
+        .querySelector(
+            "#addClientLeadButton"
+        )
+        ?.addEventListener(
+            "click",
+            () => {
+
+                window.setTimeout(
+                    restoreDraft,
+                    80
+                );
+
+            }
+        );
+
+    saveButton?.addEventListener(
+        "click",
+        () => {
+
+            window.setTimeout(
+                () => {
+
+                    const modalStillOpen =
+                        modal?.classList.contains(
+                            "isOpen"
+                        );
+
+                    if (!modalStillOpen) {
+                        clearDraft();
+                    }
+
+                },
+                900
+            );
+
+        }
+    );
+
+});
