@@ -311,19 +311,23 @@
 
                 </p>
 
-                <button
-                    class="controlCenterNavLink comingSoonNavigation"
-                    type="button"
-                    data-coming-soon="Client management"
+                <a
+                    class="controlCenterNavLink"
+                    href="#clientsAndLeads"
                 >
 
                     <i class="fa-solid fa-address-book"></i>
 
-                    <span>Clients</span>
+                    <span>Clients &amp; Leads</span>
 
-                    <span class="comingSoonLabel">Soon</span>
+                    <span
+                        id="clientNavigationCount"
+                        class="navigationCount"
+                    >
+                        0
+                    </span>
 
-                </button>
+                </a>
 
                 <button
                     class="controlCenterNavLink comingSoonNavigation"
@@ -1081,6 +1085,159 @@
 
             </div>
 
+
+            <!-- ==================================
+                 CLIENTS & LEADS
+            =================================== -->
+
+            <section
+                id="clientsAndLeads"
+                class="dashboardPanel clientsLeadsPanel"
+            >
+
+                <div class="dashboardPanelHeader">
+
+                    <div>
+
+                        <span class="dashboardSectionTag">
+                            Studio Relationships
+                        </span>
+
+                        <h2>Clients &amp; Leads</h2>
+
+                        <p>
+                            Track serious prospects, paying clients, project
+                            details, pricing, payments, and private follow-up notes.
+                        </p>
+
+                    </div>
+
+                    <div class="clientHeaderActions">
+
+                        <button
+                            id="copyClientIntakeLink"
+                            class="secondaryDashboardButton"
+                            type="button"
+                        >
+                            <i class="fa-solid fa-link"></i>
+                            Copy Intake Link
+                        </button>
+
+                        <button
+                            id="addClientLeadButton"
+                            class="primaryDashboardButton"
+                            type="button"
+                        >
+                            <i class="fa-solid fa-user-plus"></i>
+                            Add Client / Lead
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="clientToolbar">
+
+                    <label class="clientSearchField">
+
+                        <i class="fa-solid fa-magnifying-glass"></i>
+
+                        <input
+                            id="clientSearchInput"
+                            type="search"
+                            placeholder="Search clients, businesses, projects, or email..."
+                        >
+
+                    </label>
+
+                    <select
+                        id="clientStatusFilter"
+                        aria-label="Filter clients by status"
+                    >
+                        <option value="">All Statuses</option>
+                        <option value="lead">Lead</option>
+                        <option value="consultation">Consultation</option>
+                        <option value="quote_sent">Quote Sent</option>
+                        <option value="deposit_paid">Deposit Paid</option>
+                        <option value="in_production">In Production</option>
+                        <option value="awaiting_final_payment">Awaiting Final Payment</option>
+                        <option value="completed">Completed</option>
+                        <option value="past_client">Past Client</option>
+                        <option value="archived">Archived</option>
+                    </select>
+
+                </div>
+
+                <div class="clientSummaryGrid">
+
+                    <article>
+                        <span>Total Records</span>
+                        <strong id="clientTotalCount">0</strong>
+                    </article>
+
+                    <article>
+                        <span>Active Clients</span>
+                        <strong id="activeClientCount">0</strong>
+                    </article>
+
+                    <article>
+                        <span>Open Leads</span>
+                        <strong id="openLeadCount">0</strong>
+                    </article>
+
+                    <article>
+                        <span>Quoted Value</span>
+                        <strong id="clientQuotedValue">$0</strong>
+                    </article>
+
+                </div>
+
+                <div
+                    id="clientsEmptyState"
+                    class="dashboardEmptyState compact"
+                >
+
+                    <span class="dashboardEmptyStateIcon">
+                        <i class="fa-solid fa-address-card"></i>
+                    </span>
+
+                    <h3>No Clients or Leads Yet</h3>
+
+                    <p>
+                        Add a record manually or send the public intake form
+                        to a serious prospective client.
+                    </p>
+
+                </div>
+
+                <div
+                    id="clientsTableWrapper"
+                    class="ec-table-wrapper"
+                    hidden
+                >
+
+                    <table class="ec-table clientTable">
+
+                        <thead>
+                            <tr>
+                                <th>Client / Business</th>
+                                <th>Project</th>
+                                <th>Status</th>
+                                <th>Quoted</th>
+                                <th>Payment</th>
+                                <th>Follow-Up</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="clientsTableBody"></tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
             <!-- ==================================
                  FUTURE MODULES
             =================================== -->
@@ -1097,12 +1254,12 @@
 
                         </span>
 
-                        <h2>Future Control Center Modules</h2>
+                        <h2>Control Center Modules</h2>
 
                         <p>
 
-                            The Control Center is being built as a modular
-                            business platform beyond the ECPP.
+                            Manage the studio through connected modules that expand
+                            as Echo Craft grows.
 
                         </p>
 
@@ -1112,15 +1269,18 @@
 
                 <div class="futureModuleGrid">
 
-                    <article class="futureModuleCard">
+                    <a
+                        class="futureModuleCard activeModuleCard"
+                        href="#clientsAndLeads"
+                    >
 
                         <i class="fa-solid fa-address-card"></i>
 
-                        <h3>Client Management</h3>
+                        <h3>Clients &amp; Leads</h3>
 
-                        <span>Coming Soon</span>
+                        <span>Active</span>
 
-                    </article>
+                    </a>
 
                     <article class="futureModuleCard">
 
@@ -1935,6 +2095,254 @@
 </div>
 
         </footer>
+
+    </section>
+
+</div>
+
+
+<!-- ==========================================
+     CLIENT / LEAD EDITOR
+=========================================== -->
+
+<div
+    id="clientEditorModal"
+    class="clientEditorModal"
+    aria-hidden="true"
+>
+
+    <div
+        id="clientEditorBackdrop"
+        class="clientEditorBackdrop"
+    ></div>
+
+    <section
+        class="clientEditorDialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="clientEditorTitle"
+    >
+
+        <header class="clientEditorHeader">
+
+            <div>
+                <span class="dashboardSectionTag">Private Studio Record</span>
+                <h2 id="clientEditorTitle">Add Client or Lead</h2>
+                <p>
+                    Customer-submitted information can be reviewed here,
+                    then completed with private business notes and payment details.
+                </p>
+            </div>
+
+            <button
+                id="closeClientEditor"
+                class="clientEditorClose"
+                type="button"
+                aria-label="Close client editor"
+            >
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </header>
+
+        <form id="clientEditorForm">
+
+            <div class="clientEditorBody">
+
+                <input id="clientRecordId" type="hidden">
+
+                <div class="clientFormGrid">
+
+                    <label>
+                        <span>Full Name *</span>
+                        <input id="clientFullName" type="text" maxlength="160" required>
+                    </label>
+
+                    <label>
+                        <span>Email Address *</span>
+                        <input id="clientEmail" type="email" maxlength="254" required>
+                    </label>
+
+                    <label>
+                        <span>Phone Number</span>
+                        <input id="clientPhone" type="tel" maxlength="50">
+                    </label>
+
+                    <label>
+                        <span>Preferred Contact</span>
+                        <select id="clientPreferredContact">
+                            <option value="">Not specified</option>
+                            <option value="email">Email</option>
+                            <option value="text">Text</option>
+                            <option value="phone">Phone</option>
+                            <option value="zoom">Video Call</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Business / Brand</span>
+                        <input id="clientBusinessName" type="text" maxlength="180">
+                    </label>
+
+                    <label>
+                        <span>Current Website</span>
+                        <input id="clientWebsiteUrl" type="url" maxlength="500" placeholder="https://">
+                    </label>
+
+                    <label>
+                        <span>Project Type</span>
+                        <select id="clientProjectType">
+                            <option value="">Choose project type</option>
+                            <option value="website_design">Website Design</option>
+                            <option value="landing_page">Landing Page</option>
+                            <option value="ecommerce">E-Commerce</option>
+                            <option value="video_editing">Video Editing</option>
+                            <option value="commercial_production">Commercial Production</option>
+                            <option value="brand_storytelling">Brand Storytelling</option>
+                            <option value="creative_consulting">Creative Consulting</option>
+                            <option value="music_voiceover">Custom Music / Voiceover</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Status</span>
+                        <select id="clientStatus">
+                            <option value="lead">Lead</option>
+                            <option value="consultation">Consultation</option>
+                            <option value="quote_sent">Quote Sent</option>
+                            <option value="deposit_paid">Deposit Paid</option>
+                            <option value="in_production">In Production</option>
+                            <option value="awaiting_final_payment">Awaiting Final Payment</option>
+                            <option value="completed">Completed</option>
+                            <option value="past_client">Past Client</option>
+                            <option value="archived">Archived</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Lead Source</span>
+                        <select id="clientLeadSource">
+                            <option value="">Not specified</option>
+                            <option value="website_intake">Website Intake</option>
+                            <option value="partner_referral">Partner Referral</option>
+                            <option value="word_of_mouth">Word of Mouth</option>
+                            <option value="social_media">Social Media</option>
+                            <option value="existing_client">Existing Client</option>
+                            <option value="direct_contact">Direct Contact</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Referral Partner</span>
+                        <input id="clientReferralPartner" type="text" maxlength="180">
+                    </label>
+
+                    <label>
+                        <span>Budget Range</span>
+                        <input id="clientBudgetRange" type="text" maxlength="100" placeholder="$1,000–$3,000">
+                    </label>
+
+                    <label>
+                        <span>Desired Launch Date</span>
+                        <input id="clientDesiredLaunchDate" type="date">
+                    </label>
+
+                    <label>
+                        <span>Quoted Price</span>
+                        <input id="clientQuotedPrice" type="number" min="0" step="0.01">
+                    </label>
+
+                    <label>
+                        <span>Deposit Amount</span>
+                        <input id="clientDepositAmount" type="number" min="0" step="0.01">
+                    </label>
+
+                    <label>
+                        <span>Final Payment Amount</span>
+                        <input id="clientFinalPaymentAmount" type="number" min="0" step="0.01">
+                    </label>
+
+                    <label>
+                        <span>Payment Status</span>
+                        <select id="clientPaymentStatus">
+                            <option value="not_quoted">Not Quoted</option>
+                            <option value="quote_sent">Quote Sent</option>
+                            <option value="deposit_due">Deposit Due</option>
+                            <option value="deposit_paid">Deposit Paid</option>
+                            <option value="final_payment_due">Final Payment Due</option>
+                            <option value="paid_in_full">Paid in Full</option>
+                            <option value="refunded">Refunded</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        <span>Next Follow-Up</span>
+                        <input id="clientFollowUpDate" type="date">
+                    </label>
+
+                    <label class="clientFormFull">
+                        <span>What the Client Needs</span>
+                        <textarea id="clientProjectDescription" rows="5" maxlength="8000"></textarea>
+                    </label>
+
+                    <label class="clientFormFull">
+                        <span>Examples, Links, or References</span>
+                        <textarea id="clientReferenceLinks" rows="3" maxlength="4000"></textarea>
+                    </label>
+
+                    <label class="clientFormFull">
+                        <span>Private Administrator Notes</span>
+                        <textarea id="clientAdminNotes" rows="6" maxlength="10000"></textarea>
+                    </label>
+
+                </div>
+
+            </div>
+
+            <footer class="clientEditorFooter">
+
+                <button
+                    id="archiveClientButton"
+                    class="removePartnerButton"
+                    type="button"
+                    hidden
+                >
+                    <i class="fa-solid fa-box-archive"></i>
+                    Archive
+                </button>
+
+                <div class="clientEditorFooterActions">
+
+                    <button
+                        id="cancelClientEditor"
+                        class="secondaryDashboardButton"
+                        type="button"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        id="saveClientRecord"
+                        class="primaryDashboardButton"
+                        type="submit"
+                    >
+                        <span class="clientSaveDefault">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                            Save Record
+                        </span>
+                        <span class="clientSaveLoading" hidden>
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+                            Saving
+                        </span>
+                    </button>
+
+                </div>
+
+            </footer>
+
+        </form>
 
     </section>
 
