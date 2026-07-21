@@ -125,6 +125,57 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 
     /* ======================================
+       CLIENTS & LEADS ELEMENTS
+    ====================================== */
+
+    const clientNavigationCount = document.querySelector("#clientNavigationCount");
+    const clientTotalCount = document.querySelector("#clientTotalCount");
+    const activeClientCount = document.querySelector("#activeClientCount");
+    const openLeadCount = document.querySelector("#openLeadCount");
+    const clientQuotedValue = document.querySelector("#clientQuotedValue");
+    const clientsEmptyState = document.querySelector("#clientsEmptyState");
+    const clientsTableWrapper = document.querySelector("#clientsTableWrapper");
+    const clientsTableBody = document.querySelector("#clientsTableBody");
+    const clientSearchInput = document.querySelector("#clientSearchInput");
+    const clientStatusFilter = document.querySelector("#clientStatusFilter");
+    const addClientLeadButton = document.querySelector("#addClientLeadButton");
+    const copyClientIntakeLink = document.querySelector("#copyClientIntakeLink");
+
+    const clientEditorModal = document.querySelector("#clientEditorModal");
+    const clientEditorBackdrop = document.querySelector("#clientEditorBackdrop");
+    const closeClientEditorButton = document.querySelector("#closeClientEditor");
+    const cancelClientEditorButton = document.querySelector("#cancelClientEditor");
+    const clientEditorForm = document.querySelector("#clientEditorForm");
+    const clientEditorTitle = document.querySelector("#clientEditorTitle");
+    const archiveClientButton = document.querySelector("#archiveClientButton");
+    const saveClientRecordButton = document.querySelector("#saveClientRecord");
+
+    const clientFields = {
+        id: document.querySelector("#clientRecordId"),
+        full_name: document.querySelector("#clientFullName"),
+        email: document.querySelector("#clientEmail"),
+        phone: document.querySelector("#clientPhone"),
+        preferred_contact: document.querySelector("#clientPreferredContact"),
+        business_name: document.querySelector("#clientBusinessName"),
+        website_url: document.querySelector("#clientWebsiteUrl"),
+        project_type: document.querySelector("#clientProjectType"),
+        status: document.querySelector("#clientStatus"),
+        lead_source: document.querySelector("#clientLeadSource"),
+        referral_partner_name: document.querySelector("#clientReferralPartner"),
+        budget_range: document.querySelector("#clientBudgetRange"),
+        desired_launch_date: document.querySelector("#clientDesiredLaunchDate"),
+        quoted_price: document.querySelector("#clientQuotedPrice"),
+        deposit_amount: document.querySelector("#clientDepositAmount"),
+        final_payment_amount: document.querySelector("#clientFinalPaymentAmount"),
+        payment_status: document.querySelector("#clientPaymentStatus"),
+        follow_up_date: document.querySelector("#clientFollowUpDate"),
+        project_description: document.querySelector("#clientProjectDescription"),
+        reference_links: document.querySelector("#clientReferenceLinks"),
+        admin_notes: document.querySelector("#clientAdminNotes")
+    };
+
+
+    /* ======================================
        APPLICATION REVIEW ELEMENTS
     ====================================== */
 
@@ -404,6 +455,10 @@ const partnerDetailsReferralLink =
     let loadedApplications = [];
 
     let loadedPartners = [];
+
+    let loadedClients = [];
+
+    let selectedClient = null;
 
     let selectedApplication = null;
 
@@ -3238,6 +3293,271 @@ removePartnerFromProgramButton?.addEventListener(
         }
     );
     
+
+    /* ======================================
+       CLIENTS & LEADS
+    ====================================== */
+
+    function formatClientLabel(value) {
+        return String(value || "—")
+            .replaceAll("_", " ")
+            .replace(/\b\w/g, letter => letter.toUpperCase());
+    }
+
+    function clientPayloadFromForm() {
+        const payload = {};
+
+        Object.entries(clientFields).forEach(([key, element]) => {
+            if (!element || key === "id") return;
+
+            let value = element.value?.trim?.() ?? element.value;
+
+            if (["quoted_price", "deposit_amount", "final_payment_amount"].includes(key)) {
+                value = value === "" ? 0 : Number(value);
+            } else if (value === "") {
+                value = null;
+            }
+
+            payload[key] = value;
+        });
+
+        return payload;
+    }
+
+    function resetClientForm() {
+        clientEditorForm?.reset();
+        if (clientFields.id) clientFields.id.value = "";
+        if (clientFields.status) clientFields.status.value = "lead";
+        if (clientFields.payment_status) clientFields.payment_status.value = "not_quoted";
+        if (clientFields.lead_source) clientFields.lead_source.value = "direct_contact";
+        selectedClient = null;
+        if (archiveClientButton) archiveClientButton.hidden = true;
+        if (clientEditorTitle) clientEditorTitle.textContent = "Add Client or Lead";
+    }
+
+    function openClientEditor(clientId = "") {
+        resetClientForm();
+
+        if (clientId) {
+            const record = loadedClients.find(client => client.id === clientId);
+            if (!record) return;
+
+            selectedClient = record;
+            if (clientEditorTitle) clientEditorTitle.textContent = "Edit Client or Lead";
+            if (archiveClientButton) archiveClientButton.hidden = record.status === "archived";
+
+            Object.entries(clientFields).forEach(([key, element]) => {
+                if (!element) return;
+                element.value = record[key] ?? "";
+            });
+        }
+
+        clientEditorModal?.classList.add("isOpen");
+        clientEditorModal?.setAttribute("aria-hidden", "false");
+        document.body.classList.add("clientEditorOpen");
+        window.setTimeout(() => clientFields.full_name?.focus(), 50);
+    }
+
+    function closeClientEditor() {
+        clientEditorModal?.classList.remove("isOpen");
+        clientEditorModal?.setAttribute("aria-hidden", "true");
+        document.body.classList.remove("clientEditorOpen");
+        selectedClient = null;
+    }
+
+    function renderClients() {
+        const query = String(clientSearchInput?.value || "").trim().toLowerCase();
+        const statusFilter = clientStatusFilter?.value || "";
+
+        const filtered = loadedClients.filter(client => {
+            const matchesStatus = !statusFilter || client.status === statusFilter;
+            const haystack = [
+                client.full_name,
+                client.email,
+                client.business_name,
+                client.project_type,
+                client.project_description
+            ].join(" ").toLowerCase();
+
+            return matchesStatus && (!query || haystack.includes(query));
+        });
+
+        const activeStatuses = [
+            "deposit_paid",
+            "in_production",
+            "awaiting_final_payment"
+        ];
+
+        const leadStatuses = [
+            "lead",
+            "consultation",
+            "quote_sent"
+        ];
+
+        clientNavigationCount && (clientNavigationCount.textContent = String(
+            loadedClients.filter(client => client.status !== "archived").length
+        ));
+        clientTotalCount && (clientTotalCount.textContent = String(loadedClients.length));
+        activeClientCount && (activeClientCount.textContent = String(
+            loadedClients.filter(client => activeStatuses.includes(client.status)).length
+        ));
+        openLeadCount && (openLeadCount.textContent = String(
+            loadedClients.filter(client => leadStatuses.includes(client.status)).length
+        ));
+        clientQuotedValue && (clientQuotedValue.textContent = formatCurrency(
+            loadedClients.reduce((sum, client) => sum + Number(client.quoted_price || 0), 0)
+        ));
+
+        if (!filtered.length) {
+            if (clientsEmptyState) clientsEmptyState.hidden = false;
+            if (clientsTableWrapper) clientsTableWrapper.hidden = true;
+            return;
+        }
+
+        if (clientsEmptyState) clientsEmptyState.hidden = true;
+        if (clientsTableWrapper) clientsTableWrapper.hidden = false;
+
+        clientsTableBody.innerHTML = filtered.map(client => `
+            <tr>
+                <td>
+                    <strong>${escapeHtml(client.full_name || "Unnamed Client")}</strong>
+                    <small>${escapeHtml(client.business_name || client.email || "No business listed")}</small>
+                </td>
+                <td>${escapeHtml(formatClientLabel(client.project_type))}</td>
+                <td>
+                    <span class="ec-status ${statusClass(client.status)}">
+                        ${escapeHtml(formatClientLabel(client.status))}
+                    </span>
+                </td>
+                <td>${formatCurrency(client.quoted_price)}</td>
+                <td>${escapeHtml(formatClientLabel(client.payment_status))}</td>
+                <td>${formatDate(client.follow_up_date)}</td>
+                <td>
+                    <button
+                        class="clientEditButton"
+                        type="button"
+                        data-client-id="${escapeHtml(client.id)}"
+                    >
+                        <i class="fa-solid fa-pen-to-square"></i>
+                        Open
+                    </button>
+                </td>
+            </tr>
+        `).join("");
+
+        clientsTableBody.querySelectorAll(".clientEditButton").forEach(button => {
+            button.addEventListener("click", () => openClientEditor(button.dataset.clientId));
+        });
+    }
+
+    async function loadClients() {
+        const { data, error } = await supabaseClient
+            .from("clients_leads")
+            .select("*")
+            .order("created_at", { ascending: false });
+
+        if (error) throw error;
+
+        loadedClients = data || [];
+        renderClients();
+    }
+
+    addClientLeadButton?.addEventListener("click", () => openClientEditor());
+    closeClientEditorButton?.addEventListener("click", closeClientEditor);
+    cancelClientEditorButton?.addEventListener("click", closeClientEditor);
+    clientEditorBackdrop?.addEventListener("click", closeClientEditor);
+    clientSearchInput?.addEventListener("input", renderClients);
+    clientStatusFilter?.addEventListener("change", renderClients);
+
+    copyClientIntakeLink?.addEventListener("click", async () => {
+        const intakeUrl = new URL("../client-intake.html", window.location.href).href;
+
+        try {
+            await navigator.clipboard.writeText(intakeUrl);
+            showToast("Client intake link copied.");
+        } catch (error) {
+            window.prompt("Copy this client intake link:", intakeUrl);
+        }
+    });
+
+    clientEditorForm?.addEventListener("submit", async event => {
+        event.preventDefault();
+
+        if (!supabaseClient) return;
+
+        const payload = clientPayloadFromForm();
+
+        if (!payload.full_name || !payload.email) {
+            showToast("Client name and email are required.");
+            return;
+        }
+
+        saveClientRecordButton.disabled = true;
+        saveClientRecordButton.querySelector(".clientSaveDefault")?.setAttribute("hidden", "");
+        saveClientRecordButton.querySelector(".clientSaveLoading")?.removeAttribute("hidden");
+
+        try {
+            let result;
+
+            if (selectedClient?.id) {
+                result = await supabaseClient
+                    .from("clients_leads")
+                    .update(payload)
+                    .eq("id", selectedClient.id)
+                    .select("*")
+                    .single();
+            } else {
+                result = await supabaseClient
+                    .from("clients_leads")
+                    .insert({
+                        ...payload,
+                        created_by: window.echoCraftAdmin?.id || null
+                    })
+                    .select("*")
+                    .single();
+            }
+
+            if (result.error) throw result.error;
+
+            closeClientEditor();
+            await loadClients();
+            showToast(selectedClient ? "Client record updated." : "Client or lead added.");
+        } catch (error) {
+            console.error("Unable to save client record:", error);
+            showToast("Unable to save the client record.");
+        } finally {
+            saveClientRecordButton.disabled = false;
+            saveClientRecordButton.querySelector(".clientSaveDefault")?.removeAttribute("hidden");
+            saveClientRecordButton.querySelector(".clientSaveLoading")?.setAttribute("hidden", "");
+        }
+    });
+
+    archiveClientButton?.addEventListener("click", async () => {
+        if (!selectedClient?.id) return;
+
+        const confirmed = window.confirm(
+            `Archive ${selectedClient.full_name || "this record"}? The history will be preserved.`
+        );
+
+        if (!confirmed) return;
+
+        try {
+            const { error } = await supabaseClient
+                .from("clients_leads")
+                .update({ status: "archived" })
+                .eq("id", selectedClient.id);
+
+            if (error) throw error;
+
+            closeClientEditor();
+            await loadClients();
+            showToast("Client record archived.");
+        } catch (error) {
+            console.error("Unable to archive client record:", error);
+            showToast("Unable to archive this record.");
+        }
+    });
+
     /* ======================================
        LOAD LIVE ECPP DATA
     ====================================== */
@@ -3668,6 +3988,8 @@ const partnerCommissions =
                RENDER DASHBOARD RECORDS
             ================================== */
 
+            await loadClients();
+
             renderApplications(
                 loadedApplications
             );
@@ -4055,6 +4377,18 @@ const partnerCommissions =
             }
 
             if (
+                clientEditorModal
+                    ?.classList
+                    .contains("isOpen")
+            ) {
+
+                closeClientEditor();
+
+                return;
+
+            }
+
+            if (
                 partnerDetailsModal
                     ?.classList
                     .contains("isOpen")
@@ -4110,3 +4444,99 @@ const partnerCommissions =
 
 });
 
+
+
+/* ==========================================
+   CLIENTS & LEADS BUTTON FALLBACK
+   Ensures the editor opens even if an earlier
+   async dashboard task delays normal binding.
+========================================== */
+
+document.addEventListener("click", event => {
+
+    const addButton =
+        event.target.closest("#addClientLeadButton");
+
+    if (!addButton) {
+        return;
+    }
+
+    const modal =
+        document.querySelector("#clientEditorModal");
+
+    const form =
+        document.querySelector("#clientEditorForm");
+
+    const title =
+        document.querySelector("#clientEditorTitle");
+
+    const archiveButton =
+        document.querySelector("#archiveClientButton");
+
+    if (!modal) {
+        console.error(
+            "Client editor modal was not found."
+        );
+
+        return;
+    }
+
+    form?.reset();
+
+    const recordId =
+        document.querySelector("#clientRecordId");
+
+    const status =
+        document.querySelector("#clientStatus");
+
+    const paymentStatus =
+        document.querySelector("#clientPaymentStatus");
+
+    const leadSource =
+        document.querySelector("#clientLeadSource");
+
+    if (recordId) {
+        recordId.value = "";
+    }
+
+    if (status) {
+        status.value = "lead";
+    }
+
+    if (paymentStatus) {
+        paymentStatus.value = "not_quoted";
+    }
+
+    if (leadSource) {
+        leadSource.value = "direct_contact";
+    }
+
+    if (title) {
+        title.textContent =
+            "Add Client or Lead";
+    }
+
+    if (archiveButton) {
+        archiveButton.hidden = true;
+    }
+
+    modal.classList.add("isOpen");
+
+    modal.setAttribute(
+        "aria-hidden",
+        "false"
+    );
+
+    document.body.classList.add(
+        "clientEditorOpen"
+    );
+
+    window.setTimeout(
+        () =>
+            document
+                .querySelector("#clientFullName")
+                ?.focus(),
+        50
+    );
+
+});
