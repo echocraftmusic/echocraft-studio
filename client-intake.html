@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <title>Start Your Echo Craft Project</title>
+    <meta name="description" content="Tell Echo Craft Studio about your project.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="css/client-intake.css">
+</head>
+<body>
+    <main class="intakePage">
+        <a class="intakeBrand" href="index.html">
+            <img src="images/branding/logos/ec-gold-logo.png" alt="Echo Craft Studio">
+            <div><strong>Echo Craft</strong><span>Creative Studio</span></div>
+        </a>
+
+        <section class="intakeCard">
+            <div id="intakeFormState">
+                <p class="eyebrow">Project Intake</p>
+                <h1>Tell Us What You Want to Build</h1>
+                <p class="intro">
+                    Complete this form with the details you know. Troy will review
+                    everything and contact you about the next step.
+                </p>
+
+                <form id="clientIntakeForm">
+                    <div class="formGrid">
+                        <label><span>Full Name *</span><input id="fullName" type="text" required maxlength="160"></label>
+                        <label><span>Email Address *</span><input id="email" type="email" required maxlength="254"></label>
+                        <label><span>Phone Number</span><input id="phone" type="tel" maxlength="50"></label>
+                        <label>
+                            <span>Preferred Contact</span>
+                            <select id="preferredContact">
+                                <option value="">Choose one</option>
+                                <option value="email">Email</option>
+                                <option value="text">Text Message</option>
+                                <option value="phone">Phone Call</option>
+                                <option value="zoom">Video Call</option>
+                            </select>
+                        </label>
+                        <label><span>Business / Brand</span><input id="businessName" type="text" maxlength="180"></label>
+                        <label><span>Current Website</span><input id="websiteUrl" type="url" maxlength="500" placeholder="https://"></label>
+                        <label>
+                            <span>Project Type *</span>
+                            <select id="projectType" required>
+                                <option value="">Choose project type</option>
+                                <option value="website_design">Website Design</option>
+                                <option value="landing_page">Landing Page</option>
+                                <option value="ecommerce">E-Commerce</option>
+                                <option value="video_editing">Video Editing</option>
+                                <option value="commercial_production">Commercial Production</option>
+                                <option value="brand_storytelling">Brand Storytelling</option>
+                                <option value="creative_consulting">Creative Consulting</option>
+                                <option value="music_voiceover">Custom Music / Voiceover</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </label>
+                        <label><span>Budget Range</span><input id="budgetRange" type="text" maxlength="100" placeholder="Example: $1,000–$3,000"></label>
+                        <label><span>Desired Launch Date</span><input id="desiredLaunchDate" type="date"></label>
+                        <label class="full"><span>What Do You Need? *</span><textarea id="projectDescription" rows="7" maxlength="8000" required></textarea></label>
+                        <label class="full"><span>Examples, Links, or References</span><textarea id="referenceLinks" rows="4" maxlength="4000"></textarea></label>
+                    </div>
+
+                    <label class="consent">
+                        <input id="consent" type="checkbox" required>
+                        <span>I understand this form starts a conversation and does not create a contract or guarantee a project start date.</span>
+                    </label>
+
+                    <button id="submitIntake" type="submit">
+                        <span class="submitDefault"><i class="fa-solid fa-paper-plane"></i> Submit Project Information</span>
+                        <span class="submitLoading" hidden><i class="fa-solid fa-spinner fa-spin"></i> Sending</span>
+                    </button>
+
+                    <p id="intakeError" class="errorMessage" role="alert" hidden></p>
+                </form>
+            </div>
+
+            <div id="intakeSuccessState" class="successState" hidden>
+                <i class="fa-solid fa-circle-check"></i>
+                <p class="eyebrow">Information Received</p>
+                <h1>Thank You</h1>
+                <p>Your project information has been sent securely to Echo Craft Studio. Troy will review it and follow up with you.</p>
+                <a href="index.html">Return to Echo Craft Studio</a>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="admin/js/supabase-config.js"></script>
+    <script src="js/client-intake.js"></script>
+</body>
+</html>
