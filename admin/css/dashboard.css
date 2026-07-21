@@ -2503,3 +2503,254 @@ body.partnerDetailsOpen {
 }
 
 
+
+
+/* ==========================================
+   CLIENTS & LEADS MODULE
+========================================== */
+
+.clientHeaderActions,
+.clientEditorFooterActions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.clientToolbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 220px;
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.clientSearchField {
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 0 15px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 13px;
+    background: rgba(255,255,255,.025);
+}
+
+.clientSearchField i { color: var(--dashboard-gold); }
+
+.clientSearchField input,
+.clientToolbar select {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 13px;
+    outline: none;
+    background: rgba(255,255,255,.025);
+    color: var(--dashboard-white);
+    font: inherit;
+}
+
+.clientSearchField input {
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+}
+
+.clientToolbar select { padding: 0 13px; }
+.clientToolbar option,
+.clientFormGrid option { background: #141311; color: #fff; }
+
+.clientSummaryGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+}
+
+.clientSummaryGrid article {
+    padding: 17px;
+    border: 1px solid rgba(212,175,55,.13);
+    border-radius: 15px;
+    background: rgba(212,175,55,.035);
+}
+
+.clientSummaryGrid span {
+    display: block;
+    margin-bottom: 7px;
+    color: var(--dashboard-muted);
+    font-size: .64rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.clientSummaryGrid strong {
+    color: var(--dashboard-white);
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 1.75rem;
+}
+
+.clientTable td strong,
+.clientTable td small { display: block; }
+.clientTable td small { margin-top: 4px; color: var(--dashboard-muted); }
+
+.clientEditButton {
+    min-height: 36px;
+    padding: 0 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    border: 1px solid rgba(212,175,55,.3);
+    border-radius: 10px;
+    background: rgba(212,175,55,.09);
+    color: var(--dashboard-gold-light);
+    font: inherit;
+    font-size: .7rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.activeModuleCard {
+    text-decoration: none;
+    border-color: rgba(115,214,154,.22);
+    background: rgba(115,214,154,.035);
+}
+.activeModuleCard span {
+    color: var(--dashboard-success);
+    border-color: rgba(115,214,154,.22);
+}
+
+.clientEditorModal {
+    position: fixed;
+    inset: 0;
+    z-index: 5200;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 28px;
+}
+.clientEditorModal.isOpen { display: flex; }
+.clientEditorBackdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.86);
+    backdrop-filter: blur(12px);
+}
+.clientEditorDialog {
+    position: relative;
+    z-index: 1;
+    width: min(1100px,100%);
+    max-height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid rgba(212,175,55,.24);
+    border-radius: 24px;
+    background: linear-gradient(180deg,rgba(22,20,17,.99),rgba(9,9,8,.99));
+    box-shadow: 0 34px 100px rgba(0,0,0,.72);
+}
+.clientEditorHeader {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 26px 30px 22px;
+    border-bottom: 1px solid rgba(255,255,255,.07);
+}
+.clientEditorHeader h2 {
+    margin: 8px 0 8px;
+    font-family: "Cormorant Garamond",Georgia,serif;
+    font-size: clamp(2rem,4vw,3rem);
+}
+.clientEditorHeader p {
+    max-width: 720px;
+    color: var(--dashboard-muted);
+    font-size: .8rem;
+    line-height: 1.65;
+}
+.clientEditorClose {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 12px;
+    background: rgba(255,255,255,.035);
+    color: var(--dashboard-muted);
+    cursor: pointer;
+}
+#clientEditorForm { min-height: 0; display: flex; flex: 1; flex-direction: column; }
+.clientEditorBody { padding: 26px 30px; overflow-y: auto; }
+.clientFormGrid {
+    display: grid;
+    grid-template-columns: repeat(2,minmax(0,1fr));
+    gap: 16px;
+}
+.clientFormGrid label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.clientFormGrid label > span {
+    color: #ddd7cc;
+    font-size: .71rem;
+    font-weight: 600;
+}
+.clientFormGrid input,
+.clientFormGrid select,
+.clientFormGrid textarea {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,.09);
+    border-radius: 12px;
+    outline: none;
+    background: rgba(255,255,255,.035);
+    color: var(--dashboard-white);
+    font: inherit;
+}
+.clientFormGrid input,
+.clientFormGrid select { min-height: 48px; padding: 0 13px; }
+.clientFormGrid textarea { padding: 13px; line-height: 1.6; resize: vertical; }
+.clientFormGrid input:focus,
+.clientFormGrid select:focus,
+.clientFormGrid textarea:focus {
+    border-color: rgba(212,175,55,.55);
+    box-shadow: 0 0 0 4px rgba(212,175,55,.08);
+}
+.clientFormFull { grid-column: 1 / -1; }
+.clientEditorFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 19px 30px;
+    border-top: 1px solid rgba(255,255,255,.07);
+    background: rgba(7,7,7,.72);
+}
+body.clientEditorOpen { overflow: hidden; }
+
+@media (max-width: 840px) {
+    .clientSummaryGrid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .clientFormGrid { grid-template-columns: 1fr; }
+    .clientFormFull { grid-column: auto; }
+}
+@media (max-width: 700px) {
+    .clientToolbar { grid-template-columns: 1fr; }
+    .clientHeaderActions { width: 100%; }
+    .clientHeaderActions button { width: 100%; }
+    .clientEditorModal { align-items: flex-end; padding: 0; }
+    .clientEditorDialog {
+        width: 100%;
+        max-height: 94vh;
+        border-right: 0;
+        border-bottom: 0;
+        border-left: 0;
+        border-radius: 22px 22px 0 0;
+    }
+    .clientEditorHeader,
+    .clientEditorBody,
+    .clientEditorFooter { padding-right: 20px; padding-left: 20px; }
+    .clientEditorFooter { align-items: stretch; flex-direction: column; }
+    .clientEditorFooterActions { width: 100%; }
+    .clientEditorFooterActions button,
+    #archiveClientButton { flex: 1; }
+}
+@media (max-width: 480px) {
+    .clientSummaryGrid { grid-template-columns: 1fr; }
+}
