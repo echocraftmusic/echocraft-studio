@@ -895,3 +895,76 @@
         letter-spacing: 0.15em;
     }
 }
+
+
+/*==================================================
+  MOBILE CAROUSEL ARROWS
+==================================================*/
+.mobileCarouselHeader {
+    display: none;
+}
+
+@media (max-width: 576px) {
+    .mobileCarouselHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        width: calc(100% - 36px);
+        margin: 0 auto 18px;
+    }
+
+    .mobileCarouselIntro {
+        display: block;
+        width: auto;
+        margin: 0;
+        color: #d9d3ca;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.12em;
+        line-height: 1.45;
+        text-transform: uppercase;
+    }
+
+    .mobileCarouselControls {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        flex: 0 0 auto;
+    }
+
+    .carouselArrow {
+        width: 46px;
+        height: 46px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid rgba(226, 185, 72, 0.72);
+        border-radius: 50%;
+        background: linear-gradient(145deg, rgba(52, 42, 22, 0.96), rgba(13, 13, 13, 0.98));
+        color: #f1c75d;
+        font-size: 1rem;
+        box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.06), 0 0 24px rgba(212, 175, 55, 0.20);
+        cursor: pointer;
+        transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease;
+    }
+
+    .carouselArrow:active {
+        transform: scale(.93);
+    }
+
+    .carouselArrow:disabled {
+        opacity: .28;
+        box-shadow: none;
+        cursor: default;
+    }
+
+    .carouselCounter {
+        min-width: 38px;
+        color: #f4e8c4;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: .08em;
+        text-align: center;
+    }
+}
