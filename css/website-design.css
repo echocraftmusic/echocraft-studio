@@ -592,3 +592,162 @@
         line-height: 1.6;
     }
 }
+
+/*==================================================
+  PROJECT BUTTONS + CTA EMPHASIS
+==================================================*/
+
+/* Keep every project action visible and styled as a real button. */
+.websiteProjectContent {
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+.websiteProject .primaryButton {
+    flex: 0 0 auto;
+    min-height: 48px;
+    margin-top: auto;
+    padding: 14px 24px;
+    border: 1px solid rgba(212, 175, 55, 0.72);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #e0bd59 0%, #b98a27 100%);
+    color: #090909;
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.websiteProject .primaryButton:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.07);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.34);
+}
+
+.websiteProject .primaryButton i {
+    font-size: 0.86rem;
+}
+
+/* Give the closing call-to-action its own visual moment. */
+.ctaSection {
+    position: relative;
+    overflow: hidden;
+    padding: 110px 0;
+    background:
+        radial-gradient(circle at 50% 20%, rgba(212, 175, 55, 0.16), transparent 34%),
+        linear-gradient(rgba(5, 5, 5, 0.82), rgba(5, 5, 5, 0.94)),
+        url("../images/backgrounds/project-bg3.webp") center/cover;
+    border-top: 1px solid rgba(212, 175, 55, 0.22);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.22);
+}
+
+.ctaSection::before {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    content: "";
+    background:
+        linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.06), transparent),
+        radial-gradient(circle at center, transparent 0%, rgba(0, 0, 0, 0.35) 78%);
+}
+
+.ctaSection .container {
+    position: relative;
+    z-index: 1;
+    width: min(92%, 980px);
+    padding: 58px 52px;
+    text-align: center;
+    background: rgba(13, 12, 11, 0.78);
+    border: 1px solid rgba(212, 175, 55, 0.34);
+    border-radius: 24px;
+    box-shadow: 0 28px 70px rgba(0, 0, 0, 0.42);
+    backdrop-filter: blur(6px);
+}
+
+.ctaSection h2 {
+    margin: 0 0 16px;
+    color: #fff;
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(2.7rem, 4.7vw, 4.8rem);
+    font-weight: 600;
+    line-height: 1;
+}
+
+.ctaSection p {
+    max-width: 760px;
+    margin: 0 auto 30px;
+    color: #d3cec7;
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+
+.ctaSection .primaryButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 16px 32px;
+    border: 1px solid rgba(239, 205, 108, 0.9);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #e5c56d 0%, #c18d29 100%);
+    color: #090909;
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.13em;
+    text-decoration: none;
+    text-transform: uppercase;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.32);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.ctaSection .primaryButton:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.38);
+}
+
+@media (min-width: 1101px) {
+    /* Slightly reduce content padding so the first card's button cannot be pushed below view. */
+    .websiteProjectContent {
+        padding: 50px 54px;
+    }
+
+    .websiteProjectMeta {
+        margin-bottom: 18px;
+    }
+
+    .websiteProject h2 {
+        margin-bottom: 16px;
+    }
+
+    .websiteProject p {
+        margin-bottom: 18px;
+        line-height: 1.68;
+    }
+
+    .websiteProject ul {
+        gap: 9px;
+        margin-bottom: 22px;
+    }
+}
+
+@media (max-width: 576px) {
+    .ctaSection {
+        padding: 76px 0;
+    }
+
+    .ctaSection .container {
+        width: calc(100% - 34px);
+        padding: 42px 24px;
+        border-radius: 18px;
+    }
+
+    .ctaSection .primaryButton,
+    .websiteProject .primaryButton {
+        width: 100%;
+    }
+}
