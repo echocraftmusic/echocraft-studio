@@ -234,6 +234,64 @@ document.addEventListener("DOMContentLoaded", () => {
        EXISTING SESSION CHECK
     ====================================== */
 
+    async function routeAuthenticatedUser(user) {
+
+        const {
+            data: profile,
+            error: profileError
+        } = await supabaseClient
+            .from("profiles")
+            .select("id, role, status")
+            .eq("id", user.id)
+            .maybeSingle();
+
+        if (profileError) {
+            throw profileError;
+        }
+
+        if (
+            profile &&
+            profile.role === "admin" &&
+            profile.status === "approved"
+        ) {
+
+            window.location.replace(
+                "../admin/dashboard.html"
+            );
+
+            return true;
+
+        }
+
+        const {
+            data: partner,
+            error: partnerError
+        } = await supabaseClient
+            .from("partners")
+            .select("id, status, profile_id")
+            .eq("profile_id", user.id)
+            .maybeSingle();
+
+        if (partnerError) {
+            throw partnerError;
+        }
+
+        if (!partner) {
+            return false;
+        }
+
+        if (partner.status !== "active") {
+            return false;
+        }
+
+        window.location.replace(
+            "dashboard.html"
+        );
+
+        return true;
+
+    }
+
     async function checkExistingSession() {
 
         const {
@@ -241,16 +299,29 @@ document.addEventListener("DOMContentLoaded", () => {
             error
         } =
             await supabaseClient.auth
-                .getSession();
+                .getUser();
 
-        if (error) {
+        if (error || !data?.user) {
             return;
         }
 
-        if (data?.session) {
+        try {
 
-            window.location.href =
-                "dashboard.html";
+            const routed =
+                await routeAuthenticatedUser(
+                    data.user
+                );
+
+            if (!routed) {
+                await supabaseClient.auth.signOut();
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Existing session routing failed:",
+                error
+            );
 
         }
 
@@ -344,57 +415,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 }
 
-                const {
-    data: partner,
-    error: partnerError
-} =
-    await supabaseClient
-        .from("partners")
-        .select(
-            "id, status, profile_id"
-        )
-        .eq(
-            "profile_id",
-            data.user.id
-        )
-        .maybeSingle();
+                const routed =
+                    await routeAuthenticatedUser(
+                        data.user
+                    );
 
-                if (partnerError) {
-                    throw partnerError;
-                }
-
-                if (!partner) {
+                if (!routed) {
 
                     await supabaseClient.auth
                         .signOut();
 
                     showAlert(
-                        "This login is not connected to an approved Echo Craft partner account."
+                        "This account is not approved for partner or administrator access."
                     );
 
                     return;
 
                 }
-
-               if (
-    partner.status !==
-    "active"
-) {
-
-                    await supabaseClient.auth
-                        .signOut();
-
-                    showAlert(
-                        "This partner account has not been approved."
-                    );
-
-                    return;
-
-                }
-
-
-                window.location.href =
-                    "dashboard.html";
 
             } catch (error) {
 
@@ -493,7 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
             try {
 
                 const redirectUrl =
-                    `${window.location.origin}/partners/login.html`;
+                    `${window.location.origin}/partners/reset-password.html`;
 
                 const {
                     error
