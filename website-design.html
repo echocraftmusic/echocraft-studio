@@ -68,7 +68,14 @@
 </section>
 
 <section id="websiteProjects" class="websiteProjects">
-    <div class="mobileCarouselIntro" aria-hidden="true">Swipe to explore the website collection <span>↔</span></div>
+    <div class="mobileCarouselHeader">
+        <div class="mobileCarouselIntro">Swipe or use the arrows to explore</div>
+        <div class="mobileCarouselControls" aria-label="Website project carousel controls">
+            <button type="button" class="carouselArrow carouselArrowPrev" aria-label="Previous website project"><i class="fa-solid fa-arrow-left"></i></button>
+            <span class="carouselCounter" aria-live="polite">1 / 4</span>
+            <button type="button" class="carouselArrow carouselArrowNext" aria-label="Next website project"><i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
     <div class="container websiteProjectsTrack">
         <article id="echo-craft-music" class="websiteProject websiteProjectFeatured">
             <div class="websiteProjectMedia websiteProjectMediaLogo"><img src="images/portfolio/websites/echo-craft-music-logo.webp" alt="Echo Craft Music official logo"></div>
@@ -178,6 +185,54 @@
         </div>
     </div>
 </footer>
+
+<script>
+(function () {
+    const track = document.querySelector('.websiteProjectsTrack');
+    const cards = track ? Array.from(track.querySelectorAll('.websiteProject')) : [];
+    const prev = document.querySelector('.carouselArrowPrev');
+    const next = document.querySelector('.carouselArrowNext');
+    const counter = document.querySelector('.carouselCounter');
+
+    if (!track || !cards.length || !prev || !next || !counter) return;
+
+    const currentIndex = () => {
+        const center = track.scrollLeft + track.clientWidth / 2;
+        let nearest = 0;
+        let distance = Infinity;
+        cards.forEach((card, index) => {
+            const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+            const nextDistance = Math.abs(center - cardCenter);
+            if (nextDistance < distance) {
+                distance = nextDistance;
+                nearest = index;
+            }
+        });
+        return nearest;
+    };
+
+    const updateControls = () => {
+        const index = currentIndex();
+        counter.textContent = `${index + 1} / ${cards.length}`;
+        prev.disabled = index === 0;
+        next.disabled = index === cards.length - 1;
+    };
+
+    const moveTo = (index) => {
+        cards[Math.max(0, Math.min(cards.length - 1, index))].scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'center'
+        });
+    };
+
+    prev.addEventListener('click', () => moveTo(currentIndex() - 1));
+    next.addEventListener('click', () => moveTo(currentIndex() + 1));
+    track.addEventListener('scroll', () => window.requestAnimationFrame(updateControls), { passive: true });
+    window.addEventListener('resize', updateControls);
+    updateControls();
+})();
+</script>
 <script src="js/navigation.js"></script>
 <script src="js/animations.js"></script>
 <script src="js/main.js"></script>
