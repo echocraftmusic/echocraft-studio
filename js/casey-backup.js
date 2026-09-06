@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             return;
         }
 
-        document.title = `${project.title} | Echo Craft Creative Studio`;
+        document.title = `${project.title} | Echo Craft Studio`;
 
         setText("project-title", project.title);
         setText("breadcrumb-title", project.title);

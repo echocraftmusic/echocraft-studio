@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const project = projects[currentProjectIndex];
 
         document.title =
-            `${project.title} | Echo Craft Creative Studio`;
+            `${project.title} | Echo Craft Studio`;
 
         // ---------------------------------
         // Main Project Information
@@ -686,7 +686,7 @@ function showProjectNotFound(projectId) {
                         text-transform:uppercase;
                     "
                 >
-                    Echo Craft Creative Studio
+                    Echo Craft Studio
                 </p>
 
                 <h1>
