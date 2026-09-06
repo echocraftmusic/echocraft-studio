@@ -2,7 +2,7 @@ EC Framework
 Version 1.0
 
 Created by:
-Echo Craft Creative Studio
+Echo Craft Studio
 
 Framework Status:
 Production Ready
@@ -12,7 +12,7 @@ July 2026EC Framework
 Version 1.0
 
 Created by:
-Echo Craft Creative Studio
+Echo Craft Studio
 
 Framework Status:
 Production Ready
