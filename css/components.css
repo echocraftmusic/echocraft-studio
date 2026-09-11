@@ -588,11 +588,9 @@
 
 }
 
-.formSuccess{
+.formStatus{
 
-    display:none;
-
-    margin-top:35px;
+    margin-top:12px;
 
     padding:30px;
 
@@ -604,7 +602,13 @@
 
 }
 
-.formSuccess h3{
+.formStatus[hidden]{
+
+    display:none;
+
+}
+
+.formStatus h3{
 
     color:#d8b36a;
 
@@ -612,11 +616,31 @@
 
 }
 
-.formSuccess p{
+.formStatus p{
 
     color:#d6d6d6;
 
     line-height:1.9;
+
+}
+
+.formStatus.isError{
+
+    border-color:rgba(220,90,90,.55);
+
+}
+
+.formStatus.isError h3{
+
+    color:#ef9a9a;
+
+}
+
+.contactForm button:disabled{
+
+    cursor:wait;
+    opacity:.72;
+    transform:none;
 
 }
 
