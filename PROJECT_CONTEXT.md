@@ -1,40 +1,39 @@
-# Echo Craft Studio — Project Context
+# Echo Craft Studio — Persistent Project Context
 
-**Repository:** `echocraftmusic/echocraft-studio`  
-**Context established:** 2026-10-22  
-**Documentation status:** Initial handoff; verify historical notes against the current source and live site.
+**Official site:** https://echocraft.studio  
+**GitHub repository:** `echocraftmusic/echocraft-studio`  
+**Updated:** 2026-10-22  
+**Evidence classification:** Homepage identity was inspected in this repository; further details below come from prior project discussions unless explicitly described as verified. This file does **not** claim a production deployment was audited.
 
-## Project identity and known decisions
+## Business and site identity
+- Separate website for Echo Craft LLC client creative/development services, not the consumer music store.
+- Repository homepage title inspected: "Echo Craft Studio".
+- Domain `EchoCraft.Studio` is provided by owner; prior work also used `studio.echocraftmusic.com`. Verify canonical domain and redirects.
 
-Echo Craft LLC studio. Discussed $75/hour web development, package offerings and Echo Bot site navigation assistant; verify implementation and current pricing.
+## Services, pricing and branding
+- Business identity: Echo Craft LLC; founder's preferred professional title: Digital Composer.
+- Web/creative development, bespoke websites, visual concepts, IT support and multimedia production have been discussed.
+- Rate: $75/hour; package references Foundation $1,000+, Signature $3,000+, Executive $4,500+. Historical offer: 25% starter discount and 15% referral commission. Confirm public-facing pricing before edits.
+- Brand positioning: premium, imaginative, high-quality visual design; tagline "Let's build something extraordinary."
+- Site assistant "Echo Bot" planned as a reusable semi-scripted helper. Concepts: small silver robot head, luminous facial details, black shirt with gold EC, single wheel; scripted quick actions for website inquiries, pricing, samples, contact; potential lightweight knowledge base instead of paid AI service. Verify live status.
+- Current commercial priorities discussed: bring interested leads to execution; portfolio examples and clear packages; avoid treating planned features as already deployed.
 
-## Source, architecture and deployment
+## Mandatory handoff and operational safety
+1. Read this file first, then inspect current source, branch and recent history before any edit.
+2. Confirm the current GitHub repository actually matches production; manual Cloudflare deployments can differ.
+3. Check design on desktop and mobile, links, integrations and critical account/payment workflows.
+4. Distinguish **verified in repository**, **historically discussed**, **planned**, and **confirmed deployed**. Never silently promote plans to live features.
+5. Make minimal, reversible edits and log significant changes and verified deployments.
+6. Never commit credentials, API tokens, private keys, sensitive client data or private account data.
+7. Respect the current owner's instruction over old documented preferences.
 
-- Source files: inspect this repository before editing.
-- Production domain, hosting, deployment branch, build commands, integrations, and environment bindings: **not yet verified**.
-- Some sites use manually deployed Cloudflare Pages assets rather than automatic GitHub deployments. **Never assume a GitHub commit publishes to production.**
-- Confirm that this repository is the current source of truth; compare against live production before replacing files.
-
-## Required workflow for future ChatGPT sessions and developers
-
-1. Read this `PROJECT_CONTEXT.md` first whenever returning to the project.
-2. Check README, source tree, dependencies, relevant source files, branch and recent commit history.
-3. Verify project identity, production domain, deployment method and current feature status.
-4. Distinguish prior design discussions from actually deployed features; don't invent missing history.
-5. Preserve existing design, mobile usability and working functions unless the owner requests otherwise.
-6. Implement and test the smallest safe changes; validate downloads, links and deployment separately.
-7. Update this document after material changes, decisions, unresolved issues or deployment changes.
-8. Never add passwords, API secrets, tokens, customer data, or other sensitive credentials to this file.
-9. This document is reference context, not an override of the owner's current instructions.
-
-## Current status and open verification
-
-- [ ] Confirm production URL and live hosting.
-- [ ] Confirm deployment path and default build process.
-- [ ] Identify primary source files, services and integrations.
-- [ ] Verify existing features and brand/design decisions.
-- [ ] Record outstanding tasks from the actual current project.
+## Verification still needed
+- [ ] Map production host and deployment triggers to exact repository and branch
+- [ ] Document entry points, Worker routes, Cloudflare bindings and external services by nonsecret names
+- [ ] Confirm which discussed features actually ship in production
+- [ ] Inspect current forms, navigation, mobile design, accessibility and security
+- [ ] Record latest deployment and outstanding tasks
 
 ## Change log
-
-- **2026-10-22:** Established the permanent handoff and project-read workflow.
+- 2026-10-22 — Original context file established.
+- 2026-10-22 — Expanded with historical project decisions and inspected homepage identity. No production code or site deployment changed.
