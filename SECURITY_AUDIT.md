@@ -48,3 +48,9 @@ Date: 2026-10-26. Scope: read-only review of GitHub source (`echocraftmusic/echo
 **Reference documentation:** https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable ; https://supabase.com/docs/guides/database/database-linter?lint=0029_authenticated_security_definer_function_executable ; https://supabase.com/docs/guides/auth/password-security#password-strength-and-leaked-password-protection
 
 **Change control:** No production database writes were made during this audit. Obtain explicit approval for a reviewed migration that removes unnecessary RPC execute grants and verify frontend compatibility. Maintain private customer/partner data confidentiality.
+
+## Database authorization update — 2026-10-26
+
+Owner-approved migration `restrict_anonymous_admin_rpc_execution_20261026` completed. Removed anonymous and PUBLIC execute grants for these administrator operations: `approve_partner_application(uuid,text,uuid)`, `delete_partner_application(uuid)`, `get_admin_partner_activation_statuses()`, `get_admin_referral_visits(integer)`, and `remove_partner_from_program(uuid)`.
+
+Verification: anonymous execution now false for all five, while authenticated execution is retained for authenticated administrators (subject to in-function authorization). Supabase security advisor anonymous privileged-function warnings decreased from 10 to 5. Public intake, partner applications, referral resolution, and existing authenticated partner dashboard/activation behavior were not modified. No business records or RLS policies changed. Remaining reviews: partner-facing grants, server-side form protection, OTP expiration, breached-password protection, and browser regression testing.
