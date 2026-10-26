@@ -1,5 +1,8 @@
 # EC Framework v1.0
 
+> **Connected services verified 2026-10-26:** ChatGPT successfully accessed both **Cloudflare** and **Supabase** via connected tools (read-only checks). For future work, inspect the integrations directly when available rather than requesting repeat setup. Read [CONNECTED_SERVICES.md](CONNECTED_SERVICES.md) for safe-use guidance and the requirement to recheck access each session.
+
+
 **Site security review:** [SECURITY_AUDIT.md](SECURITY_AUDIT.md) — October 26, 2026. Source fixes committed; production headers, Supabase RLS and Turnstile server verification remain open.
 
 ## Purpose
