@@ -78,3 +78,11 @@ GitHub `client-intake.html` now renders Turnstile and a hidden honeypot; `js/cli
 Next: verify the new Turnstile widget appears and successfully submits a controlled non-customer test with the correct referral attribution; inspect the Edge Function logs; then remove direct `EXECUTE` from `PUBLIC`, `anon`, `authenticated` on the precisely identified `submit_client_intake` signature, retain `service_role`, and recheck Supabase advisors. Do not disable the public RPC early.
 
 Auth OTP expiry and leaked-password protection settings remain unchanged; leaked-password protection may require an eligible Supabase plan.
+
+## Client-intake live test and direct-RPC closure — 2026-10-26
+
+Owner confirmed Turnstile green verification, successful form submit, and thank-you screen on the live Studio intake page. Read-only Supabase database check confirmed one new website/partner lead at 2026-10-26 13:01:48 UTC (no customer details copied to GitHub). Active protected Edge Function `submit-client-intake` version 2 submits into `clients_leads` via `service_role` after Turnstile verification.
+
+Migration `restrict_direct_client_intake_rpc_20261026` successfully revoked EXECUTE on the precise `public.submit_client_intake(text,text,text,text,text,text,text,text,date,text,text,text)` signature from PUBLIC, anon, authenticated. Verification: anon=false, authenticated=false, service_role=true. Security advisor anonymous SECURITY DEFINER warning count now **3**, down from 4, and authenticated count **11**, down from 12. Existing lead records were not edited. The public form relies on protected Edge Function; after permission change, an additional live browser regression is advisable.
+
+**Email notification finding:** Live `submit-client-intake` Edge Function version 2 contains no outbound email integration. Successful client-intake records are saved to Supabase, but the function does not send an owner email. Adding notifications requires implementing a mail provider integration/server secret and testing delivery. Do not tell owner that submission generated email. Auth OTP and leaked-password protection warnings remain open.
