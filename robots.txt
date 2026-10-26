@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /business-engine/
+Disallow: /partners/dashboard.html
+Disallow: /partners/login.html
+Disallow: /partners/reset-password.html
+Disallow: /partners/setup-password.html
+
+Sitemap: https://echocraft.studio/sitemap.xml
