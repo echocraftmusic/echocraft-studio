@@ -1,3 +1,5 @@
+> **Connected integrations verified 2026-10-26:** Cloudflare `whoami` and Supabase `list_projects` both succeeded through ChatGPT's integrations. **Read [CONNECTED_SERVICES.md](CONNECTED_SERVICES.md) first**, check current session access, and use direct read-only Cloudflare/Supabase tools when available instead of sending the owner to dashboards unnecessarily. Access may change; this does not certify production configuration or authorize changes.
+
 # MAINTENANCE_PLAYBOOK.md — echocraft.studio
 
 **Updated:** 2026-10-22  
