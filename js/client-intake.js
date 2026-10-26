@@ -41,6 +41,13 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
+        const challengeToken = form?.querySelector('[name="cf-turnstile-response"]')?.value?.trim();
+        if (!challengeToken) {
+            errorMessage.textContent = "Please complete the security verification.";
+            errorMessage.hidden = false;
+            return;
+        }
+
         submitButton.disabled = true;
         submitButton.querySelector(".submitDefault").hidden = true;
         submitButton.querySelector(".submitLoading").hidden = false;
@@ -61,50 +68,16 @@ document.addEventListener("DOMContentLoaded", () => {
         };
 
         try {
-            const {
-                data,
-                error
-            } = await supabaseClient.rpc(
-                "submit_client_intake",
+            const { data, error } = await supabaseClient.functions.invoke(
+                "submit-client-intake",
                 {
-                    p_full_name:
-                        payload.full_name,
-
-                    p_email:
-                        payload.email,
-
-                    p_phone:
-                        payload.phone,
-
-                    p_preferred_contact:
-                        payload.preferred_contact,
-
-                    p_business_name:
-                        payload.business_name,
-
-                    p_website_url:
-                        payload.website_url,
-
-                    p_project_type:
-                        payload.project_type,
-
-                    p_budget_range:
-                        payload.budget_range,
-
-                    p_desired_launch_date:
-                        payload.desired_launch_date,
-
-                    p_project_description:
-                        payload.project_description,
-
-                    p_reference_links:
-                        payload.reference_links,
-
-                    p_referral_alias:
-                        referralAlias || null
+                    body: {
+                        ...payload,
+                        turnstile_token: challengeToken,
+                        website_confirm: document.querySelector("#websiteConfirm")?.value || ""
+                    }
                 }
             );
-
             if (error) throw error;
 
             if (!data?.success) {
@@ -134,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             errorMessage.hidden = false;
         } finally {
+            window.turnstile?.reset();
             submitButton.disabled = false;
             submitButton.querySelector(".submitDefault").hidden = false;
             submitButton.querySelector(".submitLoading").hidden = true;
