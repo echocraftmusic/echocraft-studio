@@ -18,3 +18,7 @@
 5. Continue separate security follow-ups; SEO changes do not eliminate the accepted Supabase Free-plan password-leak warning.
 
 **Preservation:** No public forms, payment workflows, database tables, client lead records, or visual styles were intentionally changed in this SEO pass.
+
+## Google Search Console — sitemap SUCCESS, 2026-10-26
+
+Owner supplied a screenshot from the verified `echocraft.studio` Search Console property showing the submitted `https://echocraft.studio/sitemap.xml` with **Status: Success**, **11 discovered pages**, submitted and last read **October 26, 2026**. This confirms Google fetched and parsed the live sitemap. **Discovery is not proof of indexing or ranking.** Next: inspect key page URLs (homepage, services, portfolio) and request indexing where eligible; review Pages report as Google processes them. No need to resubmit an unchanged successful sitemap.
