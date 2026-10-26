@@ -7,10 +7,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const supabaseClient = window.echoCraftSupabase;
 
-    const loginUrl = new URL(
-        "login.html",
-        window.location.href
-    ).href;
+    const loginUrl = new URL("/admin/login.html", window.location.origin).href;
 
 
     /* ======================================
