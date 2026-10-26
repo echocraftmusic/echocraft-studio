@@ -22,3 +22,15 @@
 ## Google Search Console — sitemap SUCCESS, 2026-10-26
 
 Owner supplied a screenshot from the verified `echocraft.studio` Search Console property showing the submitted `https://echocraft.studio/sitemap.xml` with **Status: Success**, **11 discovered pages**, submitted and last read **October 26, 2026**. This confirms Google fetched and parsed the live sitemap. **Discovery is not proof of indexing or ranking.** Next: inspect key page URLs (homepage, services, portfolio) and request indexing where eligible; review Pages report as Google processes them. No need to resubmit an unchanged successful sitemap.
+
+## SEO content and internal-linking pass — 2026-10-26
+
+- Added clear, useful Orlando / Central Florida website-design and creative-production service context to the homepage, Services page and Website Design page, without falsely claiming a physical walk-in office or changing existing navigation/forms.
+- Added cross-links among website design, services, portfolio, packages and project intake, with descriptive anchor text.
+- Added `Service` JSON-LD structured data on Services and Website Design pages, naming Echo Craft Studio as provider and Orlando/Central Florida as service area. These are markup enhancements, not a guarantee of Google rich results.
+- Preserved existing hero sections, portfolio presentations, design components, and form behavior. All updates committed to GitHub main; live browser visual/regression testing remains advisable.
+- Google Search Console screenshots provided by owner verified home, Services and Portfolio pages already indexed, and sitemap successfully accepted with 11 discovered URLs. The Page Indexing dashboard was still processing and a scheduled check was created for Oct 27.
+
+### Further optional work
+
+Review Core Web Vitals after Search Console populates; assess video poster/lazy loading, responsive image sizes and performance. Add share image metadata once a suitable authorized image is selected, audit all other public pages for useful internal links, and consider business identity/contact pages as appropriate. Avoid fabricating reviews, ratings or a street address. Do not resubmit unchanged sitemap or request indexing again for already indexed URLs unnecessarily.
