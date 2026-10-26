@@ -64,7 +64,8 @@ document.addEventListener("DOMContentLoaded", () => {
             budget_range: value("#budgetRange"),
             desired_launch_date: value("#desiredLaunchDate"),
             project_description: value("#projectDescription"),
-            reference_links: value("#referenceLinks")
+            reference_links: value("#referenceLinks"),
+            referral_alias: referralAlias || null
         };
 
         try {
