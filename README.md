@@ -1,5 +1,7 @@
 # EC Framework v1.0
 
+**Site security review:** [SECURITY_AUDIT.md](SECURITY_AUDIT.md) — October 26, 2026. Source fixes committed; production headers, Supabase RLS and Turnstile server verification remain open.
+
 ## Purpose
 
 EC Framework is the internal website foundation used to build all Echo Craft and client websites.
