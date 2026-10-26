@@ -54,3 +54,15 @@ Date: 2026-10-26. Scope: read-only review of GitHub source (`echocraftmusic/echo
 Owner-approved migration `restrict_anonymous_admin_rpc_execution_20261026` completed. Removed anonymous and PUBLIC execute grants for these administrator operations: `approve_partner_application(uuid,text,uuid)`, `delete_partner_application(uuid)`, `get_admin_partner_activation_statuses()`, `get_admin_referral_visits(integer)`, and `remove_partner_from_program(uuid)`.
 
 Verification: anonymous execution now false for all five, while authenticated execution is retained for authenticated administrators (subject to in-function authorization). Supabase security advisor anonymous privileged-function warnings decreased from 10 to 5. Public intake, partner applications, referral resolution, and existing authenticated partner dashboard/activation behavior were not modified. No business records or RLS policies changed. Remaining reviews: partner-facing grants, server-side form protection, OTP expiration, breached-password protection, and browser regression testing.
+
+## Partner application bypass closed — 2026-10-26
+
+Production inspection confirmed that active Supabase Edge Function `submit-partner-application` (version 3) checks the Cloudflare Turnstile token with the Cloudflare Siteverify API, validates hostname and has a honeypot field before submitting via Supabase `service_role` to `public.submit_partner_application`.
+
+**Issue:** The underlying `SECURITY DEFINER` SQL function had direct `EXECUTE` grants for both `anon` and `authenticated`, bypassing the Edge Function's Turnstile gate.
+
+**Fix (owner-approved):** Applied Supabase migration `protect_partner_application_turnstile_boundary_20261026`, revoking direct SQL function execution from `PUBLIC`, `anon`, and `authenticated`; retained `service_role` execution for the existing Edge Function.
+
+**Verified live through privilege introspection:** `anon=false`, `authenticated=false`, `service_role=true`. Security advisor anonymous privileged-function warning count reduced from 5 to 4, authenticated count from 13 to 12.
+
+**No form data changed.** Edge Function source logic was not edited or redeployed. A successful end-to-end public application submission has not been retested after revocation. Separate `submit_client_intake` remains callable by anonymous visitors without server-side Turnstile; it needs a redesigned protected submission endpoint rather than blindly revoking access. Auth OTP duration and leaked-password warning remain pending dashboard configuration review; leaked-password protection is Pro-plan-or-above per Supabase documentation.
