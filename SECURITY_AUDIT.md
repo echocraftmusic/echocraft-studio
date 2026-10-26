@@ -66,3 +66,15 @@ Production inspection confirmed that active Supabase Edge Function `submit-partn
 **Verified live through privilege introspection:** `anon=false`, `authenticated=false`, `service_role=true`. Security advisor anonymous privileged-function warning count reduced from 5 to 4, authenticated count from 13 to 12.
 
 **No form data changed.** Edge Function source logic was not edited or redeployed. A successful end-to-end public application submission has not been retested after revocation. Separate `submit_client_intake` remains callable by anonymous visitors without server-side Turnstile; it needs a redesigned protected submission endpoint rather than blindly revoking access. Auth OTP duration and leaked-password warning remain pending dashboard configuration review; leaked-password protection is Pro-plan-or-above per Supabase documentation.
+
+## Protected client-intake rollout — 2026-10-26
+
+Owner authorized execution. Deployed new Supabase Edge Function `submit-client-intake` (version 2, active), using a server-side Cloudflare Turnstile Siteverify check, hostname restriction, honeypot, field lengths/required field checks and privileged server-to-database call. The service role key and Turnstile secret stay in server environment variables, not in public GitHub files.
+
+GitHub `client-intake.html` now renders Turnstile and a hidden honeypot; `js/client-intake.js` invokes the Edge Function instead of directly calling `submit_client_intake`, preserving partner referral attribution. Code committed to main; no existing client records were edited.
+
+**Rollout safety gate: NOT YET CLOSED:** The tool environment could not independently retrieve the live `echocraft.studio/client-intake.html` page or verify an actual successful end-to-end submission. Thus **anonymous execute permission on the old `submit_client_intake` database RPC was deliberately NOT revoked** to avoid interrupting real business leads if public deployment or server secrets are incomplete. Until the live form is validated and the old RPC is revoked, bypass resistance is partial. Do not mark the public intake as fully hardened.
+
+Next: verify the new Turnstile widget appears and successfully submits a controlled non-customer test with the correct referral attribution; inspect the Edge Function logs; then remove direct `EXECUTE` from `PUBLIC`, `anon`, `authenticated` on the precisely identified `submit_client_intake` signature, retain `service_role`, and recheck Supabase advisors. Do not disable the public RPC early.
+
+Auth OTP expiry and leaked-password protection settings remain unchanged; leaked-password protection may require an eligible Supabase plan.
