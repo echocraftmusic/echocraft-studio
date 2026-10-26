@@ -66,6 +66,8 @@
                         <label class="full"><span>Examples, Links, or References</span><textarea id="referenceLinks" rows="4" maxlength="4000"></textarea></label>
                     </div>
 
+                    <div class="cf-turnstile" data-sitekey="0x4AAAAAAD3G-jMEDlGbwFtC"></div>
+                    <label style="position:absolute;left:-9999px" aria-hidden="true">Leave this field empty<input type="text" id="websiteConfirm" tabindex="-1" autocomplete="off"></label>
                     <label class="consent">
                         <input id="consent" type="checkbox" required>
                         <span>I understand this form starts a conversation and does not create a contract or guarantee a project start date.</span>
@@ -90,6 +92,7 @@
         </section>
     </main>
 
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="admin/js/supabase-config.js"></script>
     <script src="js/client-intake.js"></script>
