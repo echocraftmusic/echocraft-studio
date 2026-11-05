@@ -1,0 +1,39 @@
+:root{--ec-gold:#d8b46c;--ec-border:rgba(216,180,108,.24);--ec-panel:#171923;--ec-muted:#b5b5bd}
+body.controlCenterDashboardPage{background:#0c0e14;color:#f1ede5;font-family:Inter,Arial,sans-serif;margin:0}
+.review-admin-layout{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+.review-sidebar{background:#11131b;border-right:1px solid var(--ec-border);padding:28px 20px}
+.review-brand{display:flex;align-items:center;gap:14px;color:var(--ec-gold);font-weight:700;text-decoration:none;line-height:1.15}
+.review-brand img{width:54px;height:54px;object-fit:contain}
+.review-brand small{font-size:12px;font-weight:400;color:#aaa}
+.review-sidebar nav{display:grid;gap:6px;margin-top:38px}
+.review-sidebar nav a{color:#d3d0d0;text-decoration:none;padding:13px;border-radius:9px;display:flex;gap:12px;align-items:center;font-size:13px}
+.review-sidebar nav a:hover,.review-sidebar nav a.selected{background:rgba(216,180,108,.12);color:#f4d99f}
+.review-main{padding:48px min(5%,70px);min-width:0}
+.review-heading{display:flex;justify-content:space-between;gap:24px;align-items:center;margin-bottom:27px}
+.review-eyebrow{color:var(--ec-gold);font-size:11px;letter-spacing:.18em}
+.review-heading h1{font:600 clamp(36px,4vw,52px) 'Cormorant Garamond',serif;margin:8px 0}
+.review-heading p{max-width:640px;font-size:13px;line-height:1.7;color:var(--ec-muted)}
+.review-grid{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(330px,1.2fr);gap:20px;align-items:start}
+.review-panel{border:1px solid var(--ec-border);border-radius:15px;padding:25px;background:var(--ec-panel)}
+.review-panel h2{font:600 27px 'Cormorant Garamond',serif;margin:0 0 20px;color:#fff5df}
+.review-panel label{display:grid;gap:8px;color:#e5dfd2;font-size:12px;font-weight:600;margin-bottom:16px}
+.review-pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.review-panel input,.review-panel select,.review-panel textarea{background:#0f1118;color:#f5f1e8;border:1px solid #48434a;border-radius:8px;padding:12px;font:13px Inter,sans-serif;width:100%;box-sizing:border-box}
+.review-panel input:focus,.review-panel select:focus,.review-panel textarea:focus{outline:2px solid var(--ec-gold);outline-offset:1px}
+.review-panel textarea{resize:vertical}
+.review-panel .review-check{display:flex;align-items:center;gap:10px;font-weight:400;line-height:1.6}
+.review-check input{width:18px;height:18px;flex-shrink:0;accent-color:#cda65b}
+.review-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:21px}
+.review-primary,.review-secondary,.review-danger{cursor:pointer;border-radius:8px;padding:12px 17px;font:600 12px Inter,sans-serif}
+.review-primary{background:var(--ec-gold);color:#201b14;border:1px solid var(--ec-gold)}
+.review-secondary{background:transparent;color:#f3e4c9;border:1px solid var(--ec-border)}
+.review-danger{background:#411d23;color:#ffc8ce;border:1px solid #8d4750}
+button:disabled{opacity:.45;cursor:wait}
+.review-message{min-height:20px;font-size:12px;color:#bde6c4}
+.review-message.error{color:#ffb4b4}
+#review-list{display:grid;gap:10px}
+.review-item{display:grid;gap:7px;text-align:left;background:#10121a;border:1px solid #39353c;color:#ece8df;border-radius:8px;padding:14px;cursor:pointer;font:13px Inter,sans-serif}
+.review-item.active{border-color:var(--ec-gold)}
+.review-item span{color:#b9b4ae;font-size:11px;line-height:1.5}
+@media(max-width:900px){.review-admin-layout{grid-template-columns:1fr}.review-sidebar{padding:12px 20px}.review-sidebar nav{display:flex;margin-top:10px;gap:5px;flex-wrap:wrap}.review-main{padding:26px 18px}.review-grid{grid-template-columns:1fr}}
+@media(max-width:500px){.review-heading{flex-direction:column;align-items:flex-start}.review-pair{grid-template-columns:1fr}.review-panel{padding:18px}}
