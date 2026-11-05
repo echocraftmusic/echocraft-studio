@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" class="adminAuthPending">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>Client Reviews | Echo Craft Control Center</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="css/admin.css"><link rel="stylesheet" href="css/dashboard.css">
+<link rel="stylesheet" href="css/reviews.css">
+<style>html.adminAuthPending body{visibility:hidden!important}</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/admin-guard.js"></script>
+</head>
+<body class="controlCenterDashboardPage">
+<div class="review-admin-layout">
+  <aside class="review-sidebar">
+    <a class="review-brand" href="dashboard.html"><img src="../images/branding/logos/ec-gold-logo.png" alt=""><span>Echo Craft<br><small>Control Center</small></span></a>
+    <nav aria-label="Administration"><a href="dashboard.html"><i class="fa-solid fa-chart-line"></i> Dashboard</a><a class="selected" href="reviews.html" aria-current="page"><i class="fa-solid fa-star"></i> Client Reviews</a><a href="../index.html"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Website</a></nav>
+  </aside>
+  <main class="review-main">
+    <header class="review-heading"><div><span class="review-eyebrow">STUDIO · SOCIAL PROOF</span><h1>Client Reviews</h1><p>Publish genuine customer feedback to the Echo Craft homepage. Only approved, published reviews are visible to visitors.</p></div><button id="review-new" class="review-primary" type="button">+ New Review</button></header>
+    <div class="review-grid">
+      <section class="review-panel" aria-labelledby="saved-title"><h2 id="saved-title">Your Reviews</h2><div id="review-list" aria-live="polite">Loading reviews…</div></section>
+      <section class="review-panel" aria-labelledby="form-title">
+        <h2 id="form-title">Add Client Review</h2><form id="review-form">
+          <div class="review-pair"><label>First name<input id="review-first" maxlength="80" required placeholder="Dale"></label><label>Last initial<input id="review-initial" maxlength="2" placeholder="G"></label></div>
+          <label>Company / business <input id="review-company" maxlength="120" placeholder="AllDeez Services"></label>
+          <label>Review title <input id="review-title" maxlength="160" required placeholder="What the client appreciated"></label>
+          <label>Customer's review <textarea id="review-body" maxlength="3000" rows="7" required placeholder="Paste the customer's actual feedback here."></textarea></label>
+          <div class="review-pair"><label>Rating <select id="review-stars"><option value="">Not provided</option><option value="5">★★★★★ · 5 stars</option><option value="4">★★★★☆ · 4 stars</option><option value="3">★★★☆☆ · 3 stars</option><option value="2">★★☆☆☆ · 2 stars</option><option value="1">★☆☆☆☆ · 1 star</option></select></label><label>Date of review <input type="date" id="review-date" required></label></div>
+          <label>Source <select id="review-source"><option value="direct">Direct customer testimonial</option><option value="google">Google</option><option value="other">Other</option></select></label>
+          <label class="review-check"><input type="checkbox" id="review-featured" checked> Feature on homepage</label>
+          <label class="review-check"><input type="checkbox" id="review-consent"> I have the customer's permission to publish this review and attribution.</label>
+          <div id="review-message" class="review-message" role="status" aria-live="polite"></div>
+          <div class="review-actions"><button type="button" id="review-save" class="review-secondary">Save Draft</button><button type="button" id="review-publish" class="review-primary">Publish</button><button type="button" id="review-unpublish" class="review-secondary" hidden>Unpublish</button><button type="button" id="review-delete" class="review-danger" hidden>Delete</button></div>
+        </form>
+      </section>
+    </div>
+  </main>
+</div>
+<script src="js/reviews-admin.js"></script>
+</body></html>
