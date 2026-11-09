@@ -438,20 +438,23 @@
   FINAL CARD BALANCE + FOOTER POLISH
 ==================================================*/
 
-/* Keep every desktop project card at one consistent height. */
+/* Keep a consistent minimum height without clipping project descriptions or buttons. */
 @media (min-width: 1101px) {
     .websiteProject {
-        height: 560px;
+        height: auto;
         min-height: 560px;
     }
 
     .websiteProjectMedia {
-        height: 560px;
+        position: relative;
+        height: auto;
         min-height: 560px;
         overflow: hidden;
     }
 
     .websiteProjectMedia img {
+        position: absolute;
+        inset: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
