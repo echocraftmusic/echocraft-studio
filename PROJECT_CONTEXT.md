@@ -2,7 +2,7 @@
 
 **Official site:** https://echocraft.studio  
 **GitHub repository:** `echocraftmusic/echocraft-studio`  
-**Updated:** 2026-10-22  
+**Updated:** 2026-11-09  
 **Evidence classification:** Homepage identity was inspected in this repository; further details below come from prior project discussions unless explicitly described as verified. This file does **not** claim a production deployment was audited.
 
 ## Business and site identity
@@ -37,3 +37,12 @@
 ## Change log
 - 2026-10-22 — Original context file established.
 - 2026-10-22 — Expanded with historical project decisions and inspected homepage identity. No production code or site deployment changed.
+
+## 2026-11-09 — Digital solutions positioning update
+- Owner approved positioning as a Digital Solutions consultancy while retaining custom website design as a primary service.
+- Founder title: **Founder & Digital Solutions Consultant**.
+- Homepage messaging now emphasizes custom websites, practical AI-assisted solutions, business technology, IT support, and creative media.
+- The main services page offers five top-level categories: Custom Websites & Web Systems; AI & Business Automation; Business Technology & IT; Digital Systems Care; Creative Media & Branding. Existing creative detail cards remain available.
+- Site navigation relabeled for clarity; existing routes and portfolio redirect protections preserved.
+- Advanced AI automation and care packages are consultation-led; do not promise a fixed capability, scope, or rate until individually defined and tested.
+- Changes developed on branch `feature/digital-solutions-positioning-2026-11` before any production merge. Cloudflare account did not list an Echo Craft Pages project; repository includes CNAME echocraft.studio. Verify live deployment after merge.
