@@ -243,7 +243,7 @@
     margin: 0 0 20px;
     color: #fff;
     font-family: "Cormorant Garamond", serif;
-    font-size: clamp(3rem, 4.4vw, 5.2rem);
+    font-size: clamp(2.65rem, 3.45vw, 4rem);
     font-weight: 600;
     line-height: 0.95;
 }
