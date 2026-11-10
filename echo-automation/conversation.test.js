@@ -86,6 +86,22 @@ test("full fictional customer dialogue saves only after confirmation",async()=>{
   assert.equal(res.status,409);assert.equal(state.inquiries.size,1);
   assert.equal(state.calls,2);
 });
+test("Workers AI direct structured-object response starts a valid conversation",async()=>{
+  const {env,state}=fixture();
+  const original=env.AI.run;
+  env.AI.run=async(model,req)=>{
+    state.calls++;
+    return {response:{category:"plumbing issue",priority:"normal",question:"How long has the leak been happening?"},choices:[{finish_reason:"stop"}]};
+  };
+  const res=await call(env,{action:"start",fictional:true,message:"My fictional kitchen sink is leaking under the cabinet."});
+  assert.equal(res.status,201);
+  const result=await res.json();
+  assert.equal(result.step,"followup");
+  assert.equal(result.question,"How long has the leak been happening?");
+  assert.equal(state.conversations.size,1);
+  assert.equal(state.inquiries.size,0);
+  assert.equal(state.used,1);
+});
 test("fictional confirmation required before spending AI allowance",async()=>{
   const {env,state}=fixture();
   const r=await call(env,{action:"start",message:"Kitchen sink leaking in my house."});
