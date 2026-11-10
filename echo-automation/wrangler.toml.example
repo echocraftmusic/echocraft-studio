@@ -26,3 +26,9 @@ period = 60
 
 # Inject STAGING_API_TOKEN with wrangler secret put, never add it to code or vars.
 # No public browser should contain this token. For test calls, use trusted server-side client only.
+
+# Dedicated Echo staging D1; never reuse another business's database.
+[[d1_databases]]
+binding = "ECHO_DB"
+database_name = "echo-automation-staging"
+database_id = "9f721382-c96e-4875-abca-4baef9bf7fd0"
