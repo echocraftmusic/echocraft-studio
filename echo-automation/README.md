@@ -105,3 +105,14 @@ The separate owner-only Pages project includes a black-and-gold simulated custom
 Backend: `echo-owner/functions/api/conversation.js`; UI: `echo-owner/public/customer-chat.js`; migration: `migrations/0003_demo_conversations.sql`, applied in D1. Backend automated tests cover two-turn journey, no insertion before confirmation, daily limit, duplicate confirm and model failure.
 
 The public demo at `echo-automation-demo-staging.pages.dev` remains unchanged and rules-based. The owner dashboard is private, not an end-user accessible production service. Do not input real names, emails, addresses or service requests. No automatic cleanup of chat drafts is implemented yet; set a retention policy before any live rollout.
+
+## Phase 10 — Actionable owner handoff and emergency safeguards
+
+- New shared module `echo-owner/functions/_lib/intake-policy.js` enforces safer **fictional** intake behavior, independent of model-generated text.
+- Completed conversations now replace vague owner guidance and trailing troubleshooting questions with a meaningful owner action and honest customer acknowledgment. The customer reply is a **draft**, not a sent message; it makes no claims about appointments.
+- Explicit gas leak/odor, sparking, smoke, fire or live-electrical danger stops routine AI intake and displays safety advice, without invoking AI or creating an owner inquiry. Danger first disclosed in the second conversational turn is also intercepted **before** another inference. A nonfunctioning gas stove without indications of a leak is not automatically classified as an emergency.
+- The same hazard policy applies to the original single-step private pilot, which returns a safety warning without spending AI usage.
+- Applied `migrations/0004_inquiry_owner_details.sql` to dedicated staging D1. New inquiries store `summary` and `owner_action` in addition to their customer message and suggested reply. The private owner API and dashboard display those details. Older test records remain readable even without these columns populated.
+- Automated tests cover friendly completed replies, concrete owner next steps, common danger patterns, zero-AI-call safety stops and new hazards disclosed during follow-up.
+
+Still a locked-down fictional test only. These are rule-based safeguards, not emergency monitoring or professional triage. Do not make the chat publicly available or claim emergency response, contact notifications or booked appointments. Existing in-progress conversations predate the fix; start a fresh fictional test to see new behavior.
