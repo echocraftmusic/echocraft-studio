@@ -1,3 +1,4 @@
+import { detectHazard, finalizeAnalysis } from "../_lib/intake-policy.js";
 // Echo protected, fictional two-turn service-conversation pilot.
 // All requests pass through Cloudflare Access JWT and same-origin middleware.
 // No public chat, no contact details, no outgoing messages or appointments.
@@ -51,6 +52,10 @@ export async function onRequestPost({request,env}){
     const message=typeof body.message==="string"?body.message.trim():"";
     if(body.fictional!==true)return fail("Confirm this conversation is fictional.");
     if(message.length<12||message.length>400)return fail("Describe a fictional service request in 12–400 characters.");
+    // Immediate hazards must not wait for AI, incur credits or proceed to routine intake.
+    const hazard = detectHazard(message);
+    if(hazard)return ok({step:"safety",safety_warning:hazard.message,
+      category:"Safety concern",priority:hazard.priority,saved_inquiry:false,sent:false});
     let reserved;
     try{reserved=await reserve(env.ECHO_DB);}catch{return fail("Usage protection unavailable.",503,"BUDGET_ERROR");}
     if(!reserved)return fail("Today's private AI allowance is used up. Try again tomorrow.",429,"DAILY_LIMIT");
@@ -91,6 +96,9 @@ export async function onRequestPost({request,env}){
         JSON.stringify({original_request:draft.initial_message,echo_question:draft.question,customer_answer:answer}));
       if(!fields(result,["category","priority","summary","owner_action","response_draft"])||
         !["normal","review promptly"].includes(result.priority))throw Error("Invalid model data");
+      // Enforce a completed, truthful acknowledgment and a useful owner action
+      // even when the model drafts another question or vague instruction.
+      result=finalizeAnalysis(result,draft.initial_message,answer);
     }catch{return fail("Echo couldn't prepare a complete draft. The attempt counted toward today's allowance.",502,"MODEL_ERROR");}
     try {
       const saved=await env.ECHO_DB.prepare(
