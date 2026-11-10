@@ -54,8 +54,8 @@ export async function onRequestPost({request,env}){
     const id=crypto.randomUUID();
     try {
       await env.ECHO_DB.prepare(
-        "INSERT INTO inquiries(id,tenant_id,source,message,category,priority,suggested_reply,status) VALUES(?,?,?,?,?,?,?,?)"
-      ).bind(id,"home-demo","private-ai-pilot",inquiry,parsed.category,parsed.priority,parsed.response_draft,"pending").run();
+        "INSERT INTO inquiries(id,tenant_id,source,message,category,priority,suggested_reply,status,summary,owner_action) VALUES(?,?,?,?,?,?,?,?,?,?)"
+      ).bind(id,"home-demo","private-ai-pilot",inquiry,parsed.category,parsed.priority,parsed.response_draft,"pending",parsed.summary,parsed.owner_action).run();
     }catch { return json({error:"AI completed analysis, but the inquiry could not be saved. This attempt counted against the daily allowance.",code:"STORAGE_FAILED"},503); }
     return json({saved:true,sent:false,id,status:"pending",analysis:{
       category:parsed.category,priority:parsed.priority,summary:parsed.summary,
