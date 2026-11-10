@@ -81,3 +81,13 @@ The `/api/analyze` endpoint now **fails closed** unless both `STAGING_API_TOKEN`
 - GitHub Actions backend tests pass after a test fixture syntax repair.
 
 **Security boundary:** owner Pages is not a public lead intake endpoint. The open demonstration stays a simulation. No real person/contact details or live notifications in this staging database. Do not merge into main or connect public AI until the private login, JWT verification, API writes and payment safeguards are verified in-browser.
+
+## Phase 8 — Real AI in private owner workspace
+
+The owner-only Pages site now includes a private `/api/pilot-intake` action, authenticated by the existing Cloudflare Access app and signed JWT middleware. Cloudflare Pages has both `AI` and `ECHO_DB` bindings configured through `echo-owner/wrangler.toml`; Cloudflare confirmed a successful deploy with both bindings.
+
+An owner can enter **fictional data only**, check the test-data confirmation, and run Workers AI (@cf/google/gemma-4-26b-a4b-it) for a service inquiry. Each attempt reserves a slot in the D1 `ai_daily_usage` ledger before the model is called, shared with the other staging Worker, with 10 attempted AI inferences per UTC day. Structured output is validated and inserted into the tenant-scoped inbox as a pending record. No email, booking or customer reply is sent.
+
+The prior public `echo-automation-demo-staging.pages.dev` remains a no-data rule-based simulation, **not** connected to the private owner APIs. The separate staging Worker remains nonpublic; no browser API token is exposed. End-to-end real inference from a signed-in browser remains to be confirmed by the owner. The latest automated tests are under verification.
+
+Next after owner validation: gather feedback on AI response quality; add a consentful client-facing data collection design, privacy retention, abuse protection and monitored notification integration before public release.
