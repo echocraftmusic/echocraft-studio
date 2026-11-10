@@ -4,6 +4,8 @@
  * Bind env.AI to Workers AI; set ALLOWED_ORIGIN for staging; never use "*" in production.
  */
 const MAX_CHARS = 600;
+const MAX_BODY_BYTES = 2048;
+// Strict account-level daily cost caps must be configured and verified separately.
 const JSON_HEADERS = { "content-type": "application/json; charset=utf-8", "cache-control": "no-store" };
 function send(value, status = 200, extra = {}) {
   return new Response(JSON.stringify(value), { status, headers: { ...JSON_HEADERS, ...extra } });
@@ -40,11 +42,44 @@ export default {
     const origin = request.headers.get("origin");
     // Browser clients require allowed origin. A private server-side testing call may omit origin.
     if (origin && !cors["access-control-allow-origin"]) return send({ error: "Origin not permitted" }, 403);
-    const length = Number(request.headers.get("content-length") || 0);
-    if (length > 2000) return send({ error: "Request too large" }, 413, cors);
-    if (!request.headers.get("content-type")?.includes("application/json")) return send({ error: "Expected JSON" }, 415, cors);
+    // Private server-side testing ONLY. A public browser must never receive this secret.
+    // Fail closed: both a secret and a rate limiter are required before any AI invocation.
+    if (!env.STAGING_API_TOKEN || !env.ECHO_RATE_LIMITER) {
+      return send({ error: "Private testing controls are not configured." }, 503, cors);
+    }
+    const token = request.headers.get("authorization") || "";
+    if (token !== `Bearer ${env.STAGING_API_TOKEN}`) return send({ error: "Unauthorized" }, 401, cors);
+    if (!request.headers.get("content-type")?.toLowerCase().startsWith("application/json")) {
+      return send({ error: "Expected JSON" }, 415, cors);
+    }
+    const declaredLength = Number(request.headers.get("content-length") || 0);
+    if (declaredLength > MAX_BODY_BYTES) return send({ error: "Request too large" }, 413, cors);
+    // Limit the actual streamed bytes, even if content-length is missing or incorrect.
+    let raw = "";
+    try {
+      const reader = request.body?.getReader();
+      if (!reader) return send({ error: "Missing request body" }, 400, cors);
+      const decoder = new TextDecoder("utf-8", { fatal: true });
+      let size = 0;
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        size += value.byteLength;
+        if (size > MAX_BODY_BYTES) {
+          await reader.cancel();
+          return send({ error: "Request too large" }, 413, cors);
+        }
+        raw += decoder.decode(value, { stream: true });
+      }
+      raw += decoder.decode();
+    } catch {
+      return send({ error: "Unable to read JSON body" }, 400, cors);
+    }
     let payload;
-    try { payload = await request.json(); } catch { return send({ error: "Invalid JSON" }, 400, cors); }
+    try { payload = JSON.parse(raw); } catch { return send({ error: "Invalid JSON" }, 400, cors); }
+    // Cloudflare native limiter is approximate and PoP-local, not a global spend cap.
+    const limit = await env.ECHO_RATE_LIMITER.limit({ key: "private-demo" });
+    if (!limit.success) return send({ error: "Please wait before another analysis." }, 429, cors);
     const inquiry = typeof payload?.inquiry === "string" ? payload.inquiry.trim() : "";
     const business = businessCatalog[payload?.industry];
     if (!business || !inquiry || inquiry.length > MAX_CHARS) return send({ error: "Invalid industry or inquiry (1–600 characters)." }, 400, cors);
