@@ -153,10 +153,21 @@ test('D1 stores fictional request and allows owner status updates', async () => 
 
 test('authenticated AI intake creates a pending D1 record',async()=>{
   const rows=[];
-  const ECHO_DB={prepare(sql){return {bind(...args){return {
-    async run(){if(sql.startsWith('INSERT INTO inquiries'))rows.push(args);return {meta:{changes:1}};},
-    async first(){return {used:1};}
-  };}};}};
+  const ECHO_DB = {
+    prepare(sql) {
+      return {
+        bind(...args) {
+          return {
+            async run() {
+              if (sql.startsWith('INSERT INTO inquiries')) rows.push(args);
+              return { meta: { changes: 1 } };
+            },
+            async first() { return { used: 1 }; }
+          };
+        }
+      };
+    }
+  };
   const {env,calls}=createEnv({ECHO_DB});
   const res=await worker.fetch(request({path:'/api/intake'}),env);
   assert.equal(res.status,201);
