@@ -1,0 +1,14 @@
+# Sample local-only configuration. Do not deploy until abuse protections are in place.
+name = "echo-automation-staging"
+main = "worker.js"
+compatibility_date = "2026-11-10"
+workers_dev = false
+
+[vars]
+# Replace with an approved staging origin, not the production domain.
+ALLOWED_ORIGIN = "https://echo-staging.example.invalid"
+# Choose a model supported by current Workers AI before deployment; verify availability/pricing.
+AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+
+[ai]
+binding = "AI"
