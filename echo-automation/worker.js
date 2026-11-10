@@ -93,10 +93,10 @@ Keep each field under 300 characters.`;
     try {
       const response = await env.AI.run(env.AI_MODEL, {
         messages: [{ role: "system", content: system }, { role: "user", content: inquiry }],
-        max_tokens: 450,
+        max_tokens: 800,
         temperature: 0.2
       });
-      const text = response?.response || response?.result?.response || "";
+      const text = response?.response || response?.result?.response || response?.choices?.[0]?.message?.content || response?.result?.choices?.[0]?.message?.content || "";
       const parsed = extractJson(String(text));
       const keys = ["category", "priority", "summary", "owner_action", "response_draft"];
       if (!keys.every(k => typeof parsed[k] === "string" && parsed[k].length <= 300)) throw new Error("Invalid model fields");
