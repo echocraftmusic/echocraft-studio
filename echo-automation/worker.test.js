@@ -110,3 +110,37 @@ test('unsupported methods and CORS preflight', async () => {
   assert.equal((await worker.fetch(request({method:'GET'}),env)).status,405);
   assert.equal(calls.ai,0);
 });
+
+
+test('D1 inquiry routes fail closed without database and credentials', async () => {
+  const {env,calls}=createEnv({ECHO_DB:undefined});
+  const res=await worker.fetch(request({path:'/api/inquiries',method:'GET'}),env);
+  assert.equal(res.status,503);
+  assert.equal(calls.ai,0);
+});
+test('D1 inquiry routes reject invalid auth', async () => {
+  const {env,calls}=createEnv({ECHO_DB:{}});
+  const res=await worker.fetch(request({path:'/api/inquiries',method:'GET',token:'wrong'}),env);
+  assert.equal(res.status,401);
+  assert.equal(calls.ai,0);
+});
+test('D1 stores fictional request and allows owner status updates', async () => {
+  const rows=[];
+  const db={prepare(sql){return {bind(...args){return {
+    async run(){
+      if(sql.startsWith('INSERT')) {rows.push({id:args[0],tenant_id:args[1],source:args[2],message:args[3],category:args[4],priority:args[5],suggested_reply:args[6],status:args[7]});return {meta:{changes:1}};}
+      if(sql.startsWith('UPDATE')) {const row=rows.find(x=>x.id===args[1]);if(row)row.status=args[0];return {meta:{changes:row?1:0}};}
+      throw Error('unexpected SQL');
+    },
+    async all(){return {results:rows}}
+  }};}}};
+  const {env,calls}=createEnv({ECHO_DB:db});
+  const body={message:'My sample sink leaks.',category:'Plumbing',priority:'normal',suggested_reply:'We will review the request.'};
+  const save=await worker.fetch(request({path:'/api/inquiries',body}),env);
+  assert.equal(save.status,201);const saved=await save.json();assert.equal(saved.saved,true);assert.equal(saved.sent,false);
+  const list=await worker.fetch(request({path:'/api/inquiries',method:'GET'}),env);
+  assert.equal(list.status,200);assert.equal((await list.json()).inquiries.length,1);
+  const patch=await worker.fetch(request({path:'/api/inquiries/'+saved.id,method:'PATCH',body:{status:'contacted'}}),env);
+  assert.equal(patch.status,200);assert.equal((await patch.json()).updated,true);
+  assert.equal(rows[0].status,'contacted');assert.equal(calls.ai,0);
+});
