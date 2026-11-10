@@ -14,10 +14,10 @@ function say(speaker,message){
   transcript.append(bubble);bubble.scrollIntoView({block:'nearest',behavior:'smooth'});
 }
 function render(){
-  $('chat-entry').hidden=stage==='review'||stage==='complete';
-  $('chat-approval').hidden=stage!=='review'&&stage!=='complete';
-  $('chat-confirm').hidden=stage==='complete';
-  $('chat-cancel').textContent=stage==='complete'?'Start another conversation':'Discard this conversation';
+  $('chat-entry').hidden=stage==='review'||stage==='complete'||stage==='safety';
+  $('chat-approval').hidden=stage!=='review'&&stage!=='complete'&&stage!=='safety';
+  $('chat-confirm').hidden=stage==='complete'||stage==='safety';
+  $('chat-cancel').textContent=stage==='complete'||stage==='safety'?'Start another conversation':'Discard this conversation';
   $('chat-send').textContent=stage==='start'?'Send to Echo':'Answer Echo';
   $('chat-send').disabled=busy;
   $('chat-confirm').disabled=busy;
@@ -67,7 +67,11 @@ $('chat-send').addEventListener('click',async()=>{
   try {
     const result=await post(action,action==='start'?{message,fictional:true}:{id:conversationId,message});
     say('Customer',message);$('chat-message').value='';
-    if(action==='start'){
+    if(action==='start'&&result.step==='safety'){
+      stage='safety';
+      say('Echo',result.safety_warning);
+      progress('Safety warning: routine AI intake stopped. No appointment requested, no owner inquiry saved, and no AI inference used.');
+    }else if(action==='start'){
       conversationId=result.id;stage='answer';say('Echo',result.question);
       $('chat-message').placeholder='Answer the follow-up question without personal details.';
       progress('Echo asked one relevant follow-up. Your answer will complete the draft; it does not yet create a lead.');
