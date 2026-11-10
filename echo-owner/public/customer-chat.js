@@ -15,7 +15,9 @@ function say(speaker,message){
 }
 function render(){
   $('chat-entry').hidden=stage==='review'||stage==='complete';
-  $('chat-approval').hidden=stage!=='review';
+  $('chat-approval').hidden=stage!=='review'&&stage!=='complete';
+  $('chat-confirm').hidden=stage==='complete';
+  $('chat-cancel').textContent=stage==='complete'?'Start another conversation':'Discard this conversation';
   $('chat-send').textContent=stage==='start'?'Send to Echo':'Answer Echo';
   $('chat-send').disabled=busy;
   $('chat-confirm').disabled=busy;
@@ -83,7 +85,7 @@ $('chat-confirm').addEventListener('click',async()=>{
   try {
     const result=await post('confirm',{id:conversationId,confirm:true});
     if(!result.saved_inquiry)throw Error('Submission was not confirmed.');
-    stage='complete';$('chat-approval').hidden=true;
+    stage='complete';
     say('Echo','Your fictional inquiry is now in the business owner review queue. No message was sent and no appointment was booked.');
     progress('Success: submitted to Cloudflare D1 as Pending. Open the inquiry queue below to inspect it.');
     $('refresh').click();
