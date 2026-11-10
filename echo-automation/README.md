@@ -116,3 +116,14 @@ The public demo at `echo-automation-demo-staging.pages.dev` remains unchanged an
 - Automated tests cover friendly completed replies, concrete owner next steps, common danger patterns, zero-AI-call safety stops and new hazards disclosed during follow-up.
 
 Still a locked-down fictional test only. These are rule-based safeguards, not emergency monitoring or professional triage. Do not make the chat publicly available or claim emergency response, contact notifications or booked appointments. Existing in-progress conversations predate the fix; start a fresh fictional test to see new behavior.
+
+## Phase 11 — Owner in-app notification workflow (Nov 10, 2026)
+
+- Fixed the conversation completion UI: after D1 confirms submission, the review heading now reads **INQUIRY SUBMITTED — AWAITING OWNER FOLLOW-UP** rather than incorrectly saying "NOT SUBMITTED".
+- Migrated `inquiries.owner_seen_at` in private staging D1. Preexisting five fictional inquiries were marked seen during rollout; newly inserted inquiries default to unseen.
+- The authenticated owner GET `/api/inquiries` includes this field. The private dashboard shows an unread-alert banner and highlights new inquiries, refreshing while the tab is visible once per minute.
+- Clicking **Acknowledge new inquiry** sends a separate authorized `PATCH /api/inquiries/:id` with `{ "acknowledge": true }`, sets an acknowledgment timestamp, and **does not** change Pending/Contacted/Closed workflow status. Mixed acknowledgment+status payloads are rejected.
+- Seeded **one FICTIONAL ALERT TEST** home-services record with source `alert-demo`, unseen. No AI inference or external message was sent. Owner can use this to check the notification.
+- Added automated tests verifying the independent alert and status behaviors; latest GitHub Actions workflow passed.
+- This is an **in-app alert while the private owner site is open**. It does not send a push notification, email, SMS, or communicate with any customer. Never describe it as an externally delivered notification. Separate authenticated delivery credentials, explicit owner recipient approval, send logs, retries and privacy review are needed before implementing external owner notifications.
+- Keep staging separate from the Echo Craft Studio production website; no merge to main.
