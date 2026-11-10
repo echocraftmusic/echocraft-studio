@@ -10,6 +10,8 @@ export async function onRequestPatch({request,env,params}){
   if(new TextEncoder().encode(raw).length>200)return Response.json({error:"Request too large"},{status:413});
   let payload;
   try{payload=JSON.parse(raw)}catch{return Response.json({error:"Invalid JSON"},{status:400})}
+  if(payload?.acknowledge===true && Object.keys(payload).length!==1)
+    return Response.json({error:"Acknowledge and status update must be separate requests"},{status:400});
   if(payload?.acknowledge===true && Object.keys(payload).length===1){
     try{
       const result=await env.ECHO_DB.prepare(
