@@ -124,3 +124,20 @@ test("cannot confirm without first answering Echo",async()=>{
   const r=await call(env,{action:"confirm",id:data.id,confirm:true});
   assert.equal(r.status,409);assert.equal(state.inquiries.size,0);
 });
+
+test("a new gas-leak disclosure in the follow-up ends the chat before another AI call",async()=>{
+  const {env,state}=fixture();
+  const first=await call(env,{action:"start",fictional:true,message:"My fictional stove is not working correctly."});
+  assert.equal(first.status,201);
+  const id=(await first.json()).id;
+  const beforeCalls=state.calls,beforeUsed=state.used;
+  const response=await call(env,{action:"answer",id,message:"Now I smell gas near the stove."});
+  assert.equal(response.status,200);
+  const data=await response.json();
+  assert.equal(data.step,"safety");
+  assert.match(data.safety_warning,/leave the building/i);
+  assert.equal(data.saved_inquiry,false);
+  assert.equal(state.calls,beforeCalls);
+  assert.equal(state.used,beforeUsed);
+  assert.equal(state.inquiries.size,0);
+});
