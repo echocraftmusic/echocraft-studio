@@ -32,6 +32,10 @@ select{background:#191714;color:#eee1c6}
 .empty{border:1px dashed #625335;padding:24px;border-radius:14px;color:#c5bbac}
 footer{margin-top:25px;color:#968c7c;font-size:12px}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.metrics{gap:8px}.metric{padding:13px}.metric strong{font-size:25px}}
+.pilot{margin-top:27px}.pilot h2{font-family:Georgia,serif;font-weight:400;font-size:27px;margin:0 0 8px}
+.pilot textarea{width:100%;resize:vertical;min-height:105px;background:#0b0b0b;color:#faf2e3;border:1px solid #775c2c;border-radius:12px;padding:14px;font:inherit;margin:12px 0}
+.pilot label{font-size:14px;color:#e2d8c3}.pilot .test-confirm{display:flex;gap:10px;align-items:center;margin:8px 0 14px}
+.pilot button{margin:4px 0 0}.pilot-progress{color:#e0c680;font-size:13px;min-height:23px}
 </style>
 </head>
 <body>
@@ -40,6 +44,16 @@ footer{margin-top:25px;color:#968c7c;font-size:12px}
 <div class="eyebrow" style="margin-top:35px">Home Services Pilot</div>
 <h1 class="title">Every inquiry.<br>Under control.</h1>
 <p class="muted">Review customer requests, see drafted responses and update follow-up status. Nothing is automatically sent to customers.</p>
+<section class="card pilot" aria-label="Private real AI testing">
+  <div class="eyebrow">REAL AI · PRIVATE TEST ONLY</div>
+  <h2>Try a customer inquiry</h2>
+  <p class="muted">Enter a completely fictional home-services request. The assistant will analyze it with actual Cloudflare AI, save a draft for owner review, and update the inbox below. No messages are sent. Maximum 10 AI attempts per UTC day across this staging system.</p>
+  <label for="pilot-inquiry">Fictional customer inquiry</label>
+  <textarea id="pilot-inquiry" maxlength="450">My kitchen sink is leaking under the cabinet. Could someone review my service request for tomorrow afternoon?</textarea>
+  <label class="test-confirm"><input id="pilot-fictional" type="checkbox"> I confirm this example is fictional and contains no real customer or personal information.</label>
+  <button id="pilot-run" type="button">Analyze with real AI and save inquiry</button>
+  <p id="pilot-status" class="pilot-progress" role="status" aria-live="polite">Private AI test is ready if the model binding is configured.</p>
+</section>
 <p id="status" class="status" role="status" aria-live="polite">Preparing secure workspace…</p>
 <section class="metrics" aria-label="Inquiry totals">
 <div class="metric"><strong id="total">—</strong><span>Recent inquiries</span></div>
@@ -95,6 +109,22 @@ async function saveStatus(id,status){
     await load();
   }catch(e){setStatus(e.message)}finally{loading=false;drawDetails();}
 }
+$('pilot-run').addEventListener('click',async()=>{
+  const input=$('pilot-inquiry').value.trim();
+  if(!$('pilot-fictional').checked){$('pilot-status').textContent='Confirm the sample contains no real customer details.';return}
+  if(input.length<10){$('pilot-status').textContent='Please enter a fictional request of at least 10 characters.';return}
+  const button=$('pilot-run');button.disabled=true;$('pilot-status').textContent='Real AI is analyzing your example. This may take a moment…';
+  try{
+    const res=await fetch('/api/pilot-intake',{method:'POST',credentials:'same-origin',headers:{'content-type':'application/json'},body:JSON.stringify({inquiry:input,fictional:true})});
+    const data=await res.json();
+    if(!res.ok)throw Error(data.error||'Private AI test unavailable ('+res.status+').');
+    selectedId=data.id;
+    $('filter').value='all';
+    $('pilot-status').textContent='Real AI completed analysis and saved the inquiry to D1. Nothing was sent to a customer.';
+    await load();
+  }catch(error){$('pilot-status').textContent=error.message;}
+  finally{button.disabled=false;}
+});
 $('filter').addEventListener('change',drawQueue);$('refresh').addEventListener('click',load);load();
 })();
 </script></body></html>
