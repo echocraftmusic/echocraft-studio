@@ -91,3 +91,17 @@ An owner can enter **fictional data only**, check the test-data confirmation, an
 The prior public `echo-automation-demo-staging.pages.dev` remains a no-data rule-based simulation, **not** connected to the private owner APIs. The separate staging Worker remains nonpublic; no browser API token is exposed. End-to-end real inference from a signed-in browser remains to be confirmed by the owner. The latest automated tests are under verification.
 
 Next after owner validation: gather feedback on AI response quality; add a consentful client-facing data collection design, privacy retention, abuse protection and monitored notification integration before public release.
+
+## Phase 9 — Two-turn real AI customer conversation (protected pilot)
+
+The separate owner-only Pages project includes a black-and-gold simulated customer-side chat embedded above the existing owner queue, still behind Cloudflare Access. This **is actual AI** for two turns rather than hard-coded decision rules:
+
+1. An owner acting as a **fictional customer** describes a service problem and confirms it contains no real personal information.
+2. AI classifies it and asks exactly one relevant issue-specific follow-up question. D1 stores a conversation draft in `demo_conversations` (not a lead).
+3. The owner answers the question. A second AI inference generates structured category, priority, summary, recommended owner action and a draft reply. The record remains in `awaiting_confirmation` and does **not** create an owner inquiry yet.
+4. The user explicitly clicks **Approve and add to owner inbox**. D1 transactionally inserts a `conversation-pilot` inquiry and marks the draft completed. The UI reloads the real D1 inbox. No emails, calls or appointments are sent/booked.
+5. A completed conversation can be restarted. Each AI inference reserves one of the **10 shared staging attempts per UTC day**; confirmation consumes no AI tokens.
+
+Backend: `echo-owner/functions/api/conversation.js`; UI: `echo-owner/public/customer-chat.js`; migration: `migrations/0003_demo_conversations.sql`, applied in D1. Backend automated tests cover two-turn journey, no insertion before confirmation, daily limit, duplicate confirm and model failure.
+
+The public demo at `echo-automation-demo-staging.pages.dev` remains unchanged and rules-based. The owner dashboard is private, not an end-user accessible production service. Do not input real names, emails, addresses or service requests. No automatic cleanup of chat drafts is implemented yet; set a retention policy before any live rollout.
