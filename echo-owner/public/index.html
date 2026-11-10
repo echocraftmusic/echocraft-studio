@@ -36,6 +36,25 @@ footer{margin-top:25px;color:#968c7c;font-size:12px}
 .pilot textarea{width:100%;resize:vertical;min-height:105px;background:#0b0b0b;color:#faf2e3;border:1px solid #775c2c;border-radius:12px;padding:14px;font:inherit;margin:12px 0}
 .pilot label{font-size:14px;color:#e2d8c3}.pilot .test-confirm{display:flex;gap:10px;align-items:center;margin:8px 0 14px}
 .pilot button{margin:4px 0 0}.pilot-progress{color:#e0c680;font-size:13px;min-height:23px}
+
+.chat-pilot{margin:24px 0 26px;padding:26px;background:linear-gradient(130deg,#17140f,#0d0c0b);border:1px solid #6d562e;border-radius:18px}
+.chat-pilot .tag{display:inline-block;border:1px solid #746036;padding:5px 10px;border-radius:99px;color:#edcb7c;font-size:11px;letter-spacing:.09em}
+.chat-pilot h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(25px,4vw,32px);margin:10px 0}
+.chat-pilot .conversation{max-width:740px;display:grid;gap:13px;margin:20px 0;padding:20px;border-radius:15px;background:#080808;border:1px solid #463921;min-height:210px}
+.chat-bubble{max-width:90%;padding:14px 17px;border-radius:15px;line-height:1.6;white-space:pre-wrap;overflow-wrap:anywhere}
+.chat-bubble.echo{background:#201b14;border:1px solid #564528;border-top-left-radius:4px;justify-self:start;color:#f4e8ca}
+.chat-bubble.customer{background:#3a2c11;border:1px solid #8c702f;border-top-right-radius:4px;justify-self:end;color:#fff4d9}
+.chat-bubble .who{display:block;color:#e7bf68;font-size:11px;font-weight:700;letter-spacing:.05em;margin-bottom:5px}
+.chat-pilot textarea{width:100%;min-height:80px;resize:vertical;border:1px solid #765d31;border-radius:12px;background:#0b0b0b;color:#eee;padding:12px;font:inherit}
+.chat-pilot .actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}
+.chat-pilot .confirm{display:flex;align-items:center;gap:9px;font-size:13px;color:#c9c0ae;margin:14px 0}
+.chat-pilot .response-card{border:1px solid #84692f;background:#211a0c;border-radius:12px;padding:17px;margin:18px 0}
+.chat-pilot .response-card h3{font-size:14px;color:#eec67c;margin:0 0 10px}
+.chat-pilot .response-card p{margin:8px 0;line-height:1.6;white-space:pre-wrap}
+.chat-pilot .inquiry-stage{color:#e4cb88;font-size:13px;margin:10px 0;min-height:18px}
+.chat-pilot button:disabled{opacity:.42;cursor:wait}
+@media(max-width:760px){.chat-pilot{padding:16px}.chat-pilot .conversation{padding:12px}.chat-bubble{max-width:98%}}
+
 </style>
 </head>
 <body>
@@ -44,6 +63,30 @@ footer{margin-top:25px;color:#968c7c;font-size:12px}
 <div class="eyebrow" style="margin-top:35px">Home Services Pilot</div>
 <h1 class="title">Every inquiry.<br>Under control.</h1>
 <p class="muted">Review customer requests, see drafted responses and update follow-up status. Nothing is automatically sent to customers.</p>
+<section class="chat-pilot" aria-label="Echo customer conversation pilot">
+  <span class="tag">LIVE AI · TWO-WAY CUSTOMER EXPERIENCE · OWNER-ONLY STAGING</span>
+  <h2>Meet your customers before you meet them.</h2>
+  <p class="muted">Try the customer-facing conversation from inside this secure workspace. Echo will ask a relevant follow-up, prepare an inquiry, and wait for your approval before adding it to the owner queue. <strong>No customer contact information, emails, or appointments.</strong> Each analysis uses one of the ten daily AI attempts.</p>
+  <div id="conversation" class="conversation" role="log" aria-live="polite" aria-relevant="additions text">
+    <div class="chat-bubble echo"><span class="who">ECHO · SAMPLE BUSINESS ASSISTANT</span>Welcome to ABC Home Services. What's happening, and what kind of service do you need?</div>
+  </div>
+  <div id="chat-entry">
+    <label for="chat-message">Your fictional customer response</label>
+    <textarea id="chat-message" maxlength="400" placeholder="For example: My kitchen sink has been dripping under the cabinet since this morning.">My kitchen sink is dripping under the cabinet, and I'd like someone to take a look.</textarea>
+    <label class="confirm"><input type="checkbox" id="chat-fictional"> I confirm this is a fictional scenario without anyone's personal details.</label>
+    <div class="actions">
+      <button type="button" id="chat-send">Send to Echo</button>
+      <button type="button" id="chat-reset" class="secondary">Start over</button>
+    </div>
+  </div>
+  <div id="chat-preview" class="response-card" hidden></div>
+  <div id="chat-approval" hidden>
+    <p class="muted">Review the proposed owner inquiry. Nothing will be added to your inbox until you confirm.</p>
+    <button id="chat-confirm" type="button">Approve and add to owner inbox</button>
+    <button id="chat-cancel" type="button" class="secondary">Discard this conversation</button>
+  </div>
+  <p id="chat-progress" class="inquiry-stage" role="status" aria-live="polite">Ready to begin. Your input stays within private staging.</p>
+</section>
 <section class="card pilot" aria-label="Private real AI testing">
   <div class="eyebrow">REAL AI · PRIVATE TEST ONLY</div>
   <h2>Try a customer inquiry</h2>
@@ -127,4 +170,4 @@ $('pilot-run').addEventListener('click',async()=>{
 });
 $('filter').addEventListener('change',drawQueue);$('refresh').addEventListener('click',load);load();
 })();
-</script></body></html>
+</script><script src="/customer-chat.js" defer></script></body></html>
