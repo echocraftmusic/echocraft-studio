@@ -65,3 +65,19 @@ The `/api/analyze` endpoint now **fails closed** unless both `STAGING_API_TOKEN`
 - Public Worker URLs and preview URLs are **disabled**. No staging secret is configured, so routes fail closed; an accessible owner dashboard is **not** ready yet.
 - Database presently contains no real leads. Never enter names, phone numbers, patient details or live contacts into the staging demo.
 - Next: test live Worker via private auth; add Cloudflare Access-protected owner interface; ensure stricter global cost enforcement and anti-abuse before public visitor intake.
+
+## Phase 7 — Private owner workspace and strict AI budget (2026-11-10)
+
+- Added `migrations/0002_ai_daily_usage.sql` to the staging D1 database. All AI analysis paths reserve a slot through an atomic D1 `UPDATE ... WHERE used < 10 RETURNING used`, with a **10 attempted inferences / UTC day** hard cap for this Worker. It is not an account-wide Cloudflare billing limit and other account workloads are unaffected.
+- Added native `ECHO_RATE_LIMITER` binding (5 requests/minute, approximate per Cloudflare location), while retaining the D1 budget guard.
+- The staging Worker continues with public Workers URL and preview URLs disabled. `STAGING_API_TOKEN` setup through the connector was blocked; no insecure bypass was implemented.
+- Added `echo-owner/public/index.html`: actual D1-backed inbox with Pending / Contacted / Closed buttons and no fake data fallback.
+- Added `echo-owner/functions/api/inquiries/index.js` and `echo-owner/functions/api/inquiries/[id].js` for tenant-scoped reads/writes.
+- Added `echo-owner/functions/_middleware.js` to validate Cloudflare Access JWT **cryptographically** (audience, issuer, expiration and RS256 signature) and block cross-site status changes.
+- Created separate Cloudflare Pages project `echo-automation-owner-staging`, linked to this development branch. Production configuration holds the dedicated D1 binding and Access team/audience values.
+- Created a restrictive Cloudflare Access application for `echo-automation-owner-staging.pages.dev`, with one owner-only identity policy matching existing private Studio access.
+- Inserted one record into D1 with source `demo-seed` and a **FICTIONAL TEST** prefix. It is not a customer lead.
+- The owner Pages build compiled Functions and deployed successfully. End-to-end authentication and owner status updates require a signed-in manual browser test before being described as verified.
+- GitHub Actions backend tests pass after a test fixture syntax repair.
+
+**Security boundary:** owner Pages is not a public lead intake endpoint. The open demonstration stays a simulation. No real person/contact details or live notifications in this staging database. Do not merge into main or connect public AI until the private login, JWT verification, API writes and payment safeguards are verified in-browser.
