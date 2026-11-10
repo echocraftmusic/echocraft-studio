@@ -3,10 +3,10 @@
   'use strict';
   if (document.getElementById('ec-echo-launcher')) return;
   const data = {
-    websites: {title:'Website Design', message:'Echo Craft builds custom websites for growing businesses. Our proposed starting packages are $1,000 Essential, $2,000 Business and $3,000+ for advanced work; your quote depends on scope.', url:'../website-design.html', link:'Explore website design'},
-    it: {title:'Business IT Solutions', message:'We help with business technology, troubleshooting, setup and practical IT solutions. Tell Echo Craft about your equipment and goals for a tailored assessment.', url:'../services.html', link:'Explore digital solutions'},
-    automation: {title:'AI Automation', message:'Our automation demonstration shows how a business can organize customer inquiries and draft responses for owner review. The demo is a simulation, not a live production AI.', url:'../echo-demo/', link:'Try the workflow demo'},
-    contact: {title:'Contact Echo Craft', message:'Ready to talk about a project? You can send an inquiry directly to Echo Craft Studio. Echo does not collect information in this demonstration.', url:'../index.html#contact', link:'Contact the studio'}
+    websites: {title:'Website Design', message:'Echo Craft builds custom websites for growing businesses. Our proposed starting packages are $1,000 Essential, $2,000 Business and $3,000+ for advanced work; your quote depends on scope.', url:'https://echocraft.studio/website-design.html', link:'Explore website design'},
+    it: {title:'Business IT Solutions', message:'We help with business technology, troubleshooting, setup and practical IT solutions. Tell Echo Craft about your equipment and goals for a tailored assessment.', url:'https://echocraft.studio/services.html', link:'Explore digital solutions'},
+    automation: {title:'AI Automation', message:'Our automation demonstration shows how a business can organize customer inquiries and draft responses for owner review. The demo is a simulation, not a live production AI.', url:'./', link:'Try the workflow demo'},
+    contact: {title:'Contact Echo Craft', message:'Ready to talk about a project? You can send an inquiry directly to Echo Craft Studio. Echo does not collect information in this demonstration.', url:'https://echocraft.studio/#contact', link:'Contact the studio'}
   };
   const avatarUrl = new URL('./echo-avatar.webp', document.currentScript?.src || document.baseURI).href;
   const root = document.createElement('aside');
