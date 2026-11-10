@@ -94,7 +94,7 @@ test('success is structured, no outgoing side effects', async () => {
     simulated:(await res.clone().json()).simulated,
     sent:(await res.clone().json()).sent,
     saved:(await res.clone().json()).saved
-  },{simulated:true,sent:false,saved:false});
+  },{simulated:false,sent:false,saved:false});
   assert.equal(res.headers.get('access-control-allow-origin'), ORIGIN);
 });
 test('bad AI output fails safely', async () => {
@@ -143,4 +143,17 @@ test('D1 stores fictional request and allows owner status updates', async () => 
   const patch=await worker.fetch(request({path:'/api/inquiries/'+saved.id,method:'PATCH',body:{status:'contacted'}}),env);
   assert.equal(patch.status,200);assert.equal((await patch.json()).updated,true);
   assert.equal(rows[0].status,'contacted');assert.equal(calls.ai,0);
+});
+
+test('authenticated AI intake creates a pending D1 record',async()=>{
+  const rows=[];
+  const ECHO_DB={prepare(){return {bind(...args){return {async run(){rows.push(args);return {meta:{changes:1}}}}}}}};
+  const {env,calls}=createEnv({ECHO_DB});
+  const res=await worker.fetch(request({path:'/api/intake'}),env);
+  assert.equal(res.status,201);
+  const body=await res.json();
+  assert.equal(body.saved,true);assert.equal(body.sent,false);assert.equal(body.status,'pending');
+  assert.equal(calls.ai,1);assert.equal(rows.length,1);
+  assert.equal(rows[0][1],'home-demo');
+  assert.equal(rows[0][7],'pending');
 });
