@@ -88,6 +88,7 @@ $('chat-confirm').addEventListener('click',async()=>{
     stage='complete';
     say('Echo','Your fictional inquiry is now in the business owner review queue. No message was sent and no appointment was booked.');
     progress('Success: submitted to Cloudflare D1 as Pending. Open the inquiry queue below to inspect it.');
+    $('filter').value='all';
     $('refresh').click();
   }catch(error){progress(error.message);}
   finally{busy=false;render();}
