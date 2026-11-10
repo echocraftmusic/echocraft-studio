@@ -75,6 +75,9 @@ $('chat-send').addEventListener('click',async()=>{
       conversationId=result.id;stage='answer';say('Echo',result.question);
       $('chat-message').placeholder='Answer the follow-up question without personal details.';
       progress('Echo asked one relevant follow-up. Your answer will complete the draft; it does not yet create a lead.');
+    }else if(result.step==='safety'){
+      stage='safety';say('Echo',result.safety_warning);
+      progress('Safety warning: stopped routine intake. No owner inquiry saved and no additional AI inference used.');
     }else{
       stage='review';review(result.analysis);
       say('Echo','Thank you. I prepared a service inquiry and a draft reply. Please review them before submitting.');
