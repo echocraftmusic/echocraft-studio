@@ -17,6 +17,8 @@ function render(){
   $('chat-entry').hidden=stage==='review'||stage==='complete'||stage==='safety';
   $('chat-approval').hidden=stage!=='review'&&stage!=='complete'&&stage!=='safety';
   $('chat-confirm').hidden=stage==='complete'||stage==='safety';
+  const approvalNote=$('chat-approval').querySelector('p');
+  if(approvalNote)approvalNote.textContent=stage==='safety'?'Safety notice only. This is not an emergency-response service and no inquiry was filed.':stage==='complete'?'The fictional inquiry was added to your owner inbox. Nothing has been sent to a customer.':'Review the proposed owner inquiry. Nothing will be added to your inbox until you confirm.';
   $('chat-cancel').textContent=stage==='complete'||stage==='safety'?'Start another conversation':'Discard this conversation';
   $('chat-send').textContent=stage==='start'?'Send to Echo':'Answer Echo';
   $('chat-send').disabled=busy;
