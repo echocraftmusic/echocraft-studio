@@ -12,6 +12,12 @@ function createEnv(overrides = {}) {
     STAGING_API_TOKEN: GOOD_TOKEN,
     ALLOWED_ORIGIN: ORIGIN,
     AI_MODEL: 'mock-model',
+    ECHO_DB: {
+      prepare() { return { bind() { return {
+        async run() { return { success: true }; },
+        async first() { return { used: 1 }; }
+      }; } }; }
+    },
     ECHO_RATE_LIMITER: {
       async limit() { calls.limit++; return { success: true }; }
     },
@@ -147,7 +153,10 @@ test('D1 stores fictional request and allows owner status updates', async () => 
 
 test('authenticated AI intake creates a pending D1 record',async()=>{
   const rows=[];
-  const ECHO_DB={prepare(){return {bind(...args){return {async run(){rows.push(args);return {meta:{changes:1}}}}}}}};
+  const ECHO_DB={prepare(sql){return {bind(...args){return {
+    async run(){if(sql.startsWith('INSERT INTO inquiries'))rows.push(args);return {meta:{changes:1}};},
+    async first(){return {used:1};}
+  };}};}};
   const {env,calls}=createEnv({ECHO_DB});
   const res=await worker.fetch(request({path:'/api/intake'}),env);
   assert.equal(res.status,201);
@@ -156,4 +165,19 @@ test('authenticated AI intake creates a pending D1 record',async()=>{
   assert.equal(calls.ai,1);assert.equal(rows.length,1);
   assert.equal(rows[0][1],'home-demo');
   assert.equal(rows[0][7],'pending');
+});
+
+test('fails closed when AI daily usage DB is missing',async()=>{
+  await statusAndNoAI('daily DB missing',{}, {ECHO_DB:undefined},503);
+});
+test('fails closed if D1 reservation cannot be written',async()=>{
+  const db={prepare(){return {bind(){return {async run(){throw Error('D1 unavailable')}}}}}};
+  await statusAndNoAI('D1 down',{}, {ECHO_DB:db},503);
+});
+test('daily usage ceiling blocks model invocation without charge',async()=>{
+  const db={prepare(){return {bind(){return {
+    async run(){return {success:true}},
+    async first(){return null}
+  }}}}};
+  await statusAndNoAI('daily ceiling reached',{}, {ECHO_DB:db},429);
 });
