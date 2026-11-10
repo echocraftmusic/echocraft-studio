@@ -30,6 +30,11 @@ select{background:#191714;color:#eee1c6}
 .detail p{white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.7}
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}
 .empty{border:1px dashed #625335;padding:24px;border-radius:14px;color:#c5bbac}
+.alertbox{border:1px solid #8d6d31;background:linear-gradient(110deg,#33260e,#17130c);border-radius:15px;padding:18px;margin:20px 0;color:#ffe1a1}
+.alertbox strong{font-size:18px}.alertbox p{margin:6px 0 0;color:#e4d2ab;font-size:13px}
+.new-marker{color:#f6cf76;font-weight:800;font-size:11px;letter-spacing:.07em}
+.item.unseen{border-color:#d4af37;box-shadow:inset 3px 0 #d4af37}
+.alert-action{margin:14px 0;padding:12px 16px}
 footer{margin-top:25px;color:#968c7c;font-size:12px}
 @media(max-width:760px){.grid{grid-template-columns:1fr}.metrics{gap:8px}.metric{padding:13px}.metric strong{font-size:25px}}
 .pilot{margin-top:27px}.pilot h2{font-family:Georgia,serif;font-weight:400;font-size:27px;margin:0 0 8px}
@@ -98,6 +103,10 @@ footer{margin-top:25px;color:#968c7c;font-size:12px}
   <p id="pilot-status" class="pilot-progress" role="status" aria-live="polite">Private AI test is ready if the model binding is configured.</p>
 </section>
 <p id="status" class="status" role="status" aria-live="polite">Preparing secure workspace…</p>
+<section id="new-alerts" class="alertbox" aria-live="polite" hidden>
+  <strong id="new-alert-title">New inquiries need your attention</strong>
+  <p>These are new, unacknowledged inquiry records. Open a request and acknowledge its alert without changing its follow-up status. Alerts update while this dashboard is open.</p>
+</section>
 <section class="metrics" aria-label="Inquiry totals">
 <div class="metric"><strong id="total">—</strong><span>Recent inquiries</span></div>
 <div class="metric"><strong id="pending">—</strong><span>Awaiting review</span></div>
@@ -113,13 +122,21 @@ const $=id=>document.getElementById(id);let inquiries=[],selectedId=null,loading
 const setStatus=t=>{$('status').textContent=t};
 const safeDate=v=>{const d=new Date(v+'Z');return Number.isNaN(d.getTime())?v:d.toLocaleString()};
 function row(tag,text,cls){const e=document.createElement(tag);e.textContent=text;if(cls)e.className=cls;return e}
-function stats(){ $('total').textContent=inquiries.length;$('pending').textContent=inquiries.filter(x=>x.status==='pending').length;$('closed').textContent=inquiries.filter(x=>x.status==='closed').length;}
+function stats(){
+  $('total').textContent=inquiries.length;
+  $('pending').textContent=inquiries.filter(x=>x.status==='pending').length;
+  $('closed').textContent=inquiries.filter(x=>x.status==='closed').length;
+  const unseen=inquiries.filter(x=>!x.owner_seen_at);
+  $('new-alerts').hidden=unseen.length===0;
+  $('new-alert-title').textContent=unseen.length===1?'1 new inquiry needs your attention':unseen.length+' new inquiries need your attention';
+}
 function drawQueue(){
   const list=$('queue');list.replaceChildren();
   const items=inquiries.filter(x=>$('filter').value==='all'||x.status===$('filter').value);
   if(!items.length){list.append(row('div','No inquiries match this view.','empty'));return}
   for(const x of items){
-    const b=document.createElement('button');b.type='button';b.className='item'+(selectedId===x.id?' selected':'');
+    const b=document.createElement('button');b.type='button';b.className='item'+(selectedId===x.id?' selected':'')+(!x.owner_seen_at?' unseen':'');
+    if(!x.owner_seen_at)b.append(row('span','NEW · NOT ACKNOWLEDGED','new-marker'));
     b.append(row('strong',x.category),row('small',x.message.slice(0,135)),row('em',x.status.toUpperCase()+' · '+safeDate(x.created_at)));
     b.addEventListener('click',()=>{selectedId=x.id;drawQueue();drawDetails();});list.append(b);
   }
@@ -131,6 +148,12 @@ function drawDetails(){
   if(x.summary)root.append(row('h3','AI issue summary'),row('p',x.summary));
   if(x.owner_action)root.append(row('h3','Recommended owner action — not performed'),row('p',x.owner_action));
   root.append(row('h3','AI-suggested customer reply — not sent'),row('p',x.suggested_reply));
+  if(!x.owner_seen_at){
+    const acknowledge=row('button','Acknowledge new inquiry','alert-action');
+    acknowledge.type='button';acknowledge.disabled=loading;
+    acknowledge.addEventListener('click',()=>acknowledgeAlert(x.id));
+    root.append(acknowledge);
+  }
   const actions=row('div','', 'actions');
   for(const [value,text] of [['pending','Return to pending'],['contacted','Mark contacted'],['closed','Mark closed']]){
     const b=row('button',text,value===x.status?'secondary':'');b.type='button';b.disabled=value===x.status||loading;
@@ -146,6 +169,19 @@ async function load(){
     if(!inquiries.find(x=>x.id===selectedId))selectedId=inquiries[0]?.id||null;
     stats();drawQueue();drawDetails();setStatus('Connected to secure inquiry records.');
   }catch(e){setStatus(e.message);$('queue').replaceChildren(row('div','The private API is unavailable. No sample records are being substituted.','empty'));$('detail').replaceChildren(row('div','Access is required to review inquiries.','empty'))}
+}
+async function acknowledgeAlert(id){
+  if(loading)return;
+  loading=true;drawDetails();setStatus('Acknowledging this alert…');
+  try{
+    const res=await fetch('/api/inquiries/'+encodeURIComponent(id),{
+      method:'PATCH',credentials:'same-origin',headers:{'content-type':'application/json'},
+      body:JSON.stringify({acknowledge:true})
+    });
+    if(!res.ok)throw Error('Unable to acknowledge alert ('+res.status+').');
+    await load();
+  }catch(e){setStatus(e.message)}
+  finally{loading=false;drawDetails();}
 }
 async function saveStatus(id,status){
   if(loading)return;loading=true;drawDetails();setStatus('Updating follow-up status…');
@@ -171,6 +207,10 @@ $('pilot-run').addEventListener('click',async()=>{
   }catch(error){$('pilot-status').textContent=error.message;}
   finally{button.disabled=false;}
 });
-$('filter').addEventListener('change',drawQueue);$('refresh').addEventListener('click',load);load();
+$('filter').addEventListener('change',drawQueue);$('refresh').addEventListener('click',load);
+load();
+// Poll only while the authenticated owner dashboard is visible. This is an in-app
+// alert, not a system/email/text notification, and it stops when the tab closes.
+setInterval(()=>{if(!document.hidden&&!loading)load();},60000);
 })();
 </script><script src="/customer-chat.js" defer></script></body></html>
