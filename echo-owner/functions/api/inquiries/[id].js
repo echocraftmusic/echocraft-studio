@@ -10,6 +10,15 @@ export async function onRequestPatch({request,env,params}){
   if(new TextEncoder().encode(raw).length>200)return Response.json({error:"Request too large"},{status:413});
   let payload;
   try{payload=JSON.parse(raw)}catch{return Response.json({error:"Invalid JSON"},{status:400})}
+  if(payload?.acknowledge===true && Object.keys(payload).length===1){
+    try{
+      const result=await env.ECHO_DB.prepare(
+        "UPDATE inquiries SET owner_seen_at=COALESCE(owner_seen_at,datetime('now')) WHERE id=? AND tenant_id=?"
+      ).bind(id,"home-demo").run();
+      if(!result.meta?.changes)return Response.json({error:"Inquiry not found"},{status:404});
+      return Response.json({acknowledged:true,id,sent:false});
+    }catch{return Response.json({error:"Unable to acknowledge inquiry"},{status:503})}
+  }
   if(!payload||!["pending","contacted","closed"].includes(payload.status))
     return Response.json({error:"Invalid status"},{status:400});
   try{
