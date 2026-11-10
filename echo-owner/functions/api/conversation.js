@@ -124,7 +124,7 @@ export async function onRequestPost({request,env}){
       // D1 batch transactions prevent partial submissions and ensure a stable record ID.
       const result=await env.ECHO_DB.batch([
         env.ECHO_DB.prepare(
-          "INSERT INTO inquiries (id,tenant_id,source,message,category,priority,suggested_reply,status) SELECT id,tenant_id,'conversation-pilot',initial_message || ' | Follow-up: ' || answer,category,priority,response_draft,'pending' FROM demo_conversations WHERE id=? AND tenant_id=? AND status='awaiting_confirmation'"
+          "INSERT INTO inquiries (id,tenant_id,source,message,category,priority,suggested_reply,status,summary,owner_action) SELECT id,tenant_id,'conversation-pilot',initial_message || ' | Follow-up: ' || answer,category,priority,response_draft,'pending',summary,owner_action FROM demo_conversations WHERE id=? AND tenant_id=? AND status='awaiting_confirmation'"
         ).bind(body.id,"home-demo"),
         env.ECHO_DB.prepare(
           "UPDATE demo_conversations SET status='completed',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_confirmation'"
