@@ -6,7 +6,7 @@ const URL="https://echo-automation-owner-staging.pages.dev/api/pilot-intake";
 const request=(body)=>new Request(URL,{method:"POST",headers:{"content-type":"application/json"},
   body:JSON.stringify(body)});
 function setup({limitReached=false,aiResponse,aiFailure=false}={}){
-  const calls={model:0,records:[],limits:0};
+  const calls={model:0,records:[],limits:0,modelId:null};
   const env={
     ECHO_DB:{
       prepare(sql){
@@ -22,8 +22,8 @@ function setup({limitReached=false,aiResponse,aiFailure=false}={}){
         }}};
       }
     },
-    AI:{async run(){
-      calls.model++;
+    AI:{async run(modelId){
+      calls.model++;calls.modelId=modelId;
       if(aiFailure)throw Error("failed");
       return aiResponse||{choices:[{message:{content:JSON.stringify({
         category:"Plumbing",priority:"normal",summary:"Sample sink leak",
@@ -54,7 +54,7 @@ test("real AI response saves pending fictional record",async()=>{
   assert.equal(r.status,201);
   const data=await r.json();
   assert.equal(data.saved,true);assert.equal(data.sent,false);assert.equal(data.status,"pending");
-  assert.equal(calls.model,1);assert.equal(calls.records.length,1);
+  assert.equal(calls.model,1);assert.equal(calls.modelId,"@cf/meta/llama-4-scout-17b-16e-instruct");assert.equal(calls.records.length,1);
   assert.equal(calls.records[0][1],"home-demo");assert.equal(calls.records[0][2],"private-ai-pilot");
 });
 test("model failure never saves and does not disclose internal errors",async()=>{
@@ -62,4 +62,30 @@ test("model failure never saves and does not disclose internal errors",async()=>
   const r=await onRequestPost({request:request({inquiry:"My sink is leaking at the cabinet.",fictional:true}),env});
   assert.equal(r.status,502);assert.equal(calls.model,1);assert.equal(calls.records.length,0);
   assert.equal((await r.text()).includes("Error: failed"),false);
+});
+
+test("empty reasoning-only model reply is rejected before storage",async()=>{
+  const {env,calls}=setup({aiResponse:{choices:[{finish_reason:"length",message:{content:"",reasoning_content:"internal thinking only"}}]}});
+  const res=await onRequestPost({request:request({inquiry:"My fictional sink is leaking near the cabinet.",fictional:true}),env});
+  assert.equal(res.status,502);
+  assert.equal((await res.json()).code,"MODEL_INCOMPLETE");
+  assert.equal(calls.records.length,0);
+});
+test("malformed model reply has a safe error and no record",async()=>{
+  const {env,calls}=setup({aiResponse:{response:"not valid JSON"}});
+  const res=await onRequestPost({request:request({inquiry:"My fictional sink is leaking near the cabinet.",fictional:true}),env});
+  assert.equal(res.status,502);
+  assert.equal((await res.json()).code,"MODEL_FORMAT");
+  assert.equal(calls.records.length,0);
+});
+test("storage failure is distinguished from model output",async()=>{
+  const {env}=setup();
+  const original=env.ECHO_DB.prepare;
+  env.ECHO_DB.prepare=(sql)=>{
+    if(sql.startsWith("INSERT INTO inquiries"))return {bind:()=>({run:async()=>{throw Error("private DB error")}})};
+    return original(sql);
+  };
+  const res=await onRequestPost({request:request({inquiry:"My fictional sink is leaking near the cabinet.",fictional:true}),env});
+  assert.equal(res.status,503);
+  assert.equal((await res.json()).code,"STORAGE_FAILED");
 });
