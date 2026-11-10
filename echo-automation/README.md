@@ -32,3 +32,25 @@
 - Add D1 schema/migrations and private, authenticated owner dashboard.
 - Add one real Echo Craft intake flow with consent, notification, and admin-only access.
 - Build the reusable chat widget and integrate only into staging first.
+
+## Private-AI test gate (added 2026-11-10)
+
+The `/api/analyze` endpoint now **fails closed** unless both `STAGING_API_TOKEN` (Cloudflare secret) and `ECHO_RATE_LIMITER` are present. Tests must supply `Authorization: Bearer <secret>` from a **trusted server-side client only**. Do not place a secret in the demo page or frontend JavaScript.
+
+- The body is streamed and capped at 2048 actual bytes, regardless of `Content-Length`; inquiry content is limited to 600 characters.
+- The rate-limit binding is set at 5 calls/60 seconds, but Cloudflare documents native limits as **approximate and per location**. This is **not** a strict global monthly spend cap.
+- The current demo intentionally remains **disconnected** from the AI endpoint. Do not change that until the public Turnstile/verification gateway, global budget controls, safe usage limits, and anonymous-session abuse mitigation are implemented.
+- Before external staging, verify the Workers AI model ID and request shape, smoke-test success/error schemas, confirm account spending controls, and audit privacy.
+- Existing `/health` exposes no secret and confirms only that code responds, not that AI is active.
+
+### Minimum security test checklist
+
+1. No secret configured -> `503`; no AI invocation.
+2. Wrong/missing token -> `401`; no AI invocation.
+3. Payload longer than 2048 actual bytes -> `413`; no AI invocation.
+4. Invalid JSON -> `400`; no AI invocation.
+5. Invalid business/empty inquiry -> `400`; no AI invocation.
+6. Exhausted limiter -> `429`; no AI invocation.
+7. AI binding absent -> `503`; no AI invocation.
+8. Allowed and authenticated request with configured model -> limited JSON with `sent:false` and `saved:false`.
+9. Never render or log private user content in public demo.
