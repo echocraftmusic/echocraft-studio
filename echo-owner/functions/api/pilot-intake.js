@@ -1,3 +1,4 @@
+import { detectHazard, finalizeAnalysis } from "../_lib/intake-policy.js";
 // Owner-only REAL AI test. Access JWT + same-origin checks are enforced in parent middleware.
 const json=(body,status=200)=>Response.json(body,{status,headers:{"cache-control":"no-store"}});
 const MAX_ATTEMPTS=10;
@@ -27,6 +28,8 @@ export async function onRequestPost({request,env}){
   // No live customer information is authorized for this staging pilot.
   // Explicit consent checkbox is enforced for intentional use of fictitious details.
   if(body?.fictional!==true)return json({error:"Confirm this is fictional test data."},400);
+  const hazard=detectHazard(inquiry);
+  if(hazard) return json({error:hazard.message,code:"SAFETY_HAZARD",saved:false,sent:false},422);
   const day=new Date().toISOString().slice(0,10);
   try {
     await env.ECHO_DB.prepare("INSERT OR IGNORE INTO ai_daily_usage(day_utc,used) VALUES (?,0)").bind(day).run();
@@ -47,6 +50,7 @@ export async function onRequestPost({request,env}){
     const names=["category","priority","summary","owner_action","response_draft"];
     if(!names.every(k=>typeof parsed[k]==="string"&&parsed[k].trim().length>0&&parsed[k].length<=250)||
         !["normal","review promptly"].includes(parsed.priority))return json({error:"AI generated an incomplete analysis. This attempt counted against the daily allowance.",code:"MODEL_FIELDS"},502);
+    parsed=finalizeAnalysis(parsed,inquiry,"");
     const id=crypto.randomUUID();
     try {
       await env.ECHO_DB.prepare(
