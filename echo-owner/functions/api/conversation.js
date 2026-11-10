@@ -86,6 +86,9 @@ export async function onRequestPost({request,env}){
       ).bind(body.id,"home-demo").first();
     }catch{return fail("Conversation temporarily unavailable.",503,"STORAGE_ERROR");}
     if(!draft||draft.status!=="awaiting_answer")return fail("This conversation has expired or has already been answered.",409,"STATE");
+    const followupHazard=detectHazard(draft.initial_message+" "+answer);
+    if(followupHazard)return ok({step:"safety",safety_warning:followupHazard.message,
+      category:"Safety concern",priority:followupHazard.priority,saved_inquiry:false,sent:false});
     let reserved;
     try{reserved=await reserve(env.ECHO_DB);}catch{return fail("Usage protection unavailable.",503,"BUDGET_ERROR");}
     if(!reserved)return fail("Today's private AI allowance is used up. Try again tomorrow.",429,"DAILY_LIMIT");
