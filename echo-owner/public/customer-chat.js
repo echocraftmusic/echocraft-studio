@@ -40,7 +40,7 @@ async function post(action,data){
 }
 function review(a){
   const root=$('chat-preview');root.replaceChildren();root.hidden=false;
-  const title=document.createElement('h3');title.textContent='DRAFT FOR OWNER APPROVAL — NOT SUBMITTED';root.append(title);
+  const title=document.createElement('h3');title.id='chat-review-title';title.textContent='DRAFT FOR OWNER APPROVAL — NOT SUBMITTED';root.append(title);
   for(const [label,value] of [
     ['Category',a.category],['Priority',a.priority],['Request summary',a.summary],
     ['Recommended owner action',a.owner_action],['Suggested customer reply — NOT SENT',a.response_draft]
@@ -95,6 +95,7 @@ $('chat-confirm').addEventListener('click',async()=>{
     const result=await post('confirm',{id:conversationId,confirm:true});
     if(!result.saved_inquiry)throw Error('Submission was not confirmed.');
     stage='complete';
+    const reviewTitle=$('chat-review-title');if(reviewTitle)reviewTitle.textContent='INQUIRY SUBMITTED — AWAITING OWNER FOLLOW-UP';
     say('Echo','Your fictional inquiry is now in the business owner review queue. No message was sent and no appointment was booked.');
     progress('Success: submitted to Cloudflare D1 as Pending. Open the inquiry queue below to inspect it.');
     $('filter').value='all';
