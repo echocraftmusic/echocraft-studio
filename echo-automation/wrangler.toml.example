@@ -9,7 +9,7 @@ workers_dev = false
 # Replace with an approved staging origin, not the production domain.
 ALLOWED_ORIGIN = "https://echo-staging.example.invalid"
 # Choose a model supported by current Workers AI before deployment; verify availability/pricing.
-AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
+AI_MODEL = "@cf/google/gemma-4-26b-a4b-it"
 
 [ai]
 binding = "AI"
