@@ -7,11 +7,16 @@ const fail=(message,status=400,code="INVALID_REQUEST")=>Response.json({error:mes
 const ok=(data,status=200)=>Response.json(data,{status,headers:{"cache-control":"no-store"}});
 const uuid=v=>typeof v==="string"&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v);
 function extract(raw){
-  const value=raw?.response||raw?.choices?.[0]?.message?.content||raw?.result?.response||raw?.result?.choices?.[0]?.message?.content;
-  if(raw?.choices?.[0]?.finish_reason==="length"||typeof value!=="string"||!value.trim())throw Error("Incomplete");
+  const value=raw?.response??raw?.choices?.[0]?.message?.content??raw?.result?.response??raw?.result?.choices?.[0]?.message?.content;
+  if(raw?.choices?.[0]?.finish_reason==="length"||raw?.result?.choices?.[0]?.finish_reason==="length")throw Error("Incomplete");
+  // Workers AI may return JSON directly as an object rather than a string.
+  if(value && typeof value==="object" && !Array.isArray(value))return value;
+  if(typeof value!=="string"||!value.trim())throw Error("Incomplete");
   const a=value.indexOf("{"),b=value.lastIndexOf("}");
   if(a<0||b<=a)throw Error("Malformed");
-  return JSON.parse(value.slice(a,b+1));
+  const parsed=JSON.parse(value.slice(a,b+1));
+  if(!parsed||typeof parsed!=="object"||Array.isArray(parsed))throw Error("Invalid JSON object");
+  return parsed;
 }
 function fields(value,keys,max=250){
   return value&&keys.every(k=>typeof value[k]==="string"&&value[k].trim().length>0&&value[k].length<=max);
