@@ -127,7 +127,10 @@ function drawQueue(){
 function drawDetails(){
   const root=$('detail');root.replaceChildren();const x=inquiries.find(i=>i.id===selectedId);
   if(!x){root.append(row('div','Select a request to review its details.','empty'));return}
-  root.append(row('span',x.priority+' · '+x.status,'badge'),row('h2',x.category),row('h3','Customer inquiry'),row('p',x.message),row('h3','AI-suggested customer reply — not sent'),row('p',x.suggested_reply));
+  root.append(row('span',x.priority+' · '+x.status,'badge'),row('h2',x.category),row('h3','Customer inquiry'),row('p',x.message));
+  if(x.summary)root.append(row('h3','AI issue summary'),row('p',x.summary));
+  if(x.owner_action)root.append(row('h3','Recommended owner action — not performed'),row('p',x.owner_action));
+  root.append(row('h3','AI-suggested customer reply — not sent'),row('p',x.suggested_reply));
   const actions=row('div','', 'actions');
   for(const [value,text] of [['pending','Return to pending'],['contacted','Mark contacted'],['closed','Mark closed']]){
     const b=row('button',text,value===x.status?'secondary':'');b.type='button';b.disabled=value===x.status||loading;
