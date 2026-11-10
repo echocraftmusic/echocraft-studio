@@ -3,6 +3,7 @@ name = "echo-automation-staging"
 main = "worker.js"
 compatibility_date = "2026-11-10"
 workers_dev = false
+# Internal testing only; no public Worker route until authenticated demo gateway exists.
 
 [vars]
 # Replace with an approved staging origin, not the production domain.
@@ -12,3 +13,16 @@ AI_MODEL = "@cf/meta/llama-3.1-8b-instruct"
 
 [ai]
 binding = "AI"
+
+# Required throttle: approx 5 requests per minute per Cloudflare location.
+# Not a strict global limit. Verify real cost controls separately.
+[[ratelimits]]
+name = "ECHO_RATE_LIMITER"
+namespace_id = "1201"
+
+[ratelimits.simple]
+limit = 5
+period = 60
+
+# Inject STAGING_API_TOKEN with wrangler secret put, never add it to code or vars.
+# No public browser should contain this token. For test calls, use trusted server-side client only.
