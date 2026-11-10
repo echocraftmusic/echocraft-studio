@@ -21,7 +21,7 @@ async function accessIdentity(request,env){
   if(!jwt||jwt.length>12000)throw Error("Access token missing");
   const parts=jwt.split(".");
   if(parts.length!==3)throw Error("Invalid token structure");
-  const [head,claims]=parts.map(decodeJson);
+  const [head,claims]=parts.slice(0,2).map(decodeJson);
   if(head.alg!=="RS256"||typeof head.kid!=="string")throw Error("Invalid token algorithm");
   const now=Math.floor(Date.now()/1000);
   const issuer="https://"+domain;
