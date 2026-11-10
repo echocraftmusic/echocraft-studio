@@ -54,3 +54,14 @@ The `/api/analyze` endpoint now **fails closed** unless both `STAGING_API_TOKEN`
 7. AI binding absent -> `503`; no AI invocation.
 8. Allowed and authenticated request with configured model -> limited JSON with `sent:false` and `saved:false`.
 9. Never render or log private user content in public demo.
+
+## Milestone: private D1 workflow (Nov 10, 2026)
+- Cloudflare D1 created: `echo-automation-staging`, isolated from all client/other Echo Craft databases.
+- `migrations/0001_inquiries.sql` added and applied on staging.
+- `POST /api/intake` (private token + rate limiter): real Workers AI analyzes a fictional inquiry, creates one pending D1 record, and returns an ID with `saved:true`, `sent:false`.
+- `GET /api/inquiries`: authenticated list for one fixed staging tenant (30 most recent).
+- `PATCH /api/inquiries/:id`: authenticated status transition to pending, contacted, or closed.
+- `POST /api/inquiries`: authenticated non-AI manual test record insertion.
+- Public Worker URLs and preview URLs are **disabled**. No staging secret is configured, so routes fail closed; an accessible owner dashboard is **not** ready yet.
+- Database presently contains no real leads. Never enter names, phone numbers, patient details or live contacts into the staging demo.
+- Next: test live Worker via private auth; add Cloudflare Access-protected owner interface; ensure stricter global cost enforcement and anti-abuse before public visitor intake.
