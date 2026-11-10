@@ -36,7 +36,7 @@ function request({ body = { industry: 'home', inquiry: 'Sink is leaking.' }, tok
   if (origin !== null) headers.Origin = origin;
   if (contentType !== null) headers['Content-Type'] = contentType;
   return new Request(BASE + path, {
-    method, headers, ...(['POST', 'PUT'].includes(method) ? {
+    method, headers, ...(['POST', 'PUT', 'PATCH'].includes(method) ? {
       body: typeof body === 'string' ? body : JSON.stringify(body)
     } : {})
   });
