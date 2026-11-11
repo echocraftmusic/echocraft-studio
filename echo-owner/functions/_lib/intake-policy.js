@@ -26,26 +26,32 @@ export function detectHazard(input) {
 function clean(value, max = 180) {
   return String(value || "").replace(/[\s\u0000-\u001f]+/g," ").trim().slice(0,max);
 }
+// Evidence-based owner handoff. "Customer reported" reflects user statements,
+// NOT a verified diagnosis or a claim that the business has contacted anyone.
 export function finalizeAnalysis(analysis, initialMessage, answer) {
-  const issue = clean(analysis.summary || initialMessage,180);
-  const category = clean(analysis.category,70) || "Home service";
-  const hazard = detectHazard(initialMessage + " " + (answer || ""));
-  if(hazard) return {
-    ...analysis,
-    category,priority:"review promptly",
-    owner_action:hazard.ownerAction,
-    response_draft:hazard.message,
+  const category=clean(analysis.category,70)||"Home service";
+  const customerFacts=clean(initialMessage,400)+" | Customer clarification: "+clean(answer,400);
+  const hazard=detectHazard(initialMessage+" "+(answer||""));
+  if(hazard)return {
+    ...analysis,category,priority:"review promptly",
+    customer_facts:customerFacts,
+    open_questions:"Safety details require direct emergency assessment; chat intake stopped.",
+    next_step:"Emergency safety stop: do not treat this as routine scheduling.",
+    owner_action:hazard.ownerAction,response_draft:hazard.message,
     safety_warning:hazard.message
   };
-  // An intake is already complete at this point. Do not ask the customer to
-  // repeat questions or imply a booking/contact was made.
-  const reply = "Thank you for the additional information about your " + category.toLowerCase() +
-    " request. Our team can review the details and follow up about next steps and availability. No appointment has been confirmed.";
-  const ownerAction = "Review the " + category.toLowerCase() + " inquiry (" + issue +
-    "), assess urgency and contact the customer through an approved channel to discuss availability.";
+  // Do not let AI-generated descriptions replace the actual evidence.
+  const unknowns=clean(analysis.open_questions,180)||"Specific cause and urgency have not been verified.";
+  const step=clean(analysis.next_step,180)||
+    "Review the customer report, clarify what is unresolved, and decide whether this is an appropriate service request.";
+  // The owner cannot contact the person from this fictional staging test:
+  // no contact method is collected or authorized.
+  const ownerAction=clean("Unresolved: "+unknowns+" | Owner review: "+step,250);
+  const reply="Thank you for the additional information about your "+
+    category.toLowerCase()+" request. Our team can review the details and follow up about next steps and availability. No appointment has been confirmed.";
   return {
-    ...analysis,category,
-    owner_action:clean(ownerAction,250),
-    response_draft:clean(reply,250)
+    ...analysis,category,customer_facts:customerFacts,
+    open_questions:unknowns,next_step:step,
+    owner_action:ownerAction,response_draft:clean(reply,250)
   };
 }
