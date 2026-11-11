@@ -1,7 +1,13 @@
 // Reusable deterministic safeguards for Echo's fictional home-services staging pilot.
 // Never use the model alone to determine emergency risk or promise business actions.
 export function detectHazard(input) {
-  const text = String(input || "").toLowerCase();
+  const raw = String(input || "").toLowerCase();
+  // A user explicitly denying a gas smell or leak should not be treated as
+  // reporting one. Other positive evidence (e.g. a hissing gas line, flames)
+  // must still trigger the alert. This limited rule is not emergency triage.
+  const text = raw
+    .replace(/\b(?:don't|dont|do not|can't|cannot|never|not|no)\s+(?:currently\s+)?(?:smell|detect|notice)\s+(?:any\s+)?(?:gas|propane|natural gas)\b/g," negated-gas-odor ")
+    .replace(/\b(?:no|not|without)\s+(?:any\s+)?(?:gas leak|gas smell|gas odor|hissing)\b/g," negated-symptom ");
   const gas = /\b(smell|odor|odour|leak|hissing|fumes?)\b.{0,48}\b(gas|propane|natural gas)\b|\b(gas|propane|natural gas)\b.{0,48}\b(smell|odor|odour|leak|hissing|fumes?)\b|\brotten eggs?\b/.test(text);
   const electrical = /\b(sparks?|arcing|electrical fire|electric shock|exposed live wire|burning outlet|smoking outlet)\b/.test(text);
   const fire = /\b(flames?|house fire|smoke coming from|smoke pouring|carbon monoxide alarm)\b/.test(text);
