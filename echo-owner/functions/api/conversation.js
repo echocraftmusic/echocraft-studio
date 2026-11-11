@@ -75,6 +75,42 @@ export async function onRequestPost({request,env}){
     }catch{return fail("Conversation could not be saved.",503,"STORAGE_ERROR");}
     return ok({id,step:"followup",question:result.question,category:result.category,priority:result.priority,saved_inquiry:false,sent:false},201);
   }
+  if(action==="recover"){
+    // Opt-in recovery only for a failed second-stage AI request. Do not call AI,
+    // consume another credit, or present this as an intelligent model result.
+    if(!uuid(body.id))return fail("Invalid conversation ID.");
+    const answer=typeof body.message==="string"?body.message.trim():"";
+    if(answer.length<3||answer.length>400)return fail("Please provide a fictional answer in 3–400 characters.");
+    let draft;
+    try{
+      draft=await env.ECHO_DB.prepare(
+        "SELECT id,initial_message,question,category,priority,status FROM demo_conversations WHERE id=? AND tenant_id=? AND created_at>=datetime('now','-1 hour')"
+      ).bind(body.id,"home-demo").first();
+    }catch{return fail("Conversation temporarily unavailable.",503,"STORAGE_ERROR");}
+    if(!draft||draft.status!=="awaiting_answer")return fail("This conversation has expired or has already been processed.",409,"STATE");
+    const hazard=detectHazard(draft.initial_message+" "+answer);
+    if(hazard)return ok({step:"safety",safety_warning:hazard.message,saved_inquiry:false,sent:false});
+    const compact=v=>String(v||"").replace(/[\\s\\u0000-\\u001f]+/g," ").trim();
+    const summary=compact(draft.initial_message+" Follow-up answer: "+answer).slice(0,240);
+    const category=compact(draft.category).slice(0,70)||"Home service";
+    const priority=["normal","review promptly"].includes(draft.priority)?draft.priority:"normal";
+    const analysis=finalizeAnalysis({category,priority,summary,
+      owner_action:"Review the fictional request and decide what information is still needed.",
+      response_draft:"Thank you. The request will be reviewed; no appointment is confirmed."},
+      draft.initial_message,answer);
+    // Preserve provenance in saved summary: reviewers must not mistake a
+    // deterministic fallback for an AI-generated diagnosis.
+    analysis.summary="[RULE-BASED RECOVERY] "+analysis.summary.slice(0,210);
+    try{
+      const saved=await env.ECHO_DB.prepare(
+        "UPDATE demo_conversations SET answer=?,category=?,priority=?,summary=?,owner_action=?,response_draft=?,status='awaiting_confirmation',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_answer' RETURNING id"
+      ).bind(answer,analysis.category,analysis.priority,analysis.summary,analysis.owner_action,
+        analysis.response_draft,body.id,"home-demo").first();
+      if(!saved)return fail("This draft was already processed.",409,"STATE");
+    }catch{return fail("Recovery draft could not be saved.",503,"STORAGE_ERROR");}
+    return ok({id:body.id,step:"review",analysis,analysis_origin:"rules_fallback",
+      model_succeeded:false,ai_attempts_used:0,saved_inquiry:false,sent:false});
+  }
   if(action==="answer"){
     if(!uuid(body.id))return fail("Invalid conversation ID.");
     const answer=typeof body.message==="string"?body.message.trim():"";
