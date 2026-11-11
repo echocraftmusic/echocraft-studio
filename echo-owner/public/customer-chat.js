@@ -3,7 +3,7 @@
 const $=id=>document.getElementById(id);
 const transcript=$('conversation');
 const firstMessage="My kitchen sink is dripping under the cabinet, and I'd like someone to take a look.";
-let stage='start',conversationId=null,busy=false;
+let stage='start',conversationId=null,busy=false,recoverable=false;
 const welcome="Welcome to ABC Home Services. What's happening, and what kind of service do you need?";
 const progress=t=>{$('chat-progress').textContent=t;};
 function say(speaker,message){
@@ -21,6 +21,8 @@ function render(){
   if(approvalNote)approvalNote.textContent=stage==='safety'?'Safety notice only. This is not an emergency-response service and no inquiry was filed.':stage==='complete'?'The fictional inquiry was added to your owner inbox. Nothing has been sent to a customer.':'Review the proposed owner inquiry. Nothing will be added to your inbox until you confirm.';
   $('chat-cancel').textContent=stage==='complete'||stage==='safety'?'Start another conversation':'Discard this conversation';
   $('chat-send').textContent=stage==='start'?'Send to Echo':'Answer Echo';
+  let recoveryButton=$('chat-recover');
+  if(recoveryButton)recoveryButton.hidden=!(stage==='answer'&&recoverable);
   $('chat-send').disabled=busy;
   $('chat-confirm').disabled=busy;
   $('chat-reset').disabled=busy;
@@ -35,7 +37,7 @@ async function post(action,data){
   });
   let json;
   try{json=await res.json()}catch{throw Error('Unable to read the secure service response.');}
-  if(!res.ok)throw Error(json.error||'Secure service temporarily unavailable ('+res.status+').');
+  if(!res.ok){const err=Error(json.error||'Secure service temporarily unavailable ('+res.status+').');err.recoverable=json.recoverable===true;throw err;}
   return json;
 }
 function review(a){
@@ -51,7 +53,7 @@ function review(a){
   }
 }
 function reset(){
-  stage='start';conversationId=null;
+  stage='start';conversationId=null;recoverable=false;
   transcript.replaceChildren();say('Echo',welcome);
   $('chat-message').value=firstMessage;
   $('chat-fictional').checked=false;$('chat-preview').replaceChildren();$('chat-preview').hidden=true;
@@ -63,7 +65,7 @@ $('chat-send').addEventListener('click',async()=>{
   if(!$('chat-fictional').checked){progress('Please confirm this conversation contains no real personal information.');return;}
   const message=$('chat-message').value.trim();
   if(message.length<(stage==='start'?12:3)||message.length>400){progress('Please enter a fictional response within the character limit.');return;}
-  busy=true;render();
+  busy=true;recoverable=false;render();
   const action=stage;
   progress(action==='start'?'Echo is reading your request and choosing a follow-up question…':'Echo is preparing the full inquiry for your approval…');
   try {
@@ -85,6 +87,25 @@ $('chat-send').addEventListener('click',async()=>{
       say('Echo','Thank you. I prepared a service inquiry and a draft reply. Please review them before submitting.');
       progress('Draft ready for owner approval. No customer has been contacted.');
     }
+  }catch(error){recoverable=!!error.recoverable&&stage==='answer';progress(error.message);}
+  finally{busy=false;render();}
+});
+const recover=document.createElement('button');recover.id='chat-recover';recover.type='button';recover.className='secondary';recover.textContent='Recover without AI (rule-based draft)';recover.hidden=true;
+$('chat-send').parentElement.append(recover);
+recover.addEventListener('click',async()=>{
+  if(busy||stage!=='answer'||!recoverable)return;
+  if(!$('chat-fictional').checked){progress('Please confirm that this remains a fictional scenario.');return;}
+  const message=$('chat-message').value.trim();
+  if(message.length<3||message.length>400){progress('Enter the same fictional answer again to recover.');return;}
+  busy=true;render();progress('Preparing a clearly labeled basic recovery draft without calling AI…');
+  try{
+    const result=await post('recover',{id:conversationId,message});
+    if(result.analysis_origin!=='rules_fallback')throw Error('Recovery origin could not be verified.');
+    say('Customer',message);$('chat-message').value='';
+    stage='review';recoverable=false;review(result.analysis);
+    const t=$('chat-review-title');if(t)t.textContent='RULE-BASED RECOVERY DRAFT — NOT AI-VALIDATED';
+    say('Echo','The AI completion failed. A basic rule-based draft is ready for owner review. No new AI attempt was used.');
+    progress('Recovered without AI. This does NOT count as a successful AI result; review all details before approval.');
   }catch(error){progress(error.message);}
   finally{busy=false;render();}
 });
