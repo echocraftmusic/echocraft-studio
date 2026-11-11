@@ -138,7 +138,10 @@ export async function onRequestPost({request,env}){
       // Enforce a completed, truthful acknowledgment and a useful owner action
       // even when the model drafts another question or vague instruction.
       result=finalizeAnalysis(result,draft.initial_message,answer);
-    }catch{return fail("Echo couldn't prepare a complete draft. The attempt counted toward today's allowance.",502,"MODEL_ERROR");}
+    }catch{return Response.json({
+      error:"Echo's AI completion failed. Your conversation is saved. You can use a clearly labeled rule-based recovery without another AI credit.",
+      code:"MODEL_ERROR",recoverable:true
+    },{status:502,headers:{"cache-control":"no-store"}});}
     try {
       const saved=await env.ECHO_DB.prepare(
         "UPDATE demo_conversations SET answer=?,category=?,priority=?,summary=?,owner_action=?,response_draft=?,status='awaiting_confirmation',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_answer' RETURNING id"
