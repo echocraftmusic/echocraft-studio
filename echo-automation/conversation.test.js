@@ -14,8 +14,8 @@ function fixture({cap=10,modelFailure=false}={}){
               async run(){
                 if(sql.startsWith("INSERT OR IGNORE INTO ai_daily_usage"))return {meta:{changes:1}};
                 if(sql.startsWith("INSERT INTO demo_conversations")){
-                  const [id,tenant_id,initial_message,question,category,priority,status]=args;
-                  state.conversations.set(id,{id,tenant_id,initial_message,question,category,priority,status});
+                  const [id,tenant_id,initial_message,question,category,priority,status,question_origin]=args;
+                  state.conversations.set(id,{id,tenant_id,initial_message,question,category,priority,status,question_origin});
                   return {meta:{changes:1}};
                 }
                 if(sql.startsWith("INSERT INTO inquiries")){
