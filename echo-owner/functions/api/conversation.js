@@ -146,7 +146,7 @@ export async function onRequestPost({request,env}){
     },{status:502,headers:{"cache-control":"no-store"}});}
     try {
       const saved=await env.ECHO_DB.prepare(
-        "UPDATE demo_conversations SET answer=?,category=?,priority=?,summary=?,owner_action=?,response_draft=?,status='awaiting_confirmation',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_answer' RETURNING id"
+        "UPDATE demo_conversations SET answer=?,category=?,priority=?,summary=?,owner_action=?,response_draft=?,customer_facts=?,open_questions=?,next_step=?,status='awaiting_confirmation',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_answer' RETURNING id"
       ).bind(answer,result.category,result.priority,result.summary,result.owner_action,result.response_draft,result.customer_facts,result.open_questions,result.next_step,body.id,"home-demo").first();
       if(!saved)return fail("This conversation was already processed. Please start again.",409,"STATE");
     }catch{return fail("The draft could not be saved.",503,"STORAGE_ERROR");}
