@@ -44,8 +44,12 @@ function review(a){
   const root=$('chat-preview');root.replaceChildren();root.hidden=false;
   const title=document.createElement('h3');title.id='chat-review-title';title.textContent='DRAFT FOR OWNER APPROVAL — NOT SUBMITTED';root.append(title);
   for(const [label,value] of [
-    ['Category',a.category],['Priority',a.priority],['Request summary',a.summary],
-    ['Recommended owner action',a.owner_action],['Suggested customer reply — NOT SENT',a.response_draft]
+    ['Category',a.category],['Priority',a.priority],
+    ['Customer-reported facts — not independently verified',a.customer_facts],
+    ['AI issue summary — verify',a.summary],
+    ['Unresolved details — AI suggestion',a.open_questions],
+    ['Recommended owner next step — NOT PERFORMED',a.next_step],
+    ['Suggested customer reply — NOT SENT',a.response_draft]
   ]){
     const p=document.createElement('p');
     const strong=document.createElement('strong');strong.textContent=label+': ';
