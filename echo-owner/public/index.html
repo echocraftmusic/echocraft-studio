@@ -145,8 +145,11 @@ function drawDetails(){
   const root=$('detail');root.replaceChildren();const x=inquiries.find(i=>i.id===selectedId);
   if(!x){root.append(row('div','Select a request to review its details.','empty'));return}
   root.append(row('span',x.priority+' · '+x.status,'badge'),row('h2',x.category),row('h3','Customer inquiry'),row('p',x.message));
-  if(x.summary)root.append(row('h3','AI issue summary'),row('p',x.summary));
-  if(x.owner_action)root.append(row('h3','Recommended owner action — not performed'),row('p',x.owner_action));
+  if(x.customer_facts)root.append(row('h3','Customer-reported facts — not independently verified'),row('p',x.customer_facts));
+  if(x.summary)root.append(row('h3','AI issue summary — verify against customer report'),row('p',x.summary));
+  if(x.open_questions)root.append(row('h3','AI-identified missing information — verify'),row('p',x.open_questions));
+  if(x.next_step)root.append(row('h3','Suggested owner next step — not performed'),row('p',x.next_step));
+  if(x.owner_action&&!x.next_step)root.append(row('h3','Owner action (legacy record) — not performed'),row('p',x.owner_action));
   root.append(row('h3','AI-suggested customer reply — not sent'),row('p',x.suggested_reply));
   if(!x.owner_seen_at){
     const acknowledge=row('button','Acknowledge new inquiry','alert-action');
