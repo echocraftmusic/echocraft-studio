@@ -37,3 +37,15 @@ A correctly built contact form could have captured "sink dripping under cabinet"
 5. Repair: question generation should be scored for **information gain** (never ask what the first message already establishes). Add an owner instruction that distinguishes **known evidence** from unverified guesses. Avoid asserting "contact customer" is executable until a consent-based contact channel exists.
 
 **Important:** An owner-only, two-step pilot with no real contact details cannot demonstrate autonomous customer follow-up or appointment booking. No public deployment or premium-price claims are authorized.
+
+## Third live AI attempt — uncertain kitchen gurgling (2026-11-11)
+
+The owner tried **UNCERTAIN_DRAIN** with fictional message "There's a weird gurgling sound in my kitchen and sometimes a bad smell. I'm not sure what's wrong." The real model asked: "Can you tell me more about when the gurgling sound and bad smell occur, such as during or after using the sink?" This was **useful** because timing was not present in the initial message. The owner typed "its before we use the sink" (different from the scripted answer; do not misattribute). The second-stage model failed and the UI reported it could not prepare a complete draft. Protected D1 shows the conversation still **awaiting_answer**, with `answer=NULL`, and the daily AI usage ledger at three attempts (including this initial question and the failed completion). The generic catch previously hid exact model failure cause, so it is **unknown** whether the cause was response shape, invalid model output or an AI provider error. **Do not claim a confirmed root cause.** No owner inquiry was saved.
+
+**Outcome: Partial information gain in the first turn; end-to-end completion FAILED.** This is important counterevidence against charging premium prices today.
+
+### Remediation (not an AI-quality success)
+
+Added an explicit authenticated **Recover without AI (rule-based draft)** button after a second-turn `MODEL_ERROR`. The recovery endpoint reads the original question and owner-supplied fictional answer, generates a clearly marked, conservative intake draft, and requires owner approval to submit. It does **not** call Workers AI or consume another inference. The saved summary begins `[RULE-BASED RECOVERY]`; the UI clearly states the model failed. Two new tests exercise this path. The flow's normal two-turn AI remains unchanged for ongoing effectiveness tests. The previous in-browser session may need restarting if the page is refreshed or its one-hour conversation TTL has expired; the system does not silently reconstruct it.
+
+**Next engineering need:** safe error-category diagnostics (without logging conversation PII), and quality improvements to avoid excessive prompt complexity/strict-response failures. A robust fallback protects operations but does not establish AI effectiveness.
