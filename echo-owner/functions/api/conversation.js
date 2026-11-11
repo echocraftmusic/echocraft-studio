@@ -62,7 +62,7 @@ export async function onRequestPost({request,env}){
     let result;
     try{
       result=await analyze(env,
-        instructions+" Classify the request and ask exactly ONE relevant follow-up question for triage. JSON keys: category, priority, question. priority must be 'normal' or 'review promptly'. Each value at most 210 characters. Ask about the issue, not personal details.",
+        instructions+" Classify the issue and ask exactly ONE high-information-gain follow-up question. Return JSON keys category, priority, question; priority normal or review promptly; values at most 210 characters. FIRST read all facts already given. NEVER ask the customer to restate those facts. Ask for ONE missing observation likely to change owner triage (e.g., timing, which fixture, cooling versus heating mode, whether water is actively spreading). No diagnosis, troubleshooting or unsafe instructions, and never ask for personal details or a contact method. If the original text says a leak is under the cabinet, do NOT ask whether it is under the cabinet.",
         message);
       if(!fields(result,["category","priority","question"],210)||!["normal","review promptly"].includes(result.priority))
         throw Error("Invalid model data");
@@ -133,7 +133,7 @@ export async function onRequestPost({request,env}){
     let result;
     try{
       result=await analyze(env,
-        instructions+" Prepare a concise owner handoff. JSON with EXACTLY five short strings: category, priority, summary, open_questions, next_step. Priority: normal or review promptly. Summary: only facts explicitly stated, no inferred cause. open_questions: one specific unresolved service detail; do not repeat what customer answered. next_step: a specific OWNER review step based on the issue; no diagnosis, appointment, contact claim, external action or personal data request. Each value at most 180 characters. Do not generate a customer response.",
+        instructions+" Prepare a concise OWNER-ONLY service handoff. Respond as JSON with EXACTLY five short strings: category, priority, summary, open_questions, next_step. Priority normal or review promptly. Summary MUST distinguish reported symptoms from inferred causes: only restate observed facts. open_questions: ONE unanswered detail that could change service triage; do not repeat what the customer already answered. next_step: a SPECIFIC owner decision or check tied to the reported symptoms and missing detail; generic phrases like review system configuration, review inquiry, follow up, or contact customer are NOT acceptable. Example for AC running all day blowing hot air: open_questions=Is the thermostat set to COOL and below room temperature?; next_step=Check the customer's thermostat mode and setting report, then decide if HVAC service assessment should be prioritized. Never imply a diagnosis, technician dispatch, booking or message has occurred. Do not instruct hazardous repair. Do not request PII. Each value max 180 characters; no customer reply.",
         JSON.stringify({original_request:draft.initial_message,echo_question:draft.question,customer_answer:answer}));
       if(!fields(result,["category","priority","summary","open_questions","next_step"],180)||
         !["normal","review promptly"].includes(result.priority))throw Error("Invalid model data");
