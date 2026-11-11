@@ -13,7 +13,10 @@ test("completed conversation replaces unanswered follow-up with customer acknowl
   assert.match(result.response_draft,/no appointment has been confirmed/i);
   assert.doesNotMatch(result.response_draft,/\?/);
   assert.match(result.owner_action,/sink|leak/i);
-  assert.match(result.owner_action,/contact the customer/i);
+  assert.match(result.owner_action,/Owner review/i);
+  assert.doesNotMatch(result.owner_action,/contact the customer/i);
+  assert.match(result.customer_facts,/Kitchen sink leaking/);
+  assert.match(result.customer_facts,/Coming from underneath/);
   assert.ok(result.owner_action.length<=250);
   assert.ok(result.response_draft.length<=250);
 });
