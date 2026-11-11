@@ -141,3 +141,42 @@ test("a new gas-leak disclosure in the follow-up ends the chat before another AI
   assert.equal(state.used,beforeUsed);
   assert.equal(state.inquiries.size,0);
 });
+
+test("owner opts into no-credit rule-based recovery after failed second-stage AI",async()=>{
+  const {env,state}=fixture();
+  const start=await call(env,{action:"start",fictional:true,message:"The kitchen drain is making a gurgling noise."});
+  assert.equal(start.status,201);
+  const {id}=await start.json();
+  env.AI.run=async()=>{state.calls++;throw Error("model returned unusable JSON")};
+  const failed=await call(env,{action:"answer",id,message:"It happens before using the sink."});
+  assert.equal(failed.status,502);
+  const error=await failed.json();
+  assert.equal(error.recoverable,true);
+  assert.equal(state.conversations.get(id).status,"awaiting_answer");
+  const before=state.calls,usedBefore=state.used;
+  const recovered=await call(env,{action:"recover",id,message:"It happens before using the sink."});
+  assert.equal(recovered.status,200);
+  const data=await recovered.json();
+  assert.equal(data.analysis_origin,"rules_fallback");
+  assert.equal(data.model_succeeded,false);
+  assert.match(data.analysis.summary,/RULE-BASED RECOVERY/);
+  assert.equal(state.calls,before);
+  assert.equal(state.used,usedBefore);
+  assert.equal(state.inquiries.size,0);
+  assert.equal(state.conversations.get(id).status,"awaiting_confirmation");
+  const confirm=await call(env,{action:"confirm",id,confirm:true});
+  assert.equal(confirm.status,201);
+  assert.equal(state.inquiries.size,1);
+  assert.match(state.conversations.get(id).summary,/RULE-BASED RECOVERY/);
+});
+test("cannot recover an already-completed conversation",async()=>{
+  const {env,state}=fixture();
+  const start=await call(env,{action:"start",fictional:true,message:"My fictional sink is dripping."});
+  const {id}=await start.json();
+  const first=await call(env,{action:"recover",id,message:"Only in the evening."});
+  assert.equal(first.status,200);
+  const second=await call(env,{action:"recover",id,message:"Only in the evening."});
+  assert.equal(second.status,409);
+  assert.equal(state.used,1);
+  assert.equal(state.inquiries.size,0);
+});
