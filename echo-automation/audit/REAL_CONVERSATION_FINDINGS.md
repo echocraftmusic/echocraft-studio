@@ -49,3 +49,13 @@ The owner tried **UNCERTAIN_DRAIN** with fictional message "There's a weird gurg
 Added an explicit authenticated **Recover without AI (rule-based draft)** button after a second-turn `MODEL_ERROR`. The recovery endpoint reads the original question and owner-supplied fictional answer, generates a clearly marked, conservative intake draft, and requires owner approval to submit. It does **not** call Workers AI or consume another inference. The saved summary begins `[RULE-BASED RECOVERY]`; the UI clearly states the model failed. Two new tests exercise this path. The flow's normal two-turn AI remains unchanged for ongoing effectiveness tests. The previous in-browser session may need restarting if the page is refreshed or its one-hour conversation TTL has expired; the system does not silently reconstruct it.
 
 **Next engineering need:** safe error-category diagnostics (without logging conversation PII), and quality improvements to avoid excessive prompt complexity/strict-response failures. A robust fallback protects operations but does not establish AI effectiveness.
+
+## AC owner-handoff persistence failure — 2026-11-11
+
+The fictional AC request generated a relevant real-model question about how long cooling had failed. The owner answered "all day. Just blowing hot air." and the UI reported "The draft could not be saved."
+
+**Root cause confirmed:** Normal AI-answer D1 UPDATE SQL still had six SET placeholders while code bound nine values, including the three new owner-handoff fields. D1 rejected the update. The alternative rule-based recovery SQL already had correct placeholders. The original conversation remains awaiting_answer; no lead was saved.
+
+**Correction:** Updated the normal AI-answer SQL to include customer_facts, open_questions and next_step. Added automated SQL placeholder-versus-binding assertions to the mock D1 binder. GitHub CI run #134 passed 46/46 tests; private Cloudflare staging deployment succeeded. No further AI credits were used to validate this fix.
+
+This is a persistence reliability failure, not evidence the model's second-step analysis was deficient. As the second-step content was not persisted, its quality cannot be assessed. The attempt did fail end-to-end. The owner must start a fresh browser conversation if the old one expires; do not misrepresent recovery as AI success.
