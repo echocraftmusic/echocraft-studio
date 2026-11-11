@@ -1,0 +1,16 @@
+# Private Echo Craft owner staging only. Not the public Echo Craft Studio website.
+name = "echo-automation-owner-staging"
+compatibility_date = "2026-11-10"
+pages_build_output_dir = "./public"
+
+[ai]
+binding = "AI"
+
+[[d1_databases]]
+binding = "ECHO_DB"
+database_name = "echo-automation-staging"
+database_id = "9f721382-c96e-4875-abca-4baef9bf7fd0"
+
+[vars]
+ACCESS_TEAM_DOMAIN = "echocraft-aimusic.cloudflareaccess.com"
+ACCESS_AUD = "d23e3cad1880c6e48b6930fb7961663dd570084af590475355847dced5726c13"

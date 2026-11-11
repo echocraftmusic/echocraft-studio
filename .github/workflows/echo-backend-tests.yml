@@ -1,0 +1,27 @@
+name: Echo backend tests
+on:
+  pull_request:
+    paths:
+      - 'echo-automation/**'
+      - '.github/workflows/echo-backend-tests.yml'
+  push:
+    branches:
+      - 'feature/echo-ai-automation-v1'
+    paths:
+      - 'echo-automation/**'
+      - '.github/workflows/echo-backend-tests.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: echo-automation
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm test

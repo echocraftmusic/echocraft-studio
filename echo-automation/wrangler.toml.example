@@ -1,0 +1,38 @@
+# Sample local-only configuration. Do not deploy until abuse protections are in place.
+name = "echo-automation-staging"
+main = "worker.js"
+compatibility_date = "2026-11-10"
+workers_dev = false
+# Internal testing only; no public Worker route until authenticated demo gateway exists.
+
+[vars]
+# Replace with an approved staging origin, not the production domain.
+ALLOWED_ORIGIN = "https://echo-staging.example.invalid"
+# Choose a model supported by current Workers AI before deployment; verify availability/pricing.
+AI_MODEL = "@cf/google/gemma-4-26b-a4b-it"
+
+[ai]
+binding = "AI"
+
+# Required throttle: approx 5 requests per minute per Cloudflare location.
+# Not a strict global limit. Verify real cost controls separately.
+[[ratelimits]]
+name = "ECHO_RATE_LIMITER"
+namespace_id = "991210"
+
+[ratelimits.simple]
+limit = 5
+period = 60
+
+# Inject STAGING_API_TOKEN with wrangler secret put, never add it to code or vars.
+# No public browser should contain this token. For test calls, use trusted server-side client only.
+
+# Dedicated Echo staging D1; never reuse another business's database.
+[[d1_databases]]
+binding = "ECHO_DB"
+database_name = "echo-automation-staging"
+database_id = "9f721382-c96e-4875-abca-4baef9bf7fd0"
+
+# This Worker also enforces a strictly serialized D1 primary-write allowance
+# of 10 AI attempts per UTC day, inside worker.js, before billable calls.
+# Each failed model request counts. Other account AI workloads not covered.
