@@ -95,6 +95,8 @@ export async function onRequestPost({request,env}){
     const category=compact(draft.category).slice(0,70)||"Home service";
     const priority=["normal","review promptly"].includes(draft.priority)?draft.priority:"normal";
     const analysis=finalizeAnalysis({category,priority,summary,
+      open_questions:"Cause and severity are not established. Owner must review the customer\'s report.",
+      next_step:"Review the original message and customer clarification; decide which service details require checking.",
       owner_action:"Review the fictional request and decide what information is still needed.",
       response_draft:"Thank you. The request will be reviewed; no appointment is confirmed."},
       draft.initial_message,answer);
@@ -103,9 +105,9 @@ export async function onRequestPost({request,env}){
     analysis.summary="[RULE-BASED RECOVERY] "+analysis.summary.slice(0,210);
     try{
       const saved=await env.ECHO_DB.prepare(
-        "UPDATE demo_conversations SET answer=?,category=?,priority=?,summary=?,owner_action=?,response_draft=?,status='awaiting_confirmation',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_answer' RETURNING id"
+        "UPDATE demo_conversations SET answer=?,category=?,priority=?,summary=?,owner_action=?,response_draft=?,customer_facts=?,open_questions=?,next_step=?,status='awaiting_confirmation',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_answer' RETURNING id"
       ).bind(answer,analysis.category,analysis.priority,analysis.summary,analysis.owner_action,
-        analysis.response_draft,body.id,"home-demo").first();
+        analysis.response_draft,analysis.customer_facts,analysis.open_questions,analysis.next_step,body.id,"home-demo").first();
       if(!saved)return fail("This draft was already processed.",409,"STATE");
     }catch{return fail("Recovery draft could not be saved.",503,"STORAGE_ERROR");}
     return ok({id:body.id,step:"review",analysis,analysis_origin:"rules_fallback",
@@ -131,9 +133,9 @@ export async function onRequestPost({request,env}){
     let result;
     try{
       result=await analyze(env,
-        instructions+" Use the entire fictional conversation to prepare ONE structured owner-facing service inquiry. Return JSON keys: category, priority, summary, owner_action, response_draft. priority must be 'normal' or 'review promptly'; each string at most 250 characters. Draft a polite reply for OWNER APPROVAL only; the business must confirm availability separately.",
+        instructions+" Prepare a concise owner handoff. JSON with EXACTLY five short strings: category, priority, summary, open_questions, next_step. Priority: normal or review promptly. Summary: only facts explicitly stated, no inferred cause. open_questions: one specific unresolved service detail; do not repeat what customer answered. next_step: a specific OWNER review step based on the issue; no diagnosis, appointment, contact claim, external action or personal data request. Each value at most 180 characters. Do not generate a customer response.",
         JSON.stringify({original_request:draft.initial_message,echo_question:draft.question,customer_answer:answer}));
-      if(!fields(result,["category","priority","summary","owner_action","response_draft"])||
+      if(!fields(result,["category","priority","summary","open_questions","next_step"],180)||
         !["normal","review promptly"].includes(result.priority))throw Error("Invalid model data");
       // Enforce a completed, truthful acknowledgment and a useful owner action
       // even when the model drafts another question or vague instruction.
@@ -145,7 +147,7 @@ export async function onRequestPost({request,env}){
     try {
       const saved=await env.ECHO_DB.prepare(
         "UPDATE demo_conversations SET answer=?,category=?,priority=?,summary=?,owner_action=?,response_draft=?,status='awaiting_confirmation',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_answer' RETURNING id"
-      ).bind(answer,result.category,result.priority,result.summary,result.owner_action,result.response_draft,body.id,"home-demo").first();
+      ).bind(answer,result.category,result.priority,result.summary,result.owner_action,result.response_draft,result.customer_facts,result.open_questions,result.next_step,body.id,"home-demo").first();
       if(!saved)return fail("This conversation was already processed. Please start again.",409,"STATE");
     }catch{return fail("The draft could not be saved.",503,"STORAGE_ERROR");}
     return ok({id:body.id,step:"review",analysis:result,saved_inquiry:false,sent:false});
@@ -163,7 +165,7 @@ export async function onRequestPost({request,env}){
       // D1 batch transactions prevent partial submissions and ensure a stable record ID.
       const result=await env.ECHO_DB.batch([
         env.ECHO_DB.prepare(
-          "INSERT INTO inquiries (id,tenant_id,source,message,category,priority,suggested_reply,status,summary,owner_action) SELECT id,tenant_id,'conversation-pilot',initial_message || ' | Follow-up: ' || answer,category,priority,response_draft,'pending',summary,owner_action FROM demo_conversations WHERE id=? AND tenant_id=? AND status='awaiting_confirmation'"
+          "INSERT INTO inquiries (id,tenant_id,source,message,category,priority,suggested_reply,status,summary,owner_action,customer_facts,open_questions,next_step) SELECT id,tenant_id,'conversation-pilot',initial_message || ' | Follow-up: ' || answer,category,priority,response_draft,'pending',summary,owner_action,customer_facts,open_questions,next_step FROM demo_conversations WHERE id=? AND tenant_id=? AND status='awaiting_confirmation'"
         ).bind(body.id,"home-demo"),
         env.ECHO_DB.prepare(
           "UPDATE demo_conversations SET status='completed',updated_at=datetime('now') WHERE id=? AND tenant_id=? AND status='awaiting_confirmation'"
