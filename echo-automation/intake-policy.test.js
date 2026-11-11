@@ -23,6 +23,9 @@ test("urgent gas leak, electrical arcing and fire are flagged; routine broken st
   assert.equal(detectHazard("Sparks are coming from an outlet.")?.kind,"electrical_or_fire");
   assert.equal(detectHazard("Smoke coming from the wiring.")?.kind,"electrical_or_fire");
   assert.equal(detectHazard("The gas stove is not working."),null);
+  assert.equal(detectHazard("My gas stove will not ignite, but I don't smell gas and there is no hissing."),null);
+  assert.equal(detectHazard("I don't smell gas, but the gas line is hissing.")?.kind,"gas");
+  assert.equal(detectHazard("There is no gas leak; I just need an oven repair."),null);
   assert.equal(detectHazard("The kitchen sink is dripping."),null);
 });
 const call=(handler,env,body)=>handler({request:new Request("https://echo-automation-owner-staging.pages.dev/api/test",{
