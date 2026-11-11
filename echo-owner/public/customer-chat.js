@@ -80,9 +80,9 @@ $('chat-send').addEventListener('click',async()=>{
       say('Echo',result.safety_warning);
       progress('Safety warning: routine AI intake stopped. No appointment requested, no owner inquiry saved, and no AI inference used.');
     }else if(action==='start'){
-      conversationId=result.id;stage='answer';say('Echo',result.question);
+      conversationId=result.id;stage='answer';say(result.question_origin==='rule_override'?'Echo — rule-based follow-up':'Echo',result.question);
       $('chat-message').placeholder='Answer the follow-up question without personal details.';
-      progress('Echo asked one relevant follow-up. Your answer will complete the draft; it does not yet create a lead.');
+      progress(result.question_origin==='rule_override'?'The AI suggested a low-value question; a rule-based safeguard replaced it. This is NOT an AI question-quality success.':'Echo asked a follow-up. Your answer will prepare a draft, not yet create a lead.');
     }else if(result.step==='safety'){
       stage='safety';say('Echo',result.safety_warning);
       progress('Safety warning: stopped routine intake. No owner inquiry saved and no additional AI inference used.');
