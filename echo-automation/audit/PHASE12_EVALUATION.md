@@ -58,3 +58,15 @@ Use `audit/scenarios.json` for the 15 scripted scenarios. The repository's test 
 - **Validated:** repeatable business outcome and positive customer ROI across a realistic sample -> consider pricing a managed integration.
 
 Nothing in this audit authorizes public access, email notifications, or a production merge.
+
+## Phase 12B — Evidence-based owner handoff prototype (2026-11-11)
+
+Following the live demonstration of a kitchen gurgling case, the AI's owner instruction was too generic ("review" / "contact customer"). The private staging **two-turn** analysis now requests five concise AI outputs: category, priority, a factual summary, one unresolved detail, and a specific owner-review next step. The customer-facing draft remains a conservative **programmatic acknowledgment**, not a claim of AI-authored empathy.
+
+**Separately preserved:** D1 now stores `customer_facts`, `open_questions`, and `next_step` on both `demo_conversations` and `inquiries`; the private owner dashboard and chat preview label customer-reported facts as **not independently verified**, the model summary as **verify**, and the owner step as **not performed**. Prior entries retain null fields; no backfilled factual claims. The **customer_facts** field copies the original reported message and follow-up answer rather than trusting the model to invent "known facts". Unresolved details and next steps remain explicitly AI-suggested and require human review. An absent contact channel is **not** treated as permission to contact a customer.
+
+The no-AI fallback continues to be labeled `[RULE-BASED RECOVERY]`; it uses no AI credits, does not claim model success, and now persists the same evidence fields. Changes require no production deployment and did not involve live customer records.
+
+**Test evidence:** GitHub Actions run #127 passed 46/46 mocked/offline checks; migrated six columns in the private staging D1 database. This confirms software plumbing, not useful model output. **A new authenticated owner-side AI test is still needed** to measure whether a *real model* can produce a non-redundant unresolved question and meaningful next action within the token budget; otherwise the commercial recommendation remains **not ready for premium pricing**.
+
+Do not confuse the "customer facts" field with independently verified truth or the AI's `next_step` with an action executed by the system.
