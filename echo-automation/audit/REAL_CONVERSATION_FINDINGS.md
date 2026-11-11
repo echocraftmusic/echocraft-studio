@@ -59,3 +59,15 @@ The fictional AC request generated a relevant real-model question about how long
 **Correction:** Updated the normal AI-answer SQL to include customer_facts, open_questions and next_step. Added automated SQL placeholder-versus-binding assertions to the mock D1 binder. GitHub CI run #134 passed 46/46 tests; private Cloudflare staging deployment succeeded. No further AI credits were used to validate this fix.
 
 This is a persistence reliability failure, not evidence the model's second-step analysis was deficient. As the second-step content was not persisted, its quality cannot be assessed. The attempt did fail end-to-end. The owner must start a fresh browser conversation if the old one expires; do not misrepresent recovery as AI success.
+
+## 2026-11-11 — After-hours kitchen sink retest (Phase 12C)
+
+The private owner submitted the fictional request: "It's late, and water is dripping steadily from the cabinet underneath my kitchen sink. Can someone help tomorrow?" Echo's real AI follow-up asked whether the leak was from the faucet or the pipes under the sink. The customer entered: "i assume under the sink, there is water on the floor" but the second model call was blocked by the 10-attempt/UTC-day cap. D1 confirmed the chat remained awaiting_answer and its answer was not stored; no inquiry was created.
+
+Finding: the model question was not strictly redundant (the source was not identified), but it demanded component identification from a nonexpert rather than capturing easily observed floor-water spread. **Quality concern: low information gain for triage.** The daily cap functioned correctly and must not be raised merely for this retest.
+
+Narrow safeguard: `question-quality.js` now detects this under-cabinet leak + faucet-versus-pipe pattern and substitutes an observation-focused question about whether water is spreading. The return value includes `question_origin: rule_override`; this origin is stored in D1 and shown in the owner-only chat so the substitution is not mistaken for AI-generated intelligence. For other scenarios the generated model question remains untouched. This is a narrow heuristic and **does not establish general questioning skill**.
+
+When a second turn is blocked by the cap, the API now offers the existing explicitly labeled no-AI recovery route. No extra inference is used to build that fallback and its output cannot be scored as an AI success. The current in-browser session may need restarting after reload/expiry; do not promise retroactive recovery.
+
+Regression suite expanded to cover the real failed question and no-credit cap behavior. GitHub Actions run #151 passed 50/50. Actual improved model quality and business ROI remain unproven.
