@@ -9,6 +9,7 @@ function fixture({cap=10,modelFailure=false}={}){
       prepare(sql){
         return {
           bind(...args){
+            assert.equal(args.length,(sql.match(/\\?/g)||[]).length,`SQL bind mismatch: ${sql}`);
             return {
               async run(){
                 if(sql.startsWith("INSERT OR IGNORE INTO ai_daily_usage"))return {meta:{changes:1}};
