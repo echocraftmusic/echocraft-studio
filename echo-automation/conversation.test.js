@@ -33,10 +33,11 @@ function fixture({cap=10,modelFailure=false}={}){
                 if(sql.startsWith("SELECT id,initial_message"))return state.conversations.get(args[0])||null;
                 if(sql.startsWith("SELECT status FROM demo_conversations"))return state.conversations.get(args[0])||null;
                 if(sql.startsWith("UPDATE demo_conversations SET answer=")){
-                  const row=state.conversations.get(args[6]);
+                  const row=state.conversations.get(args[9]);
                   if(!row||row.status!=="awaiting_answer")return null;
                   Object.assign(row,{answer:args[0],category:args[1],priority:args[2],summary:args[3],
-                    owner_action:args[4],response_draft:args[5],status:"awaiting_confirmation"});
+                    owner_action:args[4],response_draft:args[5],
+                    customer_facts:args[6],open_questions:args[7],next_step:args[8],status:"awaiting_confirmation"});
                   return {id:row.id};
                 }
                 throw Error("Unexpected SQL first "+sql);
@@ -54,8 +55,8 @@ function fixture({cap=10,modelFailure=false}={}){
         return {choices:[{finish_reason:"stop",message:{content:JSON.stringify(
           isFirst?{category:"Plumbing",priority:"normal",question:"How long has the leak been happening?"}:
           {category:"Plumbing",priority:"normal",summary:"Cabinet sink leak noticed this morning.",
-            owner_action:"Review possible service availability.",
-            response_draft:"Thank you for reaching out. We'll review the request and follow up."})}}]};
+            open_questions:"Whether the leak is ongoing or intermittent.",
+            next_step:"Review whether the reported leak needs prompt attention before arranging service."})}}]};
       }
     }
   };
@@ -77,6 +78,11 @@ test("full fictional customer dialogue saves only after confirmation",async()=>{
   res=await call(env,{action:"answer",id:first.id,message:"It started this morning."});
   assert.equal(res.status,200);const second=await res.json();
   assert.equal(second.step,"review");assert.equal(state.inquiries.size,0);
+  assert.match(second.analysis.customer_facts,/Fictional sink leak/);
+  assert.match(second.analysis.customer_facts,/It started this morning/);
+  assert.match(second.analysis.open_questions,/ongoing or intermittent/);
+  assert.match(second.analysis.next_step,/Review whether/);
+  assert.doesNotMatch(second.analysis.owner_action,/contact the customer/i);
   assert.match(second.analysis.response_draft,/review/);
   res=await call(env,{action:"confirm",id:first.id,confirm:true});
   assert.equal(res.status,201);assert.equal((await res.json()).saved_inquiry,true);
