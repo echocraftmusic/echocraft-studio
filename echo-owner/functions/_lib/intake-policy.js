@@ -6,7 +6,7 @@ export function detectHazard(input) {
   // reporting one. Other positive evidence (e.g. a hissing gas line, flames)
   // must still trigger the alert. This limited rule is not emergency triage.
   const text = raw
-    .replace(/\b(?:don't|dont|do not|can't|cannot|never|not|no)\s+(?:currently\s+)?(?:smell|detect|notice)\s+(?:any\s+)?(?:gas|propane|natural gas)\b/g," negated-gas-odor ")
+    .replace(/\b(?:don't|dont|do not|can't|cannot|never|not|no)\s+(?:currently\s+)?(?:smell|detect|notice)\s+(?:any\s+)?(?:gas|propane|natural gas)\b/g," absence noted ")
     .replace(/\b(?:no|not|without)\s+(?:any\s+)?(?:gas leak|gas smell|gas odor|hissing)\b/g," negated-symptom ");
   const gas = /\b(smell|odor|odour|leak|hissing|fumes?)\b.{0,48}\b(gas|propane|natural gas)\b|\b(gas|propane|natural gas)\b.{0,48}\b(smell|odor|odour|leak|hissing|fumes?)\b|\brotten eggs?\b/.test(text);
   const electrical = /\b(sparks?|arcing|electrical fire|electric shock|exposed live wire|burning outlet|smoking outlet)\b/.test(text);
