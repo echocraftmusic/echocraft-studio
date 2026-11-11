@@ -1,4 +1,5 @@
 import { detectHazard, finalizeAnalysis } from "../_lib/intake-policy.js";
+import { refineQuestion } from "../_lib/question-quality.js";
 // Echo protected, fictional two-turn service-conversation pilot.
 // All requests pass through Cloudflare Access JWT and same-origin middleware.
 // No public chat, no contact details, no outgoing messages or appointments.
@@ -67,13 +68,14 @@ export async function onRequestPost({request,env}){
       if(!fields(result,["category","priority","question"],210)||!["normal","review promptly"].includes(result.priority))
         throw Error("Invalid model data");
     }catch{return fail("Echo couldn't generate a follow-up question. The attempt counted toward today's allowance.",502,"MODEL_ERROR");}
+    const refined=refineQuestion(message,result.question);
     const id=crypto.randomUUID();
     try {
       await env.ECHO_DB.prepare(
-        "INSERT INTO demo_conversations (id,tenant_id,initial_message,question,category,priority,status) VALUES (?,?,?,?,?,?,?)"
-      ).bind(id,"home-demo",message,result.question,result.category,result.priority,"awaiting_answer").run();
+        "INSERT INTO demo_conversations (id,tenant_id,initial_message,question,category,priority,status,question_origin) VALUES (?,?,?,?,?,?,?,?)"
+      ).bind(id,"home-demo",message,refined.question,result.category,result.priority,"awaiting_answer",refined.origin).run();
     }catch{return fail("Conversation could not be saved.",503,"STORAGE_ERROR");}
-    return ok({id,step:"followup",question:result.question,category:result.category,priority:result.priority,saved_inquiry:false,sent:false},201);
+    return ok({id,step:"followup",question:refined.question,question_origin:refined.origin,category:result.category,priority:result.priority,saved_inquiry:false,sent:false},201);
   }
   if(action==="recover"){
     // Opt-in recovery only for a failed second-stage AI request. Do not call AI,
@@ -129,7 +131,7 @@ export async function onRequestPost({request,env}){
       category:"Safety concern",priority:followupHazard.priority,saved_inquiry:false,sent:false});
     let reserved;
     try{reserved=await reserve(env.ECHO_DB);}catch{return fail("Usage protection unavailable.",503,"BUDGET_ERROR");}
-    if(!reserved)return fail("Today's private AI allowance is used up. Try again tomorrow.",429,"DAILY_LIMIT");
+    if(!reserved)return Response.json({error:"Today's AI allowance is used up. You can choose a clearly labeled rule-based recovery without using more credits.",code:"DAILY_LIMIT",recoverable:true},{status:429,headers:{"cache-control":"no-store"}});
     let result;
     try{
       result=await analyze(env,
