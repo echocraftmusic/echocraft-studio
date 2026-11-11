@@ -52,7 +52,10 @@ function fixture({cap=10,modelFailure=false}={}){
     AI:{
       async run(model,request){
         state.calls++;if(modelFailure)throw Error("private model failure");
-        const isFirst=request.messages[0].content.includes("ask exactly ONE relevant follow-up");
+        const prompt=request.messages[0].content;
+        const isFirst=prompt.includes("high-information-gain follow-up");
+        if(isFirst)assert.match(prompt,/NEVER ask the customer to restate those facts/);
+        else assert.match(prompt,/SPECIFIC owner decision or check/);
         return {choices:[{finish_reason:"stop",message:{content:JSON.stringify(
           isFirst?{category:"Plumbing",priority:"normal",question:"How long has the leak been happening?"}:
           {category:"Plumbing",priority:"normal",summary:"Cabinet sink leak noticed this morning.",
