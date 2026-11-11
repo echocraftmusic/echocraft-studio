@@ -3,7 +3,7 @@ export async function onRequestGet({env}){
   if(!env.ECHO_DB)return Response.json({error:"Owner database not configured"},{status:503});
   try {
     const result=await env.ECHO_DB.prepare(
-      "SELECT id,tenant_id,source,message,category,priority,suggested_reply,summary,owner_action,status,created_at,updated_at,owner_seen_at FROM inquiries WHERE tenant_id=? ORDER BY created_at DESC LIMIT 30"
+      "SELECT id,tenant_id,source,message,category,priority,suggested_reply,summary,owner_action,customer_facts,open_questions,next_step,status,created_at,updated_at,owner_seen_at FROM inquiries WHERE tenant_id=? ORDER BY created_at DESC LIMIT 30"
     ).bind("home-demo").all();
     return Response.json({inquiries:result.results||[]});
   } catch {
